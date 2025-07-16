@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DairyMart - Your Cart</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="static/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-laptop-code me-2"></i>DairyMart
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                            <li><a class="dropdown-item" href="products.html#laptops">Laptops</a></li>
+                            <li><a class="dropdown-item" href="products.html#smartphones">Smartphones</a></li>
+                            <li><a class="dropdown-item" href="products.html#tablets">Tablets</a></li>
+                            <li><a class="dropdown-item" href="products.html#audio">Audio</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="products.html#accessories">Accessories</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <form class="d-flex mb-2 mb-lg-0 me-lg-3">
+                    <input class="form-control me-2" type="search" placeholder="Search for products..." aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div class="d-flex">
+                    <a href="cart.html" class="btn btn-outline-primary position-relative me-2 active">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                        </span>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-1"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="login.html">Login</a></li>
+                            <li><a class="dropdown-item" href="register.html">Register</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="account.html">My Account</a></li>
+                            <li><a class="dropdown-item" href="orders.html">My Orders</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container my-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                </ol>
+            </nav>
+
+            <h1 class="mb-4">Your Shopping Cart</h1>
+
+            <div class="row">
+                <!-- Main Cart Items -->
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <div class="card mb-4">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col" class="p-3">Product</th>
+                                            <th scope="col" class="p-3 text-center">Quantity</th>
+                                            <th scope="col" class="p-3 text-center">Price</th>
+                                            <th scope="col" class="p-3 text-center">Total</th>
+                                            <th scope="col" class="p-3 text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Item 1 -->
+<tr>
+    <td class="p-3">
+        <div class="d-flex align-items-center">
+            <img src="https://images.unsplash.com/photo-1572449043416-55f4685c9bbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Organic Whole Milk" class="img-fluid rounded" style="width: 80px;">
+            <div class="ms-3">
+                <h6 class="mb-0">Organic Whole Milk</h6>
+                <small class="text-muted">1 Gallon</small>
+            </div>
+        </div>
+    </td>
+    <td class="p-3 text-center">
+        <div class="input-group input-group-sm w-75 mx-auto">
+            <button class="btn btn-outline-secondary" type="button">-</button>
+            <input type="number" class="form-control text-center" value="1" min="1">
+            <button class="btn btn-outline-secondary" type="button">+</button>
+        </div>
+    </td>
+    <td class="p-3 text-center">₱4.99</td>
+    <td class="p-3 text-center fw-bold">₱4.99</td>
+    <td class="p-3 text-center">
+        <button class="btn btn-sm btn-outline-danger" title="Remove Item">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+</tr>
+
+<!-- Item 2 -->
+<tr>
+    <td class="p-3">
+        <div class="d-flex align-items-center">
+            <img src="https://images.unsplash.com/photo-1624937327495-94d357104cfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cheddar Cheese Block" class="img-fluid rounded" style="width: 80px;">
+            <div class="ms-3">
+                <h6 class="mb-0">Cheddar Cheese Block</h6>
+                <small class="text-muted">16 oz</small>
+            </div>
+        </div>
+    </td>
+    <td class="p-3 text-center">
+        <div class="input-group input-group-sm w-75 mx-auto">
+            <button class="btn btn-outline-secondary" type="button">-</button>
+            <input type="number" class="form-control text-center" value="1" min="1">
+            <button class="btn btn-outline-secondary" type="button">+</button>
+        </div>
+    </td>
+    <td class="p-3 text-center">₱6.49</td>
+    <td class="p-3 text-center fw-bold">₱6.49</td>
+    <td class="p-3 text-center">
+        <button class="btn btn-sm btn-outline-danger" title="Remove Item">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+</tr>
+
+<!-- Item 3 -->
+<tr>
+    <td class="p-3">
+        <div class="d-flex align-items-center">
+            <img src="https://images.unsplash.com/photo-1632923295091-b9c6e8cda0a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Greek Yogurt" class="img-fluid rounded" style="width: 80px;">
+            <div class="ms-3">
+                <h6 class="mb-0">Greek Yogurt</h6>
+                <small class="text-muted">32 oz</small>
+            </div>
+        </div>
+    </td>
+    <td class="p-3 text-center">
+        <div class="input-group input-group-sm w-75 mx-auto">
+            <button class="btn btn-outline-secondary" type="button">-</button>
+            <input type="number" class="form-control text-center" value="1" min="1">
+            <button class="btn btn-outline-secondary" type="button">+</button>
+        </div>
+    </td>
+    <td class="p-3 text-center">₱5.99</td>
+    <td class="p-3 text-center fw-bold">₱5.99</td>
+    <td class="p-3 text-center">
+        <button class="btn btn-sm btn-outline-danger" title="Remove Item">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="d-flex justify-content-between mb-4">
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+                        </button>
+                        <button class="btn btn-outline-danger">
+                            <i class="fas fa-trash-alt me-2"></i>Clear Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Coupon Code -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Apply Coupon Code</h5>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter coupon code">
+                                <button class="btn btn-primary" type="button">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Order Summary</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Subtotal</span>
+                                <span>₱2,147.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Shipping</span>
+                                <span>Free</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Tax</span>
+                                <span>₱171.76</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="fw-bold">Total</span>
+                                <span class="fw-bold">₱2,318.76</span>
+                            </div>
+                            
+                            <div class="d-grid mt-4">
+                                <button class="btn btn-primary btn-lg">
+                                    <i class="fas fa-lock me-2"></i>Proceed to Checkout
+                                </button>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-shield-alt me-1"></i> Secure Checkout
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Methods -->
+                    <!-- <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">We Accept</h5>
+                            <div class="d-flex justify-content-between">
+                                <i class="fab fa-cc-visa fa-2x text-muted"></i>
+                                <i class="fab fa-cc-mastercard fa-2x text-muted"></i>
+                                <i class="fab fa-cc-amex fa-2x text-muted"></i>
+                                <i class="fab fa-cc-discover fa-2x text-muted"></i>
+                                <i class="fab fa-cc-paypal fa-2x text-muted"></i>
+                            </div>
+                        </div>
+                    </div> -->
+                    
+                    <!-- Shipping Info -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Shipping Information</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2">
+                                    <i class="fas fa-truck-fast me-2 text-primary"></i> Free shipping on orders over ₱50
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-box me-2 text-primary"></i> International shipping available
+                                </li>
+                                <li>
+                                    <i class="fas fa-exchange-alt me-2 text-primary"></i> Easy returns within 30 days
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- You May Also Like -->
+            <section class="my-5">
+                <h3 class="mb-4">You May Also Like</h3>
+                <div class="row g-4">
+                    <!-- Recommendation 1 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Smart Home Hub">
+                            <div class="card-body">
+                                <h5 class="card-title">Smart Home Hub</h5>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="fs-5 fw-bold">₱129.99</span>
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-cart-plus me-1"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recommendation 2 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1629429407756-446d66738acb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Gaming Monitor">
+                            <div class="card-body">
+                                <h5 class="card-title">Curved Gaming Monitor 32"</h5>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="fs-5 fw-bold">₱449.99</span>
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-cart-plus me-1"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recommendation 3 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1600003263720-95b45a4035d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Wireless Earbuds">
+                            <div class="card-body">
+                                <h5 class="card-title">Wireless Earbuds Pro</h5>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="fs-5 fw-bold">₱149.99</span>
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-cart-plus me-1"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recommendation 4 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://images.unsplash.com/photo-1551739440-5dd934d3a94a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Portable SSD">
+                            <div class="card-body">
+                                <h5 class="card-title">Portable SSD 1TB</h5>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="fs-5 fw-bold">₱179.99</span>
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-cart-plus me-1"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="mb-3">DairyMart</h5>
+                    <p>Your one-stop shop for all your tech needs. Quality products, competitive prices, and excellent customer service.</p>
+                    <div class="d-flex mt-4">
+                        <a href="#" class="me-3 text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="me-3 text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="me-3 text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-white">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-decoration-none text-white">Home</a></li>
+                        <li class="mb-2"><a href="products.html" class="text-decoration-none text-white">Products</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-decoration-none text-white">About Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-decoration-none text-white">Contact</a></li>
+                        <li><a href="#" class="text-decoration-none text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="mb-3">Customer Service</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">FAQ</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">Shipping</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">Returns</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">Warranty</a></li>
+                        <li><a href="#" class="text-decoration-none text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <address>
+                        <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Street, City, Country</p>
+                        <p class="mb-2"><i class="fas fa-phone me-2"></i> (123) 456-7890</p>
+                        <p class="mb-2"><i class="fas fa-envelope me-2"></i> info@DairyMart.com</p>
+                    </address>
+                    <div class="mt-3">
+                        <h6>We Accept</h6>
+                        <div class="d-flex mt-2">
+                            <i class="fab fa-cc-visa fa-2x me-2"></i>
+                            <i class="fab fa-cc-mastercard fa-2x me-2"></i>
+                            <i class="fab fa-cc-amex fa-2x me-2"></i>
+                            <i class="fab fa-cc-paypal fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2025 DairyMart. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li class="list-inline-item ms-3"><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/user.js"></script>
+    
+    <!-- Cart Page Specific JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quantity buttons
+            const decreaseButtons = document.querySelectorAll('.input-group .btn:first-child');
+            const increaseButtons = document.querySelectorAll('.input-group .btn:last-child');
+            const quantityInputs = document.querySelectorAll('.input-group input');
+            
+            decreaseButtons.forEach(function(button, index) {
+                button.addEventListener('click', function() {
+                    const input = quantityInputs[index];
+                    const currentValue = parseInt(input.value);
+                    if (currentValue > 1) {
+                        input.value = currentValue - 1;
+                        updateItemTotal(index, input.value);
+                    }
+                });
+            });
+            
+            increaseButtons.forEach(function(button, index) {
+                button.addEventListener('click', function() {
+                    const input = quantityInputs[index];
+                    const currentValue = parseInt(input.value);
+                    input.value = currentValue + 1;
+                    updateItemTotal(index, input.value);
+                });
+            });
+            
+            // Delete item buttons
+            const deleteButtons = document.querySelectorAll('.btn-outline-danger');
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to remove this item from your cart?')) {
+                        const row = this.closest('tr');
+                        row.classList.add('fade');
+                        setTimeout(() => {
+                            row.remove();
+                            updateCartTotals();
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Clear cart button
+            const clearCartButton = document.querySelector('.btn-outline-danger:nth-of-type(2)');
+            if (clearCartButton) {
+                clearCartButton.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to clear your entire cart?')) {
+                        const tbody = document.querySelector('tbody');
+                        tbody.innerHTML = '';
+                        updateCartTotals();
+                    }
+                });
+            }
+            
+            // Helper function to update item total
+            function updateItemTotal(index, quantity) {
+                const itemRows = document.querySelectorAll('tbody tr');
+                const row = itemRows[index];
+                
+                const priceText = row.querySelector('td:nth-child(3)').textContent;
+                const price = parseFloat(priceText.replace('₱', ''));
+                const total = price * quantity;
+                
+                row.querySelector('td:nth-child(4)').textContent = '₱' + total.toFixed(2);
+                
+                updateCartTotals();
+            }
+            
+            // Helper function to update cart totals
+            function updateCartTotals() {
+                const itemTotals = Array.from(document.querySelectorAll('td:nth-child(4)')).map(el => {
+                    return parseFloat(el.textContent.replace('₱', ''));
+                });
+                
+                const subtotal = itemTotals.reduce((sum, value) => sum + value, 0);
+                const tax = subtotal * 0.08; // 8% tax rate
+                const total = subtotal + tax;
+                
+                document.querySelector('.card-body .d-flex:nth-child(1) span:last-child').textContent = '₱' + subtotal.toFixed(2);
+                document.querySelector('.card-body .d-flex:nth-child(3) span:last-child').textContent = '₱' + tax.toFixed(2);
+                document.querySelector('.card-body .d-flex:nth-child(5) span:last-child').textContent = '₱' + total.toFixed(2);
+                
+                // Update cart badge count
+                const totalItems = itemTotals.length;
+                document.querySelector('.badge.bg-danger').textContent = totalItems;
+            }
+        });
+    </script>
+</body>
+</html>

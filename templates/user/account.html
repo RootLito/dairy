@@ -1,0 +1,233 @@
+{% extends 'layout/user_layout.html' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Account</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">My Account</h1>
+
+    <div class="row">
+        <!-- Left Sidebar - Quick Links -->
+        <div class="col-lg-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Account Menu</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{{ url_for('account') }}" class="list-group-item list-group-item-action active">
+                        <i class="fas fa-user me-2"></i>Account Details
+                    </a>
+                    <a href="{{ url_for('orders') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-shopping-bag me-2"></i>My Orders
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-heart me-2"></i>Wishlist
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-address-book me-2"></i>Address Book
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-credit-card me-2"></i>Payment Methods
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action text-danger">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content - Account Details -->
+        <div class="col-lg-9">
+            <!-- User Profile Summary -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center mb-3 mb-md-0">
+                            <div class="avatar-circle bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mb-2" style="width: 80px; height: 80px; font-size: 2rem;">
+                                JD
+                            </div>
+                        </div>
+                        <div class="col-md-7 mb-3 mb-md-0">
+                            <h4 class="mb-1">John Doe</h4>
+                            <p class="text-muted mb-0">john.doe@example.com</p>
+                            <p class="text-muted mb-0">Member since: October 2022</p>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <button class="btn btn-primary mb-2 mb-md-0">
+                                <i class="fas fa-camera me-1"></i> Change Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Information Form -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" value="John">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" value="Doe">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" value="john.doe@example.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" value="(123) 456-7890">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="birthdate" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="birthdate" value="1985-05-15">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Gender</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" checked>
+                                    <label class="form-check-label" for="genderMale">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female">
+                                    <label class="form-check-label" for="genderFemale">Female</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other">
+                                    <label class="form-check-label" for="genderOther">Other</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Change Password Form -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Change Password</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" id="newPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" class="form-control" id="confirmPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Notification Preferences -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Notification Preferences</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="orderUpdates" checked>
+                                <label class="form-check-label" for="orderUpdates">Order Updates</label>
+                                <div class="text-muted small">Receive notifications about your order status</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="promotions" checked>
+                                <label class="form-check-label" for="promotions">Promotions and Deals</label>
+                                <div class="text-muted small">Receive notifications about sales and special offers</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="newsletter" checked>
+                                <label class="form-check-label" for="newsletter">Newsletter</label>
+                                <div class="text-muted small">Receive our weekly newsletter</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="productUpdates">
+                                <label class="form-check-label" for="productUpdates">Product Updates</label>
+                                <div class="text-muted small">Receive notifications about new products and updates</div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Preferences</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Delete Account Card -->
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Delete Account</h5>
+                </div>
+                <div class="card-body">
+                    <p>Permanently delete your account and all your data from our system.</p>
+                    <p class="text-danger"><strong>Warning:</strong> This action cannot be undone. All your data will be permanently deleted.</p>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                        <i class="fas fa-trash-alt me-2"></i>Delete My Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteAccountModalLabel">Confirm Account Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently deleted.</p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="deleteConfirmPassword" class="form-label">Please enter your password to confirm:</label>
+                            <input type="password" class="form-control" id="deleteConfirmPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="deleteConfirm" required>
+                            <label class="form-check-label" for="deleteConfirm">I understand that this action is permanent and cannot be undone.</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger">Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

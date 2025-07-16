@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DairyMart - Premium Aged Cheddar</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="static/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cheese me-2"></i>DairyMart
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                            <li><a class="dropdown-item" href="products.html#milk">Milk & Cream</a></li>
+                            <li><a class="dropdown-item" href="products.html#cheese">Cheese</a></li>
+                            <li><a class="dropdown-item" href="products.html#yogurt">Yogurt</a></li>
+                            <li><a class="dropdown-item" href="products.html#butter">Butter & Margarine</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="products.html#specialty">Specialty Items</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <form class="d-flex mb-2 mb-lg-0 me-lg-3">
+                    <input class="form-control me-2" type="search" placeholder="Search for products..." aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div class="d-flex">
+                    <a href="cart.html" class="btn btn-outline-primary position-relative me-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                        </span>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-1"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="login.html">Login</a></li>
+                            <li><a class="dropdown-item" href="register.html">Register</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="account.html">My Account</a></li>
+                            <li><a class="dropdown-item" href="orders.html">My Orders</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Breadcrumb -->
+        <div class="bg-body-secondary py-2">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="products.html">Products</a></li>
+                        <li class="breadcrumb-item"><a href="products.html#cheese">Cheese</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Premium Aged Cheddar</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <!-- Product Images -->
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="product-images">
+                            <div class="main-image bg-white rounded p-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1618164435735-413d3b066c9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" alt="Premium Aged Cheddar" class="img-fluid d-block mx-auto" style="max-height: 400px;">
+                            </div>
+                            <div class="thumbnails row g-2">
+                                <div class="col-3">
+                                    <div class="thumbnail bg-white rounded p-2 border active">
+                                        <img src="https://images.unsplash.com/photo-1618164435735-413d3b066c9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Premium Aged Cheddar - Front" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="thumbnail bg-white rounded p-2 border">
+                                        <img src="https://images.unsplash.com/photo-1589881133595-a3c085cb731d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Premium Aged Cheddar - Side" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="thumbnail bg-white rounded p-2 border">
+                                        <img src="https://images.unsplash.com/photo-1566454825481-9c53a9c8200c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Premium Aged Cheddar - Close-up" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="thumbnail bg-white rounded p-2 border">
+                                        <img src="https://images.unsplash.com/photo-1626957341926-98752fc2ba67?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Premium Aged Cheddar - Sliced" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Details -->
+                    <div class="col-lg-6">
+                        <div class="product-details">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h1 class="h2 mb-0">Premium Aged Cheddar</h1>
+                                <button class="btn btn-link p-0 text-danger" title="Add to Wishlist">
+                                    <i class="far fa-heart fa-lg"></i>
+                                </button>
+                            </div>
+                            <div class="text-muted mb-3">Product Code: CH-ACD-12</div>
+                            
+                            <!-- Ratings -->
+                            <div class="ratings mb-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="text-warning me-2">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <div class="text-muted small">4.7 (123 reviews)</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Price -->
+                            <div class="pricing mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="h3 mb-0 text-primary me-2">₱12.99</div>
+                                    <div class="text-muted text-decoration-line-through">₱15.99</div>
+                                    <div class="badge bg-danger ms-2">Save 19%</div>
+                                </div>
+                                <div class="small text-success mt-1">In Stock</div>
+                            </div>
+                            
+                            <!-- Short Description -->
+                            <div class="description mb-4">
+                                <p>Our Premium Aged Cheddar is carefully aged for 24 months to develop a rich, complex flavor with notes of caramel and a sharp finish. Made from the milk of grass-fed cows and crafted by master cheesemakers.</p>
+                            </div>
+                            
+                            <!-- Options -->
+                            <div class="options mb-4">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="size" class="form-label">Size</label>
+                                        <select class="form-select" id="size">
+                                            <option value="200g">200g (8oz) - ₱12.99</option>
+                                            <option value="400g">400g (16oz) - ₱23.99</option>
+                                            <option value="1000g">1kg (2.2lbs) - ₱49.99</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="quantity" class="form-label">Quantity</label>
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-secondary" type="button" id="decreaseQty"><i class="fas fa-minus"></i></button>
+                                            <input type="number" class="form-control text-center" id="quantity" value="1" min="1" max="10">
+                                            <button class="btn btn-outline-secondary" type="button" id="increaseQty"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Actions -->
+                            <div class="actions mb-4">
+                                <div class="row g-2">
+                                    <div class="col-sm-6">
+                                        <button class="btn btn-primary btn-lg w-100" id="addToCart">
+                                            <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button class="btn btn-success btn-lg w-100">
+                                            <i class="fas fa-bolt me-2"></i>Buy Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Features -->
+                            <div class="features mb-4">
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-truck-fast text-primary me-2"></i>
+                                            <div class="small">Free shipping on orders over ₱50</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-box-open text-primary me-2"></i>
+                                            <div class="small">30-day satisfaction guarantee</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-shield-halved text-primary me-2"></i>
+                                            <div class="small">Secure payment processing</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-temperature-low text-primary me-2"></i>
+                                            <div class="small">Temperature-controlled shipping</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Share -->
+                            <div class="share">
+                                <div class="mb-2">Share this product:</div>
+                                <div class="d-flex">
+                                    <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="fab fa-pinterest-p"></i></a>
+                                    <a href="#" class="btn btn-outline-secondary btn-sm"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Information -->
+        <section class="bg-body-secondary py-5">
+            <div class="container">
+                <nav>
+                    <div class="nav nav-tabs mb-4" id="product-tab" role="tablist">
+                        <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+                        <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Specifications</button>
+                        <button class="nav-link" id="nutrition-tab" data-bs-toggle="tab" data-bs-target="#nutrition" type="button" role="tab" aria-controls="nutrition" aria-selected="false">Nutrition Facts</button>
+                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews (123)</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="product-tabContent">
+                    <!-- Description Tab -->
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h3 class="h4 mb-4">About Premium Aged Cheddar</h3>
+                                <p>Crafted in small batches using traditional methods, our Premium Aged Cheddar is a testament to artisanal cheesemaking. Each wheel is carefully aged for 24 months in temperature and humidity-controlled environments to develop its distinctive flavor profile.</p>
+                                
+                                <p>The milk for this exceptional cheese comes from grass-fed cows raised on sustainable farms in the lush pastures of Vermont. The farmers we partner with are committed to animal welfare and environmentally responsible practices.</p>
+                                
+                                <h4 class="h5 mt-4 mb-3">Flavor Profile</h4>
+                                <p>This well-aged cheddar offers a complex flavor experience that evolves as you taste it:</p>
+                                <ul>
+                                    <li>Initially smooth with notes of butter and caramel</li>
+                                    <li>Develops into a rich, nutty middle</li>
+                                    <li>Finishes with a pleasant sharp tanginess</li>
+                                    <li>Subtle crystalline texture from protein crystals that form during aging</li>
+                                </ul>
+                                
+                                <h4 class="h5 mt-4 mb-3">Serving Suggestions</h4>
+                                <p>This versatile cheddar shines in many culinary applications:</p>
+                                <ul>
+                                    <li>On a cheese board with fresh fruits, honey, and artisanal crackers</li>
+                                    <li>Melted into gourmet grilled cheese sandwiches or mac and cheese</li>
+                                    <li>Grated over soups or baked dishes</li>
+                                    <li>Paired with full-bodied red wines, craft beers, or apple cider</li>
+                                </ul>
+                                
+                                <h4 class="h5 mt-4 mb-3">Storage</h4>
+                                <p>To maintain optimal flavor and texture, store your Premium Aged Cheddar wrapped in cheese paper or parchment paper in your refrigerator's cheese drawer (40-45°F). For best results, bring to room temperature 30-60 minutes before serving.</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title h5 mb-4">Behind the Cheese</h4>
+                                        <img src="https://images.unsplash.com/photo-1568658176307-bfbd2873abda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Cheesemaker" class="img-fluid rounded mb-3">
+                                        <p class="card-text">Our master cheesemaker, James Wilson, has been perfecting his craft for over 30 years. His dedication to traditional methods and unwavering quality standards ensures that every wheel of our Premium Aged Cheddar meets the highest expectations.</p>
+                                        <div class="d-grid">
+                                            <a href="#" class="btn btn-outline-primary">Our Story</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Specifications Tab -->
+                    <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h3 class="h4 mb-4">Product Specifications</h3>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 40%">Cheese Type:</th>
+                                            <td>Hard Cheese, Cheddar</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Aging Period:</th>
+                                            <td>24 months</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Milk Type:</th>
+                                            <td>Pasteurized Cow's Milk</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Milk Source:</th>
+                                            <td>Grass-fed Cows</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Origin:</th>
+                                            <td>Vermont, USA</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Rennet Type:</th>
+                                            <td>Microbial (Vegetarian-Friendly)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Texture:</th>
+                                            <td>Firm, Slightly Crumbly</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Flavor Intensity:</th>
+                                            <td>Medium-Strong</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Color:</th>
+                                            <td>Deep Gold to Orange</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Rind:</th>
+                                            <td>Natural Cloth-Bound</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="h4 mb-4">Packaging Information</h3>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 40%">Available Sizes:</th>
+                                            <td>200g (8oz), 400g (16oz), 1kg (2.2lbs)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Packaging:</th>
+                                            <td>Wax-lined Paper, Recyclable</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Shelf Life:</th>
+                                            <td>90 days refrigerated</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Storage Temp:</th>
+                                            <td>35-45°F (2-7°C)</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Certifications:</th>
+                                            <td>Kosher, Non-GMO Project Verified</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <h3 class="h4 mt-5 mb-4">Allergen Information</h3>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 40%">Contains:</th>
+                                            <td>Milk</td>
+                                        </tr>
+                                        <tr>
+                                            <th>May Contain:</th>
+                                            <td>None</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Gluten:</th>
+                                            <td>Gluten-Free</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Nutrition Tab -->
+                    <div class="tab-pane fade" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <h3 class="h4 mb-4">Nutrition Facts</h3>
+                                <p class="mb-3">Serving Size: 28g (1oz)</p>
+                                <div class="card mb-4">
+                                    <div class="card-body p-4">
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                <strong class="h5">Calories</strong>
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                <strong class="h5">110</strong>
+                                            </div>
+                                        </div>
+                                        <div class="text-end mb-2"><small class="text-muted">% Daily Value*</small></div>
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                <strong>Total Fat</strong> 9g
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                12%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 ps-3 border-bottom pb-2">
+                                            <div class="col-8">
+                                                Saturated Fat 6g
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                30%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 ps-3 border-bottom pb-2">
+                                            <div class="col-8">
+                                                Trans Fat 0g
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                <strong>Cholesterol</strong> 30mg
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                10%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                <strong>Sodium</strong> 180mg
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                8%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                <strong>Total Carbohydrate</strong> 0g
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                0%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 ps-3 border-bottom pb-2">
+                                            <div class="col-8">
+                                                Dietary Fiber 0g
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                0%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 ps-3 border-bottom pb-2">
+                                            <div class="col-8">
+                                                Total Sugars 0g
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                <strong>Protein</strong> 7g
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                14%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                Vitamin D 0mcg
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                0%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                Calcium 200mg
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                15%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 border-bottom pb-2">
+                                            <div class="col-8">
+                                                Iron 0mg
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                0%
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-8">
+                                                Potassium 30mg
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                1%
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <small class="text-muted">* The % Daily Value tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h4 class="card-title h5 mb-3">Nutritional Highlights</h4>
+                                        <ul class="list-group list-group-flush mb-3">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <i class="fas fa-bone text-primary me-2"></i>
+                                                    Excellent Source of Calcium
+                                                </div>
+                                                <span class="badge bg-primary rounded-pill">15% DV</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <i class="fas fa-dumbbell text-primary me-2"></i>
+                                                    Good Source of Protein
+                                                </div>
+                                                <span class="badge bg-primary rounded-pill">14% DV</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <i class="fas fa-seedling text-primary me-2"></i>
+                                                    Low Carbohydrate
+                                                </div>
+                                                <span class="badge bg-primary rounded-pill">0g</span>
+                                            </li>
+                                        </ul>
+                                        <p>This aged cheddar is naturally rich in protein and calcium, making it not only delicious but also nutritionally valuable. Cheddar cheese provides several essential vitamins and minerals, including vitamin A, vitamin B12, zinc, and phosphorus.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title h5 mb-3">Dietary Considerations</h4>
+                                        <div class="mb-3">
+                                            <span class="badge bg-success me-2">Gluten-Free</span>
+                                            <span class="badge bg-success me-2">Vegetarian</span>
+                                            <span class="badge bg-success me-2">No Artificial Preservatives</span>
+                                            <span class="badge bg-success me-2">No Added Sugar</span>
+                                            <span class="badge bg-success">Keto-Friendly</span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <span class="badge bg-danger me-2">Contains Dairy</span>
+                                            <span class="badge bg-danger">Not Vegan</span>
+                                        </div>
+                                        <p class="small text-muted mt-3">While our premium aged cheddar is made with microbial (non-animal) rennet and is suitable for vegetarians, it is not appropriate for those with dairy allergies or following a vegan diet.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reviews Tab -->
+                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                        <div class="row mb-4">
+                            <div class="col-lg-4 mb-4 mb-lg-0">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="card-title h4 mb-4">Customer Reviews</h3>
+                                        <div class="text-center mb-4">
+                                            <div class="display-4 fw-bold text-primary mb-1">4.7</div>
+                                            <div class="text-warning mb-2">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                            <div class="text-muted">Based on 123 reviews</div>
+                                        </div>
+                                        
+                                        <div class="ratings-breakdown mb-4">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="text-nowrap me-3 small">5 stars</div>
+                                                <div class="progress flex-grow-1" style="height: 10px;">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="ms-3 small">78%</div>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="text-nowrap me-3 small">4 stars</div>
+                                                <div class="progress flex-grow-1" style="height: 10px;">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="ms-3 small">15%</div>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="text-nowrap me-3 small">3 stars</div>
+                                                <div class="progress flex-grow-1" style="height: 10px;">
+                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 5%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="ms-3 small">5%</div>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="text-nowrap me-3 small">2 stars</div>
+                                                <div class="progress flex-grow-1" style="height: 10px;">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="ms-3 small">1%</div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="text-nowrap me-3 small">1 star</div>
+                                                <div class="progress flex-grow-1" style="height: 10px;">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <div class="ms-3 small">1%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#writeReviewModal">
+                                                <i class="fas fa-pen me-2"></i>Write a Review
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-8">
+                                <h3 class="h4 mb-4">Recent Reviews</h3>
+                                
+                                <!-- Review 1 -->
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <div class="text-muted small">March 15, 2025</div>
+                                        </div>
+                                        <h5 class="card-title">Outstanding cheddar, worth every penny!</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-secondary me-1">Verified Purchase</span>
+                                            <span class="badge bg-success">200g Package</span>
+                                        </div>
+                                        <p class="card-text">I'm a cheese enthusiast and this is definitely one of the best cheddars I've tried. The aging process really gives it a complex flavor with a perfect balance of sharpness. It has those lovely little crystals that add a nice texture. Great on a cheese board with fig jam, or melted into dishes for extra flavor depth.</p>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-circle me-2">
+                                                    JD
+                                                </div>
+                                                <div class="fw-bold">John D.</div>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-sm btn-outline-secondary me-2">
+                                                    Helpful (15)
+                                                </button>
+                                                <button class="btn btn-sm btn-link text-muted">
+                                                    Report
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Review 2 -->
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                            <div class="text-muted small">March 10, 2025</div>
+                                        </div>
+                                        <h5 class="card-title">Great flavor, arrived in perfect condition</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-secondary me-1">Verified Purchase</span>
+                                            <span class="badge bg-success">1kg Package</span>
+                                        </div>
+                                        <p class="card-text">I ordered the 1kg wheel for a dinner party and was impressed with how it was packaged. The temperature-controlled shipping really works! The cheese was exceptional, with a rich caramel flavor and that characteristic cheddar tang. My guests were asking where they could buy it too. Only reason for 4.5 stars is that it's a bit pricey, but the quality justifies it.</p>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-circle me-2">
+                                                    SM
+                                                </div>
+                                                <div class="fw-bold">Sarah M.</div>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-sm btn-outline-secondary me-2">
+                                                    Helpful (8)
+                                                </button>
+                                                <button class="btn btn-sm btn-link text-muted">
+                                                    Report
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Review 3 -->
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <div class="text-muted small">March 5, 2025</div>
+                                        </div>
+                                        <h5 class="card-title">The best mac and cheese I've ever made!</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-secondary me-1">Verified Purchase</span>
+                                            <span class="badge bg-success">400g Package</span>
+                                        </div>
+                                        <p class="card-text">Used this cheddar in my mac and cheese recipe and wow, what a difference quality makes. The cheese melted beautifully and added such depth of flavor. My family couldn't stop raving about it. It's now a staple in our house for special occasions. Highly recommend trying it in cooked dishes as well as on a cheese board.</p>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-circle me-2">
+                                                    RB
+                                                </div>
+                                                <div class="fw-bold">Rachel B.</div>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-sm btn-outline-secondary me-2">
+                                                    Helpful (12)
+                                                </button>
+                                                <button class="btn btn-sm btn-link text-muted">
+                                                    Report
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center mt-4">
+                                    <nav aria-label="Review pagination">
+                                        <ul class="pagination">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="#">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">3</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Products -->
+        <section class="py-5">
+            <div class="container">
+                <h2 class="mb-4">You May Also Like</h2>
+                <div class="row">
+                    <!-- Related Product 1 -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100 product-card">
+                            <div class="badge-overlay">
+                                <span class="badge bg-danger">Sale</span>
+                            </div>
+                            <a href="product-details.html">
+                                <img src="https://images.unsplash.com/photo-1452195100486-9d279feebd57?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Creamy Goat Cheese" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="product-details.html" class="text-decoration-none">Creamy Goat Cheese</a>
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-warning small">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <span class="text-muted ms-1">(42)</span>
+                                    </div>
+                                </div>
+                                <p class="card-text text-muted small mb-3">Smooth and tangy goat cheese with a delicate rind.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="h5 text-primary mb-0 me-2">₱9.99</span>
+                                        <span class="text-muted text-decoration-line-through">₱11.99</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-shopping-cart me-1"></i>Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Related Product 2 -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="product-details.html">
+                                <img src="https://images.unsplash.com/photo-1628961210183-878a908cbab1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Blue Cheese" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="product-details.html" class="text-decoration-none">Artisan Blue Cheese</a>
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-warning small">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span class="text-muted ms-1">(67)</span>
+                                    </div>
+                                </div>
+                                <p class="card-text text-muted small mb-3">Bold and creamy blue cheese with distinct veining.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="h5 text-primary mb-0">₱14.99</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-shopping-cart me-1"></i>Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Related Product 3 -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100 product-card">
+                            <div class="badge-overlay">
+                                <span class="badge bg-success">New</span>
+                            </div>
+                            <a href="product-details.html">
+                                <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Swiss Cheese" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="product-details.html" class="text-decoration-none">Aged Swiss Cheese</a>
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-warning small">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span class="text-muted ms-1">(29)</span>
+                                    </div>
+                                </div>
+                                <p class="card-text text-muted small mb-3">Nutty and sweet Swiss with characteristic holes.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="h5 text-primary mb-0">₱13.49</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-shopping-cart me-1"></i>Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Related Product 4 -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100 product-card">
+                            <a href="product-details.html">
+                                <img src="https://images.unsplash.com/photo-1634487359989-3e90c9432133?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Brie Cheese" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="product-details.html" class="text-decoration-none">Double Cream Brie</a>
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-warning small">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <span class="text-muted ms-1">(54)</span>
+                                    </div>
+                                </div>
+                                <p class="card-text text-muted small mb-3">Buttery and creamy brie with an edible rind.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="h5 text-primary mb-0">₱11.99</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-shopping-cart me-1"></i>Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Write Review Modal -->
+    <div class="modal fade" id="writeReviewModal" tabindex="-1" aria-labelledby="writeReviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="writeReviewModalLabel">Write a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="reviewRating" class="form-label">Overall Rating</label>
+                            <div class="rating-stars mb-2">
+                                <i class="far fa-star fs-4 me-1"></i>
+                                <i class="far fa-star fs-4 me-1"></i>
+                                <i class="far fa-star fs-4 me-1"></i>
+                                <i class="far fa-star fs-4 me-1"></i>
+                                <i class="far fa-star fs-4"></i>
+                            </div>
+                            <input type="hidden" id="reviewRating" value="0">
+                        </div>
+                        <div class="mb-3">
+                            <label for="reviewTitle" class="form-label">Review Title</label>
+                            <input type="text" class="form-control" id="reviewTitle" placeholder="Summarize your experience">
+                        </div>
+                        <div class="mb-3">
+                            <label for="reviewBody" class="form-label">Review Details</label>
+                            <textarea class="form-control" id="reviewBody" rows="5" placeholder="Tell others about your experience with this product"></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="reviewerName" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="reviewerName" placeholder="As you want it to appear">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="reviewerEmail" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="reviewerEmail" placeholder="Will not be published">
+                                <div class="form-text">Your email will not be published with your review.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="verifiedPurchaseCheck">
+                                <label class="form-check-label" for="verifiedPurchaseCheck">
+                                    I purchased this product from DairyMart
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Add Photos (optional)</label>
+                            <input type="file" class="form-control" multiple accept="image/*">
+                            <div class="form-text">You can upload up to 3 images to enhance your review.</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="mb-3">DairyMart</h5>
+                    <p>Your one-stop shop for all your dairy needs. Quality products, competitive prices, and excellent customer service.</p>
+                    <div class="d-flex mt-4">
+                        <a href="#" class="me-3 text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="me-3 text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="me-3 text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-white">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-decoration-none text-white">Home</a></li>
+                        <li class="mb-2"><a href="products.html" class="text-decoration-none text-white">Products</a></li>
+                        <li class="mb-2"><a href="about.html" class="text-decoration-none text-white">About Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-decoration-none text-white">Contact</a></li>
+                        <li><a href="#" class="text-decoration-none text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="mb-3">Customer Service</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">FAQ</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">Shipping</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">Returns</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-white">Warranty</a></li>
+                        <li><a href="#" class="text-decoration-none text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-4">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <address>
+                        <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Dairy Road, Milk County, Country</p>
+                        <p class="mb-2"><i class="fas fa-phone me-2"></i> (123) 456-7890</p>
+                        <p class="mb-2"><i class="fas fa-envelope me-2"></i> info@dairymart.com</p>
+                    </address>
+                    <div class="mt-3">
+                        <h6>We Accept</h6>
+                        <div class="d-flex mt-2">
+                            <i class="fab fa-cc-visa fa-2x me-2"></i>
+                            <i class="fab fa-cc-mastercard fa-2x me-2"></i>
+                            <i class="fab fa-cc-amex fa-2x me-2"></i>
+                            <i class="fab fa-cc-paypal fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2025 DairyMart. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li class="list-inline-item ms-3"><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/user.js"></script>
+    
+    <!-- Product Detail Specific JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quantity Control
+            const quantityField = document.getElementById('quantity');
+            const decreaseBtn = document.getElementById('decreaseQty');
+            const increaseBtn = document.getElementById('increaseQty');
+            
+            if (decreaseBtn && increaseBtn && quantityField) {
+                decreaseBtn.addEventListener('click', function() {
+                    let value = parseInt(quantityField.value);
+                    if (value > 1) {
+                        quantityField.value = value - 1;
+                    }
+                });
+                
+                increaseBtn.addEventListener('click', function() {
+                    let value = parseInt(quantityField.value);
+                    if (value < 10) {
+                        quantityField.value = value + 1;
+                    }
+                });
+            }
+            
+            // Thumbnail Images
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.querySelector('.main-image img');
+            
+            if (thumbnails.length && mainImage) {
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        // Remove active class from all thumbnails
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        
+                        // Add active class to clicked thumbnail
+                        this.classList.add('active');
+                        
+                        // Update main image
+                        const imgSrc = this.querySelector('img').src.replace('w=200', 'w=1000');
+                        mainImage.src = imgSrc;
+                    });
+                });
+            }
+            
+            // Add to Cart Button
+            const addToCartBtn = document.getElementById('addToCart');
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', function() {
+                    const quantity = document.getElementById('quantity').value;
+                    const size = document.getElementById('size').value;
+                    
+                    // In a real application, this would send data to a cart system
+                    console.log('Adding to cart:', {
+                        productId: 'CH-ACD-12',
+                        productName: 'Premium Aged Cheddar',
+                        quantity: quantity,
+                        size: size
+                    });
+                    
+                    // Show confirmation
+                    alert(`₱{quantity} x Premium Aged Cheddar (₱{size}) added to your cart!`);
+                });
+            }
+            
+            // Rating stars in review modal
+            const ratingStars = document.querySelectorAll('.rating-stars .fa-star');
+            const ratingInput = document.getElementById('reviewRating');
+            
+            if (ratingStars.length && ratingInput) {
+                ratingStars.forEach((star, index) => {
+                    star.addEventListener('click', function() {
+                        const rating = index + 1;
+                        ratingInput.value = rating;
+                        
+                        // Update stars display
+                        ratingStars.forEach((s, i) => {
+                            if (i < rating) {
+                                s.classList.remove('far');
+                                s.classList.add('fas');
+                            } else {
+                                s.classList.remove('fas');
+                                s.classList.add('far');
+                            }
+                        });
+                    });
+                    
+                    // Hover effect
+                    star.addEventListener('mouseenter', function() {
+                        const hoverRating = index + 1;
+                        
+                        ratingStars.forEach((s, i) => {
+                            if (i < hoverRating) {
+                                s.classList.remove('far');
+                                s.classList.add('fas');
+                            } else {
+                                s.classList.remove('fas');
+                                s.classList.add('far');
+                            }
+                        });
+                    });
+                });
+                
+                // Reset to actual rating when mouse leaves the container
+                document.querySelector('.rating-stars').addEventListener('mouseleave', function() {
+                    const rating = parseInt(ratingInput.value) || 0;
+                    
+                    ratingStars.forEach((s, i) => {
+                        if (i < rating) {
+                            s.classList.remove('far');
+                            s.classList.add('fas');
+                        } else {
+                            s.classList.remove('fas');
+                            s.classList.add('far');
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
