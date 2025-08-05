@@ -15,7 +15,7 @@
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky pt-3">
                     <div class="px-3 mb-4">
-                        <a href="index.html" class="text-decoration-none">
+                        <a href="index.php" class="text-decoration-none">
                             <h5 class="text-primary">
                                 <i class="fas fa-store me-2"></i>DairyMart Admin
                             </h5>
@@ -25,37 +25,37 @@
                     <hr>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.html">
+                            <a class="nav-link" href="admin-dashboard.php">
                                 <i class="fas fa-tachometer-alt me-2"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-users.html">
+                            <a class="nav-link" href="admin-users.php">
                                 <i class="fas fa-users me-2"></i>
                                 User Management
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-inventory.html">
+                            <a class="nav-link" href="admin-inventory.php">
                                 <i class="fas fa-boxes me-2"></i>
                                 Inventory
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-orders.html">
+                            <a class="nav-link" href="admin-orders.php">
                                 <i class="fas fa-shopping-cart me-2"></i>
                                 Orders
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="admin-reports.html">
+                            <a class="nav-link active" href="admin-reports.php">
                                 <i class="fas fa-chart-line me-2"></i>
                                 Reports
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-income.html">
+                            <a class="nav-link" href="admin-income.php">
                                 <i class="fas fa-money-bill-wave me-2"></i>
                                 Income & Expenses
                             </a>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <a href="login.html" class="btn btn-outline-danger btn-sm">
+                            <a href="login.php" class="btn btn-outline-danger btn-sm">
                                 <i class="fas fa-sign-out-alt me-2"></i>Log Out
                             </a>
                         </div>

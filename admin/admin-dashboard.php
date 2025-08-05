@@ -1,3 +1,9 @@
+<?php 
+session_start();
+include("./../config/conn.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
@@ -16,7 +22,7 @@
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky pt-3">
                     <div class="px-3 mb-4">
-                        <a href="index.html" class="text-decoration-none">
+                        <a href="index.php" class="text-decoration-none">
                             <h5 class="text-primary">
                                 <i class="fas fa-store me-2"></i>DairyMart Admin
                             </h5>
@@ -26,37 +32,31 @@
                     <hr>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="admin-dashboard.html">
+                            <a class="nav-link active" href="admin-dashboard.php">
                                 <i class="fas fa-tachometer-alt me-2"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-users.html">
-                                <i class="fas fa-users me-2"></i>
-                                User Management
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-inventory.html">
+                            <a class="nav-link" href="admin-inventory.php">
                                 <i class="fas fa-boxes me-2"></i>
                                 Inventory
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-orders.html">
+                            <a class="nav-link" href="admin-orders.php">
                                 <i class="fas fa-shopping-cart me-2"></i>
                                 Orders
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-reports.html">
+                            <a class="nav-link" href="admin-reports.php">
                                 <i class="fas fa-chart-line me-2"></i>
                                 Reports
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-income.html">
+                            <a class="nav-link" href="admin-income.php">
                                 <i class="fas fa-money-bill-wave me-2"></i>
                                 Income & Expenses
                             </a>
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <a href="login.html" class="btn btn-outline-danger btn-sm">
+                            <a href="./../user/products.php" class="btn btn-outline-danger btn-sm">
                                 <i class="fas fa-sign-out-alt me-2"></i>Log Out
                             </a>
                         </div>
@@ -83,9 +83,7 @@
                 </div>
             </nav>
 
-            <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                <!-- Header with Notification -->
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Dashboard</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
@@ -290,7 +288,7 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Recent Orders</h5>
-                        <a href="admin-orders.html" class="btn btn-sm btn-primary">
+                        <a href="admin-orders.php" class="btn btn-sm btn-primary">
                             View All
                         </a>
                     </div>
@@ -465,13 +463,12 @@
                     </div>
                 </div>
                 
-                <!-- Recent Inventory Updates & Customer Activity -->
                 <div class="row g-4 mb-4">
                     <div class="col-lg-6">
                         <div class="card h-100">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="card-title mb-0">Inventory Updates</h5>
-                                <a href="admin-inventory.html" class="btn btn-sm btn-primary">View All</a>
+                                <a href="admin-inventory.php" class="btn btn-sm btn-primary">View All</a>
                             </div>
                             <div class="card-body">
                                 <div class="list-group list-group-flush">
@@ -524,7 +521,7 @@
                         <div class="card h-100">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="card-title mb-0">Customer Activity</h5>
-                                <a href="admin-users.html" class="btn btn-sm btn-primary">View All</a>
+                                <a href="admin-users.php" class="btn btn-sm btn-primary">View All</a>
                             </div>
                             <div class="card-body">
                                 <div class="list-group list-group-flush">
@@ -574,9 +571,8 @@
                     </div>
                 </div>
                 
-                <!-- Footer -->
                 <footer class="pt-5 d-flex justify-content-between">
-                    <span>Copyright © 2025 <a href="index.html">DairyMart Admin</a></span>
+                    <span>Copyright © 2025 <a href="index.php">DairyMart Admin</a></span>
                     <ul class="nav m-0">
                         <li class="nav-item">
                             <a class="nav-link text-secondary" href="#">Privacy Policy</a>
@@ -593,7 +589,6 @@
         </div>
     </div>
     
-    <!-- Export Modal -->
     <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -657,9 +652,6 @@
         </div>
     </div>
 
-    <!-- JavaScript Dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="static/js/admin.js"></script>
-    <script src="static/js/charts.js"></script>
 </body>
 </html>
