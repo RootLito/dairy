@@ -1,3 +1,25 @@
+<?php
+session_start(); 
+include('./../config/conn.php');
+if (!isset($_SESSION['user_id'])) {
+    echo "You are not logged in.";
+    exit();
+}
+$user_id = $_SESSION['user_id']; 
+
+$sql = "SELECT o.order_id, o.date, o.items, o.total, o.status 
+        FROM orders o
+        WHERE o.user_id = ? 
+        ORDER BY o.date DESC"; 
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 
@@ -83,159 +105,89 @@
                             </div>
 
                             <div class="card mb-4">
-                                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">Recent Orders</h5>
-                                    <span class="badge bg-primary">5 Orders</span>
+    <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Recent Orders</h5>
+        <span class="badge bg-primary"><?php echo $result->num_rows; ?> Orders</span>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Order #</th>
+                        <th>Date</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // Display orders from the result
+                    while ($order = $result->fetch_assoc()) {
+                        // Get order details like order_id, date, items, total, and status
+                        $order_id = $order['order_id'];
+                        $date = date("M d, Y", strtotime($order['date'])); // Format date as desired
+                        $items = $order['items'];
+                        $total = number_format($order['total'], 2); // Format total with 2 decimal places
+                        $status = $order['status'];
+                    ?>
+                        <tr>
+                            <td><a href="#orderDetails<?php echo $order_id; ?>" data-bs-toggle="modal" class="text-decoration-none fw-bold"><?php echo $order_id; ?></a></td>
+                            <td><?php echo $date; ?></td>
+                            <td><?php echo $items; ?> items</td>
+                            <td>₱<?php echo $total; ?></td>
+                            <td>
+                                <span class="badge 
+                                    <?php echo ($status == 'Shipped') ? 'bg-info' : 
+                                               ($status == 'Delivered' ? 'bg-success' : 'bg-danger'); ?>">
+                                    <?php echo ucfirst($status); ?>
+                                </span>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#orderDetails<?php echo $order_id; ?>" data-bs-toggle="modal"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice me-2"></i>Invoice</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-truck me-2"></i>Track Package</a></li>
+                                    </ul>
                                 </div>
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover mb-0">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Order #</th>
-                                                    <th>Date</th>
-                                                    <th>Items</th>
-                                                    <th>Total</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Order 1 -->
-                                                <tr>
-                                                    <td><a href="#orderDetails1" data-bs-toggle="modal" class="text-decoration-none fw-bold">DM87654321</a></td>
-                                                    <td>Mar 25, 2025</td>
-                                                    <td>4 items</td>
-                                                    <td>₱89.97</td>
-                                                    <td><span class="badge bg-info">Shipped</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                                Actions
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="#orderDetails1" data-bs-toggle="modal"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice me-2"></i>Invoice</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-truck me-2"></i>Track Package</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Order 2 -->
-                                                <tr>
-                                                    <td><a href="#orderDetails2" data-bs-toggle="modal" class="text-decoration-none fw-bold">DM87654320</a></td>
-                                                    <td>Mar 15, 2025</td>
-                                                    <td>2 items</td>
-                                                    <td>₱27.98</td>
-                                                    <td><span class="badge bg-success">Delivered</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                                Actions
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="#orderDetails2" data-bs-toggle="modal"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice me-2"></i>Invoice</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-sync me-2"></i>Buy Again</a></li>
-                                                                <li>
-                                                                    <hr class="dropdown-divider">
-                                                                </li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-undo-alt me-2"></i>Return Items</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Order 3 -->
-                                                <tr>
-                                                    <td><a href="#" class="text-decoration-none fw-bold">DM87654319</a></td>
-                                                    <td>Mar 5, 2025</td>
-                                                    <td>6 items</td>
-                                                    <td>₱124.50</td>
-                                                    <td><span class="badge bg-success">Delivered</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                                Actions
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice me-2"></i>Invoice</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-sync me-2"></i>Buy Again</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Order 4 -->
-                                                <tr>
-                                                    <td><a href="#" class="text-decoration-none fw-bold">DM87654318</a></td>
-                                                    <td>Feb 22, 2025</td>
-                                                    <td>1 item</td>
-                                                    <td>₱49.99</td>
-                                                    <td><span class="badge bg-success">Delivered</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                                Actions
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice me-2"></i>Invoice</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-sync me-2"></i>Buy Again</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Order 5 -->
-                                                <tr>
-                                                    <td><a href="#" class="text-decoration-none fw-bold">DM87654317</a></td>
-                                                    <td>Feb 10, 2025</td>
-                                                    <td>3 items</td>
-                                                    <td>₱62.45</td>
-                                                    <td><span class="badge bg-danger">Cancelled</span></td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                                Actions
-                                                            </button>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice me-2"></i>Invoice</a></li>
-                                                                <li><a class="dropdown-item" href="#"><i class="fas fa-sync me-2"></i>Buy Again</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
-                                    <div class="text-muted small">Showing 5 of 12 orders</div>
-                                    <nav aria-label="Order pagination">
-                                        <ul class="pagination pagination-sm mb-0">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                            </li>
-                                            <li class="page-item active" aria-current="page">
-                                                <a class="page-link" href="#">1</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">3</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
+        <div class="text-muted small">
+            Showing <?php echo $result->num_rows; ?> orders
+        </div>
+        <nav aria-label="Order pagination">
+            <ul class="pagination pagination-sm mb-0">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 
                             <!-- Order Summary Stats -->
                             <div class="row g-4">

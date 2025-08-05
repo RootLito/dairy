@@ -38,11 +38,6 @@
                         <i class="fas fa-user me-1"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="login.php">Login</a></li>
-                        <li><a class="dropdown-item" href="register.php">Register</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
                         <li><a class="dropdown-item active" href="account.php">My Account</a></li>
                         <li><a class="dropdown-item" href="orders.php">My Orders</a></li>
                         <li>

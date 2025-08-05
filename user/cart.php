@@ -49,7 +49,6 @@ if (isset($_POST['clear_cart'])) {
 }
 
 
-//checkout
 $subtotal = 0;
 $shipping = 0; 
 $total = 0;
@@ -92,9 +91,62 @@ if (isset($_POST['cart_id']) && isset($_POST['quantity'])) {
     }
 }
 
+if (isset($_POST['checkout'])) {
+    // Get the current user ID from session
+    $user_id = $_SESSION['user_id'];
+
+    // Get the current date (for order creation)
+    $order_date = date('Y-m-d H:i:s');
+
+    // Fetch cart items for the user
+    $cart_sql = "SELECT c.cart_id, c.product_id, c.quantity, c.total, p.admin_id FROM cart c INNER JOIN products p ON c.product_id = p.product_id WHERE c.user_id = ?";
+    $cart_stmt = $conn->prepare($cart_sql);
+    $cart_stmt->bind_param("i", $user_id);
+    $cart_stmt->execute();
+    $cart_result = $cart_stmt->get_result();
+
+    if ($cart_result->num_rows > 0) {
+        while ($cart_item = $cart_result->fetch_assoc()) {
+            $cart_id = $cart_item['cart_id'];
+            $product_id = $cart_item['product_id'];
+            $quantity = $cart_item['quantity'];
+            $total = $cart_item['total'];
+            $admin_id = $cart_item['admin_id'];
+
+            $order_sql = "INSERT INTO orders (admin_id, user_id, product_id, date, items, total, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $order_stmt = $conn->prepare($order_sql);
+            $status = 'pending'; 
+            $order_stmt->bind_param("iiisdis", $admin_id, $user_id, $product_id, $order_date, $quantity, $total, $status);
+            $order_stmt->execute();
+        }
+
+        $clear_cart_sql = "DELETE FROM cart WHERE user_id = ?";
+        $clear_cart_stmt = $conn->prepare($clear_cart_sql);
+        $clear_cart_stmt->bind_param("i", $user_id);
+        $clear_cart_stmt->execute();
+
+        header("Location: cart.php");
+        exit;
+    } else {
+        echo "Your cart is empty!";
+    }
+}
 
 
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
 
+    $sql = "SELECT SUM(quantity) AS total_items FROM cart WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $total_items = 0;
+    if ($row = $result->fetch_assoc()) {
+        $total_items = $row['total_items'];
+    }
+}
 mysqli_free_result($result);
 mysqli_close($conn);
 ?>
@@ -241,11 +293,12 @@ mysqli_close($conn);
             <span class="fw-bold">₱<?php echo number_format($total, 2); ?></span>
         </div>
 
-        <div class="d-grid mt-4">
-            <button class="btn btn-primary btn-lg">
-                <i class="fas fa-lock me-2"></i>Proceed to Checkout
-            </button>
-        </div>
+    <form method="POST" class="d-grid mt-4">
+        <button type="submit" name="checkout" class="btn btn-primary btn-lg">
+            <i class="fas fa-lock me-2"></i>Proceed to Checkout
+        </button>
+    </form>
+
 
         <div class="text-center mt-3">
             <small class="text-muted">

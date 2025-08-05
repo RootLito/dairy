@@ -230,314 +230,314 @@
                 </div>
                 
                 <!-- Order Table -->
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Recent Orders</h5>
-                        <span class="badge bg-primary">245 results</span>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th scope="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="selectAllOrders">
-                                                <label class="form-check-label" for="selectAllOrders"></label>
-                                            </div>
-                                        </th>
-                                        <th scope="col">Order ID</th>
-                                        <th scope="col">Customer</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Items</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order1Check">
-                                                <label class="form-check-label" for="order1Check"></label>
-                                            </div>
-                                        </td>
-                                        <td>#ORD-5783</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-circle-sm me-2 bg-primary">
-                                                    <span>JD</span>
-                                                </div>
-                                                <div>John Doe</div>
-                                            </div>
-                                        </td>
-                                        <td>Mar 29, 2025</td>
-                                        <td>4 items</td>
-                                        <td>₱67.85</td>
-                                        <td><span class="badge bg-success">Delivered</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Actions
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown1">
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order2Check">
-                                                <label class="form-check-label" for="order2Check"></label>
-                                            </div>
-                                        </td>
-                                        <td>#ORD-5782</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-circle-sm me-2 bg-success">
-                                                    <span>JS</span>
-                                                </div>
-                                                <div>Jane Smith</div>
-                                            </div>
-                                        </td>
-                                        <td>Mar 28, 2025</td>
-                                        <td>8 items</td>
-                                        <td>₱124.50</td>
-                                        <td><span class="badge bg-success">Delivered</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Actions
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown2">
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order3Check">
-                                                <label class="form-check-label" for="order3Check"></label>
-                                            </div>
-                                        </td>
-                                        <td>#ORD-5781</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-circle-sm me-2 bg-info">
-                                                    <span>RB</span>
-                                                </div>
-                                                <div>Robert Brown</div>
-                                            </div>
-                                        </td>
-                                        <td>Mar 28, 2025</td>
-                                        <td>2 items</td>
-                                        <td>₱28.99</td>
-                                        <td><span class="badge bg-info">Shipped</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown3" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Actions
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown3">
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order4Check">
-                                                <label class="form-check-label" for="order4Check"></label>
-                                            </div>
-                                        </td>
-                                        <td>#ORD-5780</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-circle-sm me-2 bg-warning">
-                                                    <span>EJ</span>
-                                                </div>
-                                                <div>Emma Johnson</div>
-                                            </div>
-                                        </td>
-                                        <td>Mar 27, 2025</td>
-                                        <td>5 items</td>
-                                        <td>₱82.25</td>
-                                        <td><span class="badge bg-warning">Processing</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown4" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Actions
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown4">
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order5Check">
-                                                <label class="form-check-label" for="order5Check"></label>
-                                            </div>
-                                        </td>
-                                        <td>#ORD-5779</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-circle-sm me-2 bg-danger">
-                                                    <span>MW</span>
-                                                </div>
-                                                <div>Michael Wilson</div>
-                                            </div>
-                                        </td>
-                                        <td>Mar 27, 2025</td>
-                                        <td>12 items</td>
-                                        <td>₱156.75</td>
-                                        <td><span class="badge bg-success">Delivered</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown5" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Actions
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown5">
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order6Check">
-                                                <label class="form-check-label" for="order6Check"></label>
-                                            </div>
-                                        </td>
-                                        <td>#ORD-5778</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-circle-sm me-2 bg-info">
-                                                    <span>SD</span>
-                                                </div>
-                                                <div>Sarah Davis</div>
-                                            </div>
-                                        </td>
-                                        <td>Mar 26, 2025</td>
-                                        <td>3 items</td>
-                                        <td>₱46.50</td>
-                                        <td><span class="badge bg-success">Delivered</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown6" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Actions
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown6">
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order7Check">
-                                                <label class="form-check-label" for="order7Check"></label>
-                                            </div>
-                                        </td>
-                                        <td>#ORD-5777</td>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-circle-sm me-2 bg-primary">
-                                                    <span>DM</span>
-                                                </div>
-                                                <div>David Miller</div>
-                                            </div>
-                                        </td>
-                                        <td>Mar 26, 2025</td>
-                                        <td>6 items</td>
-                                        <td>₱93.20</td>
-                                        <td><span class="badge bg-info">Shipped</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown7" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Actions
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown7">
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Recent Orders</h5>
+                            <span class="badge bg-primary">245 results</span>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="bulk-actions">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Bulk Actions
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-truck me-2"></i>Mark as Shipped</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-check-circle me-2"></i>Mark as Delivered</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoices</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Orders</a></li>
-                                    </ul>
-                                </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="selectAllOrders">
+                                                    <label class="form-check-label" for="selectAllOrders"></label>
+                                                </div>
+                                            </th>
+                                            <th scope="col">Order ID</th>
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Items</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order1Check">
+                                                    <label class="form-check-label" for="order1Check"></label>
+                                                </div>
+                                            </td>
+                                            <td>#ORD-5783</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-circle-sm me-2 bg-primary">
+                                                        <span>JD</span>
+                                                    </div>
+                                                    <div>John Doe</div>
+                                                </div>
+                                            </td>
+                                            <td>Mar 29, 2025</td>
+                                            <td>4 items</td>
+                                            <td>₱67.85</td>
+                                            <td><span class="badge bg-success">Delivered</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown1">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order2Check">
+                                                    <label class="form-check-label" for="order2Check"></label>
+                                                </div>
+                                            </td>
+                                            <td>#ORD-5782</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-circle-sm me-2 bg-success">
+                                                        <span>JS</span>
+                                                    </div>
+                                                    <div>Jane Smith</div>
+                                                </div>
+                                            </td>
+                                            <td>Mar 28, 2025</td>
+                                            <td>8 items</td>
+                                            <td>₱124.50</td>
+                                            <td><span class="badge bg-success">Delivered</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown2">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order3Check">
+                                                    <label class="form-check-label" for="order3Check"></label>
+                                                </div>
+                                            </td>
+                                            <td>#ORD-5781</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-circle-sm me-2 bg-info">
+                                                        <span>RB</span>
+                                                    </div>
+                                                    <div>Robert Brown</div>
+                                                </div>
+                                            </td>
+                                            <td>Mar 28, 2025</td>
+                                            <td>2 items</td>
+                                            <td>₱28.99</td>
+                                            <td><span class="badge bg-info">Shipped</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown3">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order4Check">
+                                                    <label class="form-check-label" for="order4Check"></label>
+                                                </div>
+                                            </td>
+                                            <td>#ORD-5780</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-circle-sm me-2 bg-warning">
+                                                        <span>EJ</span>
+                                                    </div>
+                                                    <div>Emma Johnson</div>
+                                                </div>
+                                            </td>
+                                            <td>Mar 27, 2025</td>
+                                            <td>5 items</td>
+                                            <td>₱82.25</td>
+                                            <td><span class="badge bg-warning">Processing</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown4" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown4">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order5Check">
+                                                    <label class="form-check-label" for="order5Check"></label>
+                                                </div>
+                                            </td>
+                                            <td>#ORD-5779</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-circle-sm me-2 bg-danger">
+                                                        <span>MW</span>
+                                                    </div>
+                                                    <div>Michael Wilson</div>
+                                                </div>
+                                            </td>
+                                            <td>Mar 27, 2025</td>
+                                            <td>12 items</td>
+                                            <td>₱156.75</td>
+                                            <td><span class="badge bg-success">Delivered</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown5" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown5">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order6Check">
+                                                    <label class="form-check-label" for="order6Check"></label>
+                                                </div>
+                                            </td>
+                                            <td>#ORD-5778</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-circle-sm me-2 bg-info">
+                                                        <span>SD</span>
+                                                    </div>
+                                                    <div>Sarah Davis</div>
+                                                </div>
+                                            </td>
+                                            <td>Mar 26, 2025</td>
+                                            <td>3 items</td>
+                                            <td>₱46.50</td>
+                                            <td><span class="badge bg-success">Delivered</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown6" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown6">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order7Check">
+                                                    <label class="form-check-label" for="order7Check"></label>
+                                                </div>
+                                            </td>
+                                            <td>#ORD-5777</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar-circle-sm me-2 bg-primary">
+                                                        <span>DM</span>
+                                                    </div>
+                                                    <div>David Miller</div>
+                                                </div>
+                                            </td>
+                                            <td>Mar 26, 2025</td>
+                                            <td>6 items</td>
+                                            <td>₱93.20</td>
+                                            <td><span class="badge bg-info">Shipped</span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown7" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown7">
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <nav aria-label="Orders pagination">
-                                <ul class="pagination justify-content-end mb-0">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="bulk-actions">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Bulk Actions
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#"><i class="fas fa-truck me-2"></i>Mark as Shipped</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="fas fa-check-circle me-2"></i>Mark as Delivered</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoices</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Orders</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <nav aria-label="Orders pagination">
+                                    <ul class="pagination justify-content-end mb-0">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
+                    
                 <!-- Order Analytics -->
                 <div class="row g-4 mb-4">
                     <div class="col-md-6">
