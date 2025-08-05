@@ -15,7 +15,7 @@
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky pt-3">
                     <div class="px-3 mb-4">
-                        <a href="index.html" class="text-decoration-none">
+                        <a href="index.php" class="text-decoration-none">
                             <h5 class="text-danger">
                                 <i class="fas fa-crown me-2"></i>DairyMart Super Admin
                             </h5>
@@ -25,31 +25,31 @@
                     <hr>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="super-admin-dashboard.html">
+                            <a class="nav-link" href="super-admin-dashboard.php">
                                 <i class="fas fa-tachometer-alt me-2"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="super-admin-users.html">
+                            <a class="nav-link active" href="super-admin-users.php">
                                 <i class="fas fa-users-cog me-2"></i>
                                 Role Management
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="super-admin-activities.html">
+                            <a class="nav-link" href="super-admin-activities.php">
                                 <i class="fas fa-eye me-2"></i>
                                 Activity Monitor
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="super-admin-analytics.html">
+                            <a class="nav-link" href="super-admin-analytics.php">
                                 <i class="fas fa-chart-bar me-2"></i>
                                 Advanced Analytics
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.html">
+                            <a class="nav-link" href="admin-dashboard.php">
                                 <i class="fas fa-user-shield me-2"></i>
                                 Admin Dashboard
                             </a>
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <a href="login.html" class="btn btn-outline-danger btn-sm">
+                            <a href="login.php" class="btn btn-outline-danger btn-sm">
                                 <i class="fas fa-sign-out-alt me-2"></i>Log Out
                             </a>
                         </div>
@@ -243,15 +243,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <!-- <script src="static/js/role-manager.js"></script>
-    <script>
-        // Initialize role management on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeRoleManager();
-        });
-    </script> -->
 </body>
 </html>

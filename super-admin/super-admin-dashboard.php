@@ -16,7 +16,7 @@
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
                 <div class="position-sticky pt-3">
                     <div class="px-3 mb-4">
-                        <a href="index.html" class="text-decoration-none">
+                        <a href="index.php" class="text-decoration-none">
                             <h5 class="text-danger">
                                 <i class="fas fa-crown me-2"></i>DairyMart Super Admin
                             </h5>
@@ -26,31 +26,31 @@
                     <hr>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="super-admin-dashboard.html">
+                            <a class="nav-link active" href="super-admin-dashboard.php">
                                 <i class="fas fa-tachometer-alt me-2"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="super-admin-users.html">
+                            <a class="nav-link" href="super-admin-users.php">
                                 <i class="fas fa-users-cog me-2"></i>
                                 Role Management
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="super-admin-activities.html">
+                            <a class="nav-link" href="super-admin-activities.php">
                                 <i class="fas fa-eye me-2"></i>
                                 Activity Monitor
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="super-admin-analytics.html">
+                            <a class="nav-link" href="super-admin-analytics.php">
                                 <i class="fas fa-chart-bar me-2"></i>
                                 Advanced Analytics
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.html">
+                            <a class="nav-link" href="admin-dashboard.php">
                                 <i class="fas fa-user-shield me-2"></i>
                                 Admin Dashboard
                             </a>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <a href="login.html" class="btn btn-outline-danger btn-sm">
+                            <a href="login.php" class="btn btn-outline-danger btn-sm">
                                 <i class="fas fa-sign-out-alt me-2"></i>Log Out
                             </a>
                         </div>
@@ -220,7 +220,7 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">Recent System Activities</h5>
-                        <a href="super-admin-activities.html" class="btn btn-sm btn-primary">View All</a>
+                        <a href="super-admin-activities.php" class="btn btn-sm btn-primary">View All</a>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -250,7 +250,7 @@
                                 <i class="fas fa-users-cog fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title">Manage User Roles</h5>
                                 <p class="card-text">Assign and modify user roles and permissions across the system.</p>
-                                <a href="super-admin-users.html" class="btn btn-primary">Manage Roles</a>
+                                <a href="super-admin-users.php" class="btn btn-primary">Manage Roles</a>
                             </div>
                         </div>
                     </div>
@@ -260,7 +260,7 @@
                                 <i class="fas fa-chart-line fa-3x text-info mb-3"></i>
                                 <h5 class="card-title">Advanced Analytics</h5>
                                 <p class="card-text">View detailed analytics including product frequency and sales trends.</p>
-                                <a href="super-admin-analytics.html" class="btn btn-info">View Analytics</a>
+                                <a href="super-admin-analytics.php" class="btn btn-info">View Analytics</a>
                             </div>
                         </div>
                     </div>
@@ -270,7 +270,7 @@
                                 <i class="fas fa-eye fa-3x text-warning mb-3"></i>
                                 <h5 class="card-title">Activity Monitor</h5>
                                 <p class="card-text">Monitor real-time user activities and system access logs.</p>
-                                <a href="super-admin-activities.html" class="btn btn-warning">Monitor Activities</a>
+                                <a href="super-admin-activities.php" class="btn btn-warning">Monitor Activities</a>
                             </div>
                         </div>
                     </div>

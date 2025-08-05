@@ -14,6 +14,55 @@ if (isset($_POST['logout'])) {
     header("Location: ./../index.php");
     exit;
 }
+
+if (isset($_POST['product_id']) && isset($_POST['price'])) {
+    $user_id = $_SESSION['user_id'];
+    $product_id = $_POST['product_id'];
+    $price = $_POST['price'];
+    $quantity = 1;
+
+    $total = $price * $quantity;
+
+    $admin_sql = "SELECT admin_id FROM products WHERE product_id = ?";
+    $admin_stmt = $conn->prepare($admin_sql);
+    $admin_stmt->bind_param("i", $product_id);
+    $admin_stmt->execute();
+    $admin_result = $admin_stmt->get_result();
+
+    if ($admin_result->num_rows > 0) {
+        $admin_data = $admin_result->fetch_assoc();
+        $admin_id = $admin_data['admin_id'];
+    } else {
+        echo "Product not found.";
+        exit;
+    }
+
+    $sql = "SELECT * FROM cart WHERE user_id = ? AND product_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $user_id, $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $cart_item = $result->fetch_assoc();
+        $new_quantity = $cart_item['quantity'] + $quantity;
+        $new_total = $price * $new_quantity;
+
+        $update_sql = "UPDATE cart SET quantity = ?, total = ?, admin_id = ? WHERE user_id = ? AND product_id = ?";
+        $update_stmt = $conn->prepare($update_sql);
+        $update_stmt->bind_param("iiiii", $new_quantity, $new_total, $admin_id, $user_id, $product_id);
+        $update_stmt->execute();
+    } else {
+        $insert_sql = "INSERT INTO cart (user_id, product_id, quantity, price, total, admin_id) VALUES (?, ?, ?, ?, ?, ?)";
+        $insert_stmt = $conn->prepare($insert_sql);
+        $insert_stmt->bind_param("iiidii", $user_id, $product_id, $quantity, $price, $total, $admin_id);
+        $insert_stmt->execute();
+    }
+
+    header("Location: cart.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -62,18 +111,15 @@ if (isset($_POST['logout'])) {
             </div>
         </section>
 
-        <!-- Filters and Products Grid -->
         <section class="py-5">
             <div class="container">
                 <div class="row">
-                    <!-- Filters Sidebar -->
                     <div class="col-lg-3 mb-4 mb-lg-0">
                         <div class="card sticky-lg-top" style="top: 1rem; z-index: 1;">
                             <div class="card-header bg-primary text-white">
                                 <h5 class="mb-0">Filters</h5>
                             </div>
                             <div class="card-body">
-                                <!-- Category Filter -->
                                 <div class="mb-4">
                                     <h6 class="mb-3">Categories</h6>
                                     <div class="form-check mb-2">
@@ -199,502 +245,59 @@ if (isset($_POST['logout'])) {
                         </div>
                     </div>
 
-                    <!-- Products Grid -->
                     <div class="col-lg-9">
-                        <!-- Milk Products Section -->
-                        <section id="milk" class="mb-5">
-                            <h2 class="mb-4">Milk & Cream</h2>
-                            <div class="row g-4">
-                                <!-- Milk Product 1 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-success position-absolute top-0 end-0 m-2">ORGANIC</div>
-                                        <img src="https://images.unsplash.com/photo-1563636619-e9143da7973b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Organic Whole Milk">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Milk</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <span class="text-muted ms-1">(4.5)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Organic Whole Milk</h5>
-                                            <p class="card-text text-truncate">Farm-fresh organic whole milk, pasteurized and homogenized, rich in nutrients.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱4.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <section id="products" class="mb-5">
+    <h2 class="mb-4">All Products</h2>
+    <div class="row g-4">
+        <?php
+        $sql = "SELECT * FROM products"; 
+        $result = mysqli_query($conn, $sql);
 
-                                <!-- Milk Product 2 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-info position-absolute top-0 end-0 m-2">LOW FAT</div>
-                                        <img src="https://images.unsplash.com/photo-1576186726115-4d51596775d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Low-Fat Milk">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Milk</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                    <span class="text-muted ms-1">(4.0)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Low-Fat Milk (1%)</h5>
-                                            <p class="card-text text-truncate">Creamy and smooth low-fat milk, perfect for everyday consumption.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱3.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Milk Product 3 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-warning position-absolute top-0 end-0 m-2">LACTOSE-FREE</div>
-                                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Lactose-Free Milk">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Milk</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span class="text-muted ms-1">(5.0)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Lactose-Free Milk</h5>
-                                            <p class="card-text text-truncate">Real milk with lactase enzyme added for easier digestion, great taste without discomfort.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱5.49</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Heavy Cream -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <img src="https://images.unsplash.com/photo-1557142046-c704a3266b9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Heavy Cream">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Cream</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <span class="text-muted ms-1">(4.7)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Premium Heavy Cream</h5>
-                                            <p class="card-text text-truncate">Rich and indulgent heavy cream, perfect for baking and cooking.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱4.29</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+        if (mysqli_num_rows($result) > 0) {
+            while ($product = mysqli_fetch_assoc($result)) {
+                ?>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="<?php echo $product['product_image']; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-primary"><?php echo htmlspecialchars($product['category']); ?></span>
                             </div>
-                        </section>
-
-                        <!-- Cheese Products Section -->
-                        <section id="cheese" class="mb-5">
-                            <h2 class="mb-4">Cheese</h2>
-                            <div class="row g-4">
-                                <!-- Cheese Product 1 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-primary position-absolute top-0 end-0 m-2">AGED</div>
-                                        <img src="https://images.unsplash.com/photo-1566454825481-9c704264a707?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Cheddar Cheese">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Cheese</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span class="text-muted ms-1">(4.9)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Aged Cheddar Cheese</h5>
-                                            <p class="card-text text-truncate">Sharp and flavorful cheddar cheese, aged for 24 months.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱7.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Cheese Product 2 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-success position-absolute top-0 end-0 m-2">ARTISAN</div>
-                                        <img src="https://images.unsplash.com/photo-1588010431045-3f5128169602?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Gouda Cheese">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Cheese</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <span class="text-muted ms-1">(4.5)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Smoked Gouda Cheese</h5>
-                                            <p class="card-text text-truncate">Creamy gouda with a distinctive smoky flavor, perfect for sandwiches and charcuterie boards.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱8.49</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Cheese Product 3 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-primary position-absolute top-0 end-0 m-2">IMPORTED</div>
-                                        <img src="https://images.unsplash.com/photo-1452195100486-9cc805987862?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Blue Cheese">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Cheese</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                    <span class="text-muted ms-1">(4.2)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Italian Blue Cheese</h5>
-                                            <p class="card-text text-truncate">Rich and bold blue cheese imported from Italy, ideal for salads and pasta dishes.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱9.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <h5 class="card-title"><?php echo htmlspecialchars($product['product_name']); ?></h5>
+                            <p class="card-text text-truncate"><?php echo htmlspecialchars($product['description']); ?></p>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <span class="fs-5 fw-bold">₱<?php echo number_format($product['price'], 2); ?></span>
+                                
+                                <form method="POST" class="d-flex">
+                                    <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                                    <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
+                                    <button type="submit" class="btn btn-primary me-2">
+                                        <i class="fas fa-cart-plus me-1"></i>
+                                    </button>
+                                </form>
+                                <a href="product-details.php?id=<?php echo $product['product_id']; ?>" class="btn btn-info">
+                                    <i class="fas fa-eye me-1"></i>
+                                </a>
                             </div>
-                        </section>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+        } else {
+            echo "<p>No products available.</p>";
+        }
 
-                        <!-- Yogurt Products Section -->
-                        <section id="yogurt" class="mb-5">
-                            <h2 class="mb-4">Yogurt & Smoothies</h2>
-                            <div class="row g-4">
-                                <!-- Yogurt Product 1 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-success position-absolute top-0 end-0 m-2">GREEK</div>
-                                        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Greek Yogurt">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Yogurt</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span class="text-muted ms-1">(4.9)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Greek Yogurt Variety Pack</h5>
-                                            <p class="card-text text-truncate">Assorted flavors of creamy high-protein Greek yogurt, perfect for breakfast or snacks.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱6.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+        mysqli_free_result($result);
+        mysqli_close($conn);
+        ?>
+    </div>
+</section>
 
-                                <!-- Yogurt Product 2 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-info position-absolute top-0 end-0 m-2">LOW SUGAR</div>
-                                        <img src="https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Probiotic Yogurt">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Yogurt</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                    <span class="text-muted ms-1">(4.1)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Probiotic Plain Yogurt</h5>
-                                            <p class="card-text text-truncate">Rich in live active cultures for gut health, versatile for sweet or savory dishes.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱4.49</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <!-- Smoothie Product -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-danger position-absolute top-0 end-0 m-2">NEW</div>
-                                        <img src="https://images.unsplash.com/photo-1571942676516-bcab84649e44?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Berry Smoothie">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Smoothie</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <span class="text-muted ms-1">(4.6)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Mixed Berry Smoothie</h5>
-                                            <p class="card-text text-truncate">Ready-to-drink smoothie made with real yogurt and mixed berries, perfect for on-the-go.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱3.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
 
-                        <!-- Butter & Cream Section -->
-                        <section id="butter" class="mb-5">
-                            <h2 class="mb-4">Butter & Cream</h2>
-                            <div class="row g-4">
-                                <!-- Butter Product 1 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-success position-absolute top-0 end-0 m-2">GRASS-FED</div>
-                                        <img src="https://images.unsplash.com/photo-1589985270958-bf20ad23a15a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Grass-Fed Butter">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Butter</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span class="text-muted ms-1">(5.0)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Irish Grass-Fed Butter</h5>
-                                            <p class="card-text text-truncate">Rich, golden butter from grass-fed cows, with a naturally higher omega-3 content.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱6.49</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                  
 
-                                <!-- Butter Product 2 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-info position-absolute top-0 end-0 m-2">WHIPPED</div>
-                                        <img src="https://images.unsplash.com/photo-1600419991300-1985c6eb7c1c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Whipped Butter">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Butter</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                    <span class="text-muted ms-1">(4.0)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Whipped Butter with Sea Salt</h5>
-                                            <p class="card-text text-truncate">Light and airy whipped butter with a touch of sea salt, spreadable straight from the refrigerator.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱4.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Cream Product -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-primary position-absolute top-0 end-0 m-2">ORGANIC</div>
-                                        <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Sour Cream">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Cream</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <span class="text-muted ms-1">(4.5)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Organic Sour Cream</h5>
-                                            <p class="card-text text-truncate">Rich and tangy organic sour cream, perfect for topping baked potatoes or adding to recipes.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱3.79</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Specialty Products Section -->
-                        <section id="specialty" class="mb-5">
-                            <h2 class="mb-4">Specialty Dairy Products</h2>
-                            <div class="row g-4">
-                                <!-- Specialty Product 1 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-danger position-absolute top-0 end-0 m-2">ARTISAN</div>
-                                        <img src="https://images.unsplash.com/photo-1605790557839-d7e516b3f3a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Artisan Feta">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Specialty</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <span class="text-muted ms-1">(4.7)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Artisan Feta in Brine</h5>
-                                            <p class="card-text text-truncate">Traditional sheep's milk feta, crumbly and tangy, perfect for salads and Mediterranean dishes.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱8.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Specialty Product 2 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-warning position-absolute top-0 end-0 m-2">IMPORTED</div>
-                                        <img src="https://images.unsplash.com/photo-1626957341926-98953ef9b6d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Mascarpone">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Specialty</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span class="text-muted ms-1">(4.9)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Italian Mascarpone</h5>
-                                            <p class="card-text text-truncate">Smooth and creamy Italian mascarpone cheese, essential for authentic tiramisu.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱6.49</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Specialty Product 3 -->
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100">
-                                        <div class="badge bg-success position-absolute top-0 end-0 m-2">PLANT-BASED</div>
-                                        <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Almond Milk">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="badge bg-primary">Specialty</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                    <span class="text-muted ms-1">(4.2)</span>
-                                                </div>
-                                            </div>
-                                            <h5 class="card-title">Organic Almond Milk</h5>
-                                            <p class="card-text text-truncate">Creamy plant-based alternative to dairy milk, made from organic almonds.</p>
-                                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                                <span class="fs-5 fw-bold">₱4.99</span>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- Pagination -->
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item disabled">

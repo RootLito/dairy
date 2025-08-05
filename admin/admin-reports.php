@@ -31,12 +31,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-users.php">
-                                <i class="fas fa-users me-2"></i>
-                                User Management
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="admin-inventory.php">
                                 <i class="fas fa-boxes me-2"></i>
                                 Inventory
