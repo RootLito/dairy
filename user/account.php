@@ -161,12 +161,12 @@ mysqli_close($conn);
                                     <p class="text-muted mb-0">Member since: April 1</p>
                                 </div>
                                 <div class="col-md-3 text-md-end">
-                                    <form method="post" enctype="multipart/form-data" id="profileImageForm">
+                                    <!-- <form method="post" enctype="multipart/form-data" id="profileImageForm">
                                         <label for="profileImageInput" class="btn btn-primary mb-2 mb-md-0">
                                             <i class="fas fa-camera me-1"></i> Change Photo
                                         </label>
                                         <input type="file" name="profileImage" id="profileImageInput" accept="image/*" style="display:none" onchange="document.getElementById('profileImageForm').submit();" />
-                                    </form>
+                                    </form> -->
                                 </div>
                             </div>
                         </div>

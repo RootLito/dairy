@@ -87,25 +87,9 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
                     <div class="col-lg-6 mb-4 mb-lg-0">
                         <h1 class="display-4 fw-bold">Fresh Dairy Products</h1>
                         <p class="fs-5 mb-4">Discover our selection of premium dairy products from local farms and renowned dairies worldwide.</p>
-                        <div class="d-flex">
-                            <button class="btn btn-primary me-3">
-                                <i class="fas fa-filter me-2"></i>Filter Products
-                            </button>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-light dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Sort By
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="sortDropdown">
-                                    <li><a class="dropdown-item" href="#">Best Sellers</a></li>
-                                    <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
-                                    <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
-                                    <li><a class="dropdown-item" href="#">Newest Arrivals</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-lg-6">
-                        <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Dairy Products" class="img-fluid rounded shadow">
+                        <img src="./../assets/images/cover.jpg" alt="Dairy Products" class="img-fluid rounded shadow">
                     </div>
                 </div>
             </div>
@@ -144,7 +128,6 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
                                     </div>
                                 </div>
 
-                                <!-- Price Range Filter -->
                                 <div class="mb-4">
                                     <h6 class="mb-3">Price Range</h6>
                                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -154,7 +137,6 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
                                     <input type="range" class="form-range" min="0" max="50" step="1" value="50" id="priceRange">
                                 </div>
 
-                                <!-- Dietary Preferences -->
                                 <div class="mb-4">
                                     <h6 class="mb-3">Dietary Preferences</h6>
                                     <div class="form-check mb-2">
@@ -175,7 +157,6 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
                                     </div>
                                 </div>
 
-                                <!-- Brands Filter -->
                                 <div class="mb-4">
                                     <h6 class="mb-3">Brands</h6>
                                     <div class="form-check mb-2">
@@ -200,43 +181,6 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
                                     </div>
                                 </div>
 
-                                <!-- Rating Filter -->
-                                <div class="mb-4">
-                                    <h6 class="mb-3">Customer Rating</h6>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating4up" checked>
-                                        <label class="form-check-label" for="rating4up">
-                                            <div class="text-warning">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                            & Up
-                                        </label>
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" name="ratingFilter" id="rating3up">
-                                        <label class="form-check-label" for="rating3up">
-                                            <div class="text-warning">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                            & Up
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="ratingFilter" id="ratingAll">
-                                        <label class="form-check-label" for="ratingAll">
-                                            All Ratings
-                                        </label>
-                                    </div>
-                                </div>
-
                                 <div class="d-grid gap-2">
                                     <button class="btn btn-primary">Apply Filters</button>
                                     <button class="btn btn-outline-secondary">Reset Filters</button>
@@ -246,57 +190,57 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
                     </div>
 
                     <div class="col-lg-9">
-                    <section id="products" class="mb-5">
-    <h2 class="mb-4">All Products</h2>
-    <div class="row g-4">
-        <?php
-        $sql = "SELECT * FROM products"; 
-        $result = mysqli_query($conn, $sql);
+                        <section id="products" class="mb-5">
+                            <h2 class="mb-4">All Products</h2>
+                            <div class="row g-4">
+                                <?php
+                                $sql = "SELECT * FROM products";
+                                $result = mysqli_query($conn, $sql);
 
-        if (mysqli_num_rows($result) > 0) {
-            while ($product = mysqli_fetch_assoc($result)) {
-                ?>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <img src="<?php echo $product['product_image']; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary"><?php echo htmlspecialchars($product['category']); ?></span>
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($product = mysqli_fetch_assoc($result)) {
+                                ?>
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="card h-100">
+                                                <img src="<?php echo $product['product_image']; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                                        <span class="badge bg-primary"><?php echo htmlspecialchars($product['category']); ?></span>
+                                                    </div>
+                                                    <h5 class="card-title"><?php echo htmlspecialchars($product['product_name']); ?></h5>
+                                                    <p class="card-text text-truncate"><?php echo htmlspecialchars($product['description']); ?></p>
+                                                    <div class="d-flex align-items-center justify-content-between mt-3">
+                                                        <span class="fs-5 fw-bold">₱<?php echo number_format($product['price'], 2); ?></span>
+
+                                                        <form method="POST" class="d-flex">
+                                                            <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                                                            <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
+                                                            <button type="submit" class="btn btn-primary me-2">
+                                                                <i class="fas fa-cart-plus me-1"></i>
+                                                            </button>
+                                                        </form>
+                                                        <a href="product-details.php?id=<?php echo $product['product_id']; ?>" class="btn btn-info">
+                                                            <i class="fas fa-eye me-1"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "<p>No products available.</p>";
+                                }
+
+                                mysqli_free_result($result);
+                                mysqli_close($conn);
+                                ?>
                             </div>
-                            <h5 class="card-title"><?php echo htmlspecialchars($product['product_name']); ?></h5>
-                            <p class="card-text text-truncate"><?php echo htmlspecialchars($product['description']); ?></p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="fs-5 fw-bold">₱<?php echo number_format($product['price'], 2); ?></span>
-                                
-                                <form method="POST" class="d-flex">
-                                    <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
-                                    <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
-                                    <button type="submit" class="btn btn-primary me-2">
-                                        <i class="fas fa-cart-plus me-1"></i>
-                                    </button>
-                                </form>
-                                <a href="product-details.php?id=<?php echo $product['product_id']; ?>" class="btn btn-info">
-                                    <i class="fas fa-eye me-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php
-            }
-        } else {
-            echo "<p>No products available.</p>";
-        }
-
-        mysqli_free_result($result);
-        mysqli_close($conn);
-        ?>
-    </div>
-</section>
+                        </section>
 
 
 
-                  
+
 
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">

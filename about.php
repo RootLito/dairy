@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,42 +9,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="static/css/styles.css" rel="stylesheet">
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <i class="fas fa-cheese me-2"></i>DairyMart
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarMain">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.php">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.php">Contact</a>
-                    </li>
-                </ul>
-                
-                <div class="d-flex">
-                    <div class="dropdown">
-                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Login / Register <i class="fas fa-user me-1"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="login.php">Login</a></li>
-                            <li><a class="dropdown-item" href="register.php">Register</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include 'nav.php'; ?>
+
 
     <main>
         <section class="py-5 bg-primary text-white text-center">
@@ -52,8 +21,8 @@
                 <p class="lead mb-4">We're passionate about quality dairy products from sustainable farms</p>
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80" 
-                             alt="DairyMart Team" class="img-fluid rounded shadow">
+                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80"
+                            alt="DairyMart Team" class="img-fluid rounded shadow">
                     </div>
                 </div>
             </div>
@@ -63,8 +32,8 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 mb-4 mb-lg-0">
-                        <img src="https://images.unsplash.com/photo-1506459225024-1428097a7e18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" 
-                             alt="Happy Cows in Pasture" class="img-fluid rounded shadow">
+                        <img src="https://images.unsplash.com/photo-1506459225024-1428097a7e18?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                            alt="Happy Cows in Pasture" class="img-fluid rounded shadow">
                     </div>
                     <div class="col-lg-6">
                         <h2 class="display-6 mb-4">Our Mission</h2>
@@ -257,8 +226,8 @@
                         <div class="card h-100 farm-card">
                             <div class="row g-0">
                                 <div class="col-md-5">
-                                    <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" 
-                                         alt="Green Valley Farms" class="img-fluid h-100" style="object-fit: cover;">
+                                    <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                                        alt="Green Valley Farms" class="img-fluid h-100" style="object-fit: cover;">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="card-body">
@@ -278,8 +247,8 @@
                         <div class="card h-100 farm-card">
                             <div class="row g-0">
                                 <div class="col-md-5">
-                                    <img src="https://images.unsplash.com/photo-1590273466070-40c466b4432d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" 
-                                         alt="Alpine Meadows Dairy" class="img-fluid h-100" style="object-fit: cover;">
+                                    <img src="https://images.unsplash.com/photo-1590273466070-40c466b4432d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                                        alt="Alpine Meadows Dairy" class="img-fluid h-100" style="object-fit: cover;">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="card-body">
@@ -299,8 +268,8 @@
                         <div class="card h-100 farm-card">
                             <div class="row g-0">
                                 <div class="col-md-5">
-                                    <img src="https://images.unsplash.com/photo-1501597301489-8b75b675fad7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" 
-                                         alt="Sunny Creek Yogurt" class="img-fluid h-100" style="object-fit: cover;">
+                                    <img src="https://images.unsplash.com/photo-1501597301489-8b75b675fad7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                                        alt="Sunny Creek Yogurt" class="img-fluid h-100" style="object-fit: cover;">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="card-body">
@@ -320,8 +289,8 @@
                         <div class="card h-100 farm-card">
                             <div class="row g-0">
                                 <div class="col-md-5">
-                                    <img src="https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" 
-                                         alt="Heritage Blue Cheese" class="img-fluid h-100" style="object-fit: cover;">
+                                    <img src="https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                                        alt="Heritage Blue Cheese" class="img-fluid h-100" style="object-fit: cover;">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="card-body">
@@ -341,25 +310,26 @@
             </div>
         </section>
 
-        
 
-    <footer class="bg-dark text-white py-5">
-        <div class="container">
-            <hr>
-            <div class="row">
-                <div class="col-md-6 mb-3 mb-md-0">
-                    <p class="mb-0">&copy; 2025 DairyMart. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
-                        <li class="list-inline-item ms-3"><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
-                    </ul>
+
+        <footer class="bg-dark text-white py-5">
+            <div class="container">
+                <hr>
+                <div class="row">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <p class="mb-0">&copy; 2025 DairyMart. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                            <li class="list-inline-item ms-3"><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -1,20 +1,47 @@
 <?php
-session_start(); 
+session_start();
 include('./../config/conn.php');
+
 if (!isset($_SESSION['user_id'])) {
     echo "You are not logged in.";
     exit();
 }
-$user_id = $_SESSION['user_id']; 
+
+$user_id = $_SESSION['user_id'];
 
 $sql = "SELECT o.order_id, o.date, o.items, o.total, o.status 
         FROM orders o
         WHERE o.user_id = ? 
-        ORDER BY o.date DESC"; 
+        ORDER BY o.date DESC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
+
+$total_orders = 0;
+$completed_orders = 0;
+$in_transit_orders = 0;
+
+$count_sql = "SELECT status, COUNT(*) as count 
+              FROM orders 
+              WHERE user_id = ? 
+              GROUP BY status";
+$count_stmt = $conn->prepare($count_sql);
+$count_stmt->bind_param("i", $user_id);
+$count_stmt->execute();
+$count_result = $count_stmt->get_result();
+
+while ($row = $count_result->fetch_assoc()) {
+    $status = strtolower($row['status']);
+    $count = (int)$row['count'];
+    $total_orders += $count;
+
+    if ($status === 'completed') {
+        $completed_orders = $count;
+    } elseif ($status === 'in transit') {
+        $in_transit_orders = $count;
+    }
+}
 ?>
 
 
@@ -105,225 +132,120 @@ $result = $stmt->get_result();
                             </div>
 
                             <div class="card mb-4">
-    <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Recent Orders</h5>
-        <span class="badge bg-primary"><?php echo $result->num_rows; ?> Orders</span>
-    </div>
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Order #</th>
-                        <th>Date</th>
-                        <th>Items</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    // Display orders from the result
-                    while ($order = $result->fetch_assoc()) {
-                        // Get order details like order_id, date, items, total, and status
-                        $order_id = $order['order_id'];
-                        $date = date("M d, Y", strtotime($order['date'])); // Format date as desired
-                        $items = $order['items'];
-                        $total = number_format($order['total'], 2); // Format total with 2 decimal places
-                        $status = $order['status'];
-                    ?>
-                        <tr>
-                            <td><a href="#orderDetails<?php echo $order_id; ?>" data-bs-toggle="modal" class="text-decoration-none fw-bold"><?php echo $order_id; ?></a></td>
-                            <td><?php echo $date; ?></td>
-                            <td><?php echo $items; ?> items</td>
-                            <td>₱<?php echo $total; ?></td>
-                            <td>
-                                <span class="badge 
-                                    <?php echo ($status == 'Shipped') ? 'bg-info' : 
-                                               ($status == 'Delivered' ? 'bg-success' : 'bg-danger'); ?>">
-                                    <?php echo ucfirst($status); ?>
-                                </span>
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                        Actions
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#orderDetails<?php echo $order_id; ?>" data-bs-toggle="modal"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice me-2"></i>Invoice</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-truck me-2"></i>Track Package</a></li>
-                                    </ul>
+                                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Recent Orders</h5>
+                                    <span class="badge bg-primary"><?php echo $result->num_rows; ?> Orders</span>
                                 </div>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
-        <div class="text-muted small">
-            Showing <?php echo $result->num_rows; ?> orders
-        </div>
-        <nav aria-label="Order pagination">
-            <ul class="pagination pagination-sm mb-0">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Order #</th>
+                                                    <th>Date</th>
+                                                    <th>Items</th>
+                                                    <th>Total</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                while ($order = $result->fetch_assoc()) {
+                                                    $order_id = $order['order_id'];
+                                                    $date = date("M d, Y", strtotime($order['date']));
+                                                    $items = $order['items'];
+                                                    $total = number_format($order['total'], 2);
+                                                    $status = $order['status'];
+                                                ?>
+                                                    <tr>
+                                                        <td><a href="#orderDetails<?php echo $order_id; ?>" data-bs-toggle="modal" class="text-decoration-none fw-bold"><?php echo $order_id; ?></a></td>
+                                                        <td><?php echo $date; ?></td>
+                                                        <td><?php echo $items; ?> items</td>
+                                                        <td>₱<?php echo $total; ?></td>
+                                                        <td>
+                                                            <span class="badge 
+                                    <?php echo ($status == 'Shipped') ? 'bg-info' : ($status == 'Delivered' ? 'bg-success' : 'bg-danger'); ?>">
+                                                                <?php echo ucfirst($status); ?>
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                                    Actions
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item" href="#orderDetails<?php echo $order_id; ?>" data-bs-toggle="modal"><i class="fas fa-eye me-2"></i>View Details</a></li>
+                                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-file-invoice me-2"></i>Invoice</a></li>
+                                                                    <li><a class="dropdown-item" href="#"><i class="fas fa-truck me-2"></i>Track Package</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
+                                    <div class="text-muted small">
+                                        Showing <?php echo $result->num_rows; ?> orders
+                                    </div>
+                                    <nav aria-label="Order pagination">
+                                        <ul class="pagination pagination-sm mb-0">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+                                            <li class="page-item active" aria-current="page">
+                                                <a class="page-link" href="#">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">3</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
 
-                            <!-- Order Summary Stats -->
-                            <div class="row g-4">
-                                <div class="col-sm-6 col-md-3">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-4">
                                     <div class="card h-100">
                                         <div class="card-body text-center">
                                             <div class="text-primary mb-2">
                                                 <i class="fas fa-shopping-bag fa-2x"></i>
                                             </div>
-                                            <h5 class="card-title display-6 mb-0">12</h5>
+                                            <h5 class="card-title display-6 mb-0"><?= $total_orders ?></h5>
                                             <p class="card-text text-muted">Total Orders</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-3">
+
+                                <div class="col-12 col-md-4">
                                     <div class="card h-100">
                                         <div class="card-body text-center">
                                             <div class="text-success mb-2">
                                                 <i class="fas fa-box-open fa-2x"></i>
                                             </div>
-                                            <h5 class="card-title display-6 mb-0">9</h5>
+                                            <h5 class="card-title display-6 mb-0"><?= $completed_orders ?></h5>
                                             <p class="card-text text-muted">Completed</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-3">
+
+                                <div class="col-12 col-md-4">
                                     <div class="card h-100">
                                         <div class="card-body text-center">
                                             <div class="text-info mb-2">
                                                 <i class="fas fa-shipping-fast fa-2x"></i>
                                             </div>
-                                            <h5 class="card-title display-6 mb-0">2</h5>
+                                            <h5 class="card-title display-6 mb-0"><?= $in_transit_orders ?></h5>
                                             <p class="card-text text-muted">In Transit</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="card h-100">
-                                        <div class="card-body text-center">
-                                            <div class="text-warning mb-2">
-                                                <i class="fas fa-star fa-2x"></i>
-                                            </div>
-                                            <h5 class="card-title display-6 mb-0">4.8</h5>
-                                            <p class="card-text text-muted">Avg. Rating</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Frequently Ordered Products -->
-                            <div class="card mt-4">
-                                <div class="card-header bg-transparent">
-                                    <h5 class="mb-0">Frequently Ordered Products</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row g-4">
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card h-100 product-card">
-                                                <img src="https://images.unsplash.com/photo-1618164436378-64484e0fed7c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Creamy Aged Cheddar" class="card-img-top">
-                                                <div class="card-body">
-                                                    <h5 class="card-title"><a href="product-details.php" class="text-decoration-none">Premium Aged Cheddar</a></h5>
-                                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                                        <div class="text-warning small">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star-half-alt"></i>
-                                                            <span class="text-muted ms-1">(4.7)</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="card-text text-muted small mb-3">Ordered 4 times</p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div>
-                                                            <span class="h5 text-primary mb-0">₱12.99</span>
-                                                        </div>
-                                                        <button class="btn btn-outline-primary btn-sm">
-                                                            <i class="fas fa-shopping-cart me-1"></i>Buy Again
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card h-100 product-card">
-                                                <img src="https://images.unsplash.com/photo-1571543441651-601c86060fc4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Organic Greek Yogurt" class="card-img-top">
-                                                <div class="card-body">
-                                                    <h5 class="card-title"><a href="product-details.php" class="text-decoration-none">Organic Greek Yogurt</a></h5>
-                                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                                        <div class="text-warning small">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <span class="text-muted ms-1">(5.0)</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="card-text text-muted small mb-3">Ordered 3 times</p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div>
-                                                            <span class="h5 text-primary mb-0">₱6.99</span>
-                                                        </div>
-                                                        <button class="btn btn-outline-primary btn-sm">
-                                                            <i class="fas fa-shopping-cart me-1"></i>Buy Again
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card h-100 product-card">
-                                                <img src="https://images.unsplash.com/photo-1489007012214-9648eedadffc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" alt="Grass-Fed Butter" class="card-img-top">
-                                                <div class="card-body">
-                                                    <h5 class="card-title"><a href="product-details.php" class="text-decoration-none">Grass-Fed Butter</a></h5>
-                                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                                        <div class="text-warning small">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="far fa-star"></i>
-                                                            <span class="text-muted ms-1">(4.0)</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="card-text text-muted small mb-3">Ordered 2 times</p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div>
-                                                            <span class="h5 text-primary mb-0">₱8.49</span>
-                                                        </div>
-                                                        <button class="btn btn-outline-primary btn-sm">
-                                                            <i class="fas fa-shopping-cart me-1"></i>Buy Again
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -335,7 +257,6 @@ $result = $stmt->get_result();
         </div>
     </main>
 
-    <!-- Order Details Modal 1 -->
     <div class="modal fade" id="orderDetails1" tabindex="-1" aria-labelledby="orderDetailsModalLabel1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -694,4 +615,5 @@ $result = $stmt->get_result();
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

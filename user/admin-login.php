@@ -2,7 +2,7 @@
 session_start();
 include("./../config/conn.php");
 
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['admin_id'])) {
     header("Location: ./../admin/admin-dashboard.php");
     exit;
 }
@@ -17,14 +17,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = mysqli_real_escape_string($conn, $email);
     $password = mysqli_real_escape_string($conn, $password);
 
-    $sql = "SELECT user_id, password FROM admin WHERE email = '$email'";
+    $sql = "SELECT admin_id, password FROM admin WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
 
     if ($result && mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
+
         if ($password === $row['password']) {
-            $_SESSION['user_id'] = $row['user_id'];
-            header("Location: ./../admin/admin-dashboard.php"); 
+            $_SESSION['admin_id'] = $row['admin_id'];
+            header("Location: ./../admin/admin-dashboard.php");
             exit;
         } else {
             $toastMessage = "Invalid password.";
@@ -36,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($conn);
 }
 ?>
+
 
 
 <!DOCTYPE html>

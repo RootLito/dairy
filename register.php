@@ -11,8 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirmPassword'];
-    $birthdate = $_POST['birthdate'];  
-    $gender = $_POST['gender'];        
+    $birthdate = $_POST['birthdate'];
+    $gender = $_POST['gender'];
 
     if ($password !== $confirm_password) {
         $toastMessage = "Passwords do not match.";

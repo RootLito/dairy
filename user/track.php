@@ -1,3 +1,22 @@
+<?php
+session_start();
+include('./../config/conn.php');
+
+if (!isset($_SESSION['user_id'])) {
+    echo "You are not logged in.";
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+$sql = "SELECT order_id, date, items, status FROM orders WHERE user_id = ? ORDER BY date DESC";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 
@@ -12,8 +31,6 @@
 
 <body>
     <?php include("./includes/nav.php"); ?>
-
-
     <div class="container">
         <h1 class="mb-4">My Account</h1>
         <div class="row">
@@ -38,26 +55,52 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-9">
-                <h2 class="mb-4">Place and Track Order</h2>
-
+                <h2 class="mb-4">Track Order</h2>
                 <div class="card p-4 mb-4">
-                    <h5 class="mb-3">Track Your Order</h5>
-                    <div class="mb-3">
-                        <label for="orderNumber" class="form-label">Order Number</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="orderNumber"
-                            placeholder="Enter your order number" />
-                    </div>
-                    <button class="btn btn-primary">Track Order</button>
+                    <?php if ($result->num_rows > 0): ?>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                            <div class="mb-4 border-bottom pb-3">
+                                <h5>Order #<?= $row['order_id'] ?> <small class="text-muted">(<?= date("F j, Y, g:i a", strtotime($row['date'])) ?>)</small></h5>
+                                <p><strong>Status:</strong> <?= ucfirst($row['status']) ?></p>
+                                <p><strong>Items:</strong> <?= htmlspecialchars($row['items']) ?></p>
+                                <div class="progress" style="height: 25px;">
+                                    <?php
+                                    $statuses = ['pending', 'in transit', 'completed'];
+                                    $currentStatus = strtolower($row['status']);
+                                    $statusIndex = array_search($currentStatus, $statuses);
+                                    foreach ($statuses as $index => $label):
+                                        $labelLower = strtolower($label);
+                                        switch ($labelLower) {
+                                            case 'pending':
+                                                $color = 'bg-danger';
+                                                break;
+                                            case 'in transit':
+                                                $color = 'bg-primary';
+                                                break;
+                                            case 'completed':
+                                                $color = 'bg-success';
+                                                break;
+                                            default:
+                                                $color = 'bg-secondary';
+                                        }
+                                        $opacity = $index <= $statusIndex ? 'opacity-100' : 'opacity-25';
+                                    ?>
+                                        <div class="progress-bar <?= "$color $opacity" ?>" role="progressbar" style="width: 33.3%">
+                                            <?= ucwords($label) ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p>No orders to track yet.</p>
+                    <?php endif; ?>
+
                 </div>
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

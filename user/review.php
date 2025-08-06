@@ -1,3 +1,35 @@
+<?php
+session_start();
+include('./../config/conn.php');
+$user_id = $_SESSION['user_id'] ?? null;
+
+if (!$user_id) {
+    die("User not logged in.");
+}
+
+$sql = "SELECT r.rating, r.title, r.details, r.created_at,
+               p.product_id, p.product_name, p.product_image,
+               a.shop_name
+        FROM reviews r
+        JOIN products p ON r.product_id = p.product_id
+        JOIN admin a ON r.admin_id = a.admin_id
+        WHERE r.user_id = ?
+        ORDER BY r.created_at DESC";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$reviews = $result->fetch_all(MYSQLI_ASSOC);
+
+if (!$reviews) {
+    $reviews = [];
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 
@@ -41,25 +73,52 @@
                 </div>
 
                 <div class="col-lg-9">
+                    <h2 class="mb-4">Products You've Reviewed</h2>
+
                     <div class="card p-4">
-                        <h5 class="mb-3">Leave a Review</h5>
-                        <div class="mb-3">
-                            <label for="reviewText" class="form-label">Your Review</label>
-                            <textarea class="form-control" id="reviewText" rows="3" placeholder="Write your review here..."></textarea>
+                        <div class="container mt-4">
+
+                            <?php if (count($reviews) === 0): ?>
+                                <p>You haven't reviewed any products yet.</p>
+                            <?php else: ?>
+                                <?php foreach ($reviews as $review): ?>
+                                    <div class="card mb-3">
+                                        <div class="row g-0">
+                                            <div class="col-md-3 text-center p-3">
+                                                <img src="<?= htmlspecialchars($review['product_image']) ?>" alt="<?= htmlspecialchars($review['product_name']) ?>" class="img-fluid rounded" style="max-height: 150px; object-fit: cover;">
+                                                <p class="mt-2 mb-0"><small>Shop: <strong><?= htmlspecialchars($review['shop_name']) ?></strong></small></p>
+                                                <a href="product-details.php?id=<?= $review['product_id'] ?>" class="btn btn-sm btn-outline-primary mt-2">View Product</a>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><?= htmlspecialchars($review['product_name']) ?></h5>
+                                                    <p>
+                                                        <?php
+                                                        $fullStars = floor($review['rating']);
+                                                        $halfStar = ($review['rating'] - $fullStars) >= 0.5;
+                                                        for ($i = 1; $i <= 5; $i++) {
+                                                            if ($i <= $fullStars) {
+                                                                echo '<i class="fas fa-star text-warning"></i> ';
+                                                            } elseif ($halfStar && $i == $fullStars + 1) {
+                                                                echo '<i class="fas fa-star-half-alt text-warning"></i> ';
+                                                            } else {
+                                                                echo '<i class="far fa-star text-warning"></i> ';
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </p>
+                                                    <h6><?= htmlspecialchars($review['title']) ?></h6>
+
+                                                    <p class="card-text"><?= nl2br(htmlspecialchars($review['details'])) ?></p>
+                                                    <p class="card-text"><small class="text-muted">Reviewed on <?= date("F j, Y", strtotime($review['created_at'])) ?></small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Rating</label>
-                            <div>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-primary">Submit Review</button>
                     </div>
                 </div>
             </div>

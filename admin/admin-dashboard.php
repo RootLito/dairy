@@ -1,7 +1,12 @@
 <?php 
 session_start();
-include("./../config/conn.php");
 
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ./../user/admin-login.php");
+    exit;
+}
+
+include("./../config/conn.php");
 ?>
 
 <!DOCTYPE html>
