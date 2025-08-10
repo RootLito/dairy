@@ -26,6 +26,13 @@ $reviews = $result->fetch_all(MYSQLI_ASSOC);
 if (!$reviews) {
     $reviews = [];
 }
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 

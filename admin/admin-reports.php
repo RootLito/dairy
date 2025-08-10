@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,101 +9,49 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="static/css/styles.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="px-3 mb-4">
-                        <a href="index.php" class="text-decoration-none">
-                            <h5 class="text-primary">
-                                <i class="fas fa-store me-2"></i>DairyMart Admin
-                            </h5>
-                        </a>
-                        <div class="small text-muted">Dashboard Control Panel</div>
-                    </div>
-                    <hr>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.php">
-                                <i class="fas fa-tachometer-alt me-2"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-inventory.php">
-                                <i class="fas fa-boxes me-2"></i>
-                                Inventory
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-orders.php">
-                                <i class="fas fa-shopping-cart me-2"></i>
-                                Orders
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="admin-reports.php">
-                                <i class="fas fa-chart-line me-2"></i>
-                                Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-income.php">
-                                <i class="fas fa-money-bill-wave me-2"></i>
-                                Income & Expenses
-                            </a>
-                        </li>
-                    </ul>
-                    
-                    <hr>
-                    <div class="px-3 mt-4">
-                        <div class="d-flex align-items-center pb-3">
-                            <div class="avatar-circle me-3">
-                                <span>AD</span>
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Admin User</h6>
-                                <div class="small text-muted">System Administrator</div>
-                            </div>
-                        </div>
-                        <div class="d-grid">
-                            <a href="login.php" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-sign-out-alt me-2"></i>Log Out
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <?php include('./sidebar.php') ?>
+
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <!-- Header with Notification -->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Reports</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <button type="button" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#reportScheduleModal">
+                        <button type="button" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal"
+                            data-bs-target="#reportScheduleModal">
                             <i class="fas fa-calendar-alt me-1"></i> Schedule Report
                         </button>
                         <div class="dropdown me-2">
-                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="exportReportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                                id="exportReportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-download me-1"></i> Export
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="exportReportDropdown">
-                                <li><a class="dropdown-item export-data-btn" data-type="report-pdf" href="#"><i class="fas fa-file-pdf me-2"></i>PDF</a></li>
-                                <li><a class="dropdown-item export-data-btn" data-type="report-excel" href="#"><i class="fas fa-file-excel me-2"></i>Excel</a></li>
-                                <li><a class="dropdown-item export-data-btn" data-type="report-csv" href="#"><i class="fas fa-file-csv me-2"></i>CSV</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-envelope me-2"></i>Email Report</a></li>
+                                <li><a class="dropdown-item export-data-btn" data-type="report-pdf" href="#"><i
+                                            class="fas fa-file-pdf me-2"></i>PDF</a></li>
+                                <li><a class="dropdown-item export-data-btn" data-type="report-excel" href="#"><i
+                                            class="fas fa-file-excel me-2"></i>Excel</a></li>
+                                <li><a class="dropdown-item export-data-btn" data-type="report-csv" href="#"><i
+                                            class="fas fa-file-csv me-2"></i>CSV</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-envelope me-2"></i>Email
+                                        Report</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Alert Container -->
                 <div id="alertContainer"></div>
-                
+
                 <!-- Report Selection Card -->
                 <div class="card mb-4">
                     <div class="card-header">
@@ -151,7 +100,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row g-3 mt-2" id="customDateContainer" style="display: none;">
                                 <div class="col-md-6">
                                     <div class="form-floating">
@@ -166,7 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="mt-4 text-center">
                                 <button type="submit" class="btn btn-primary px-4">
                                     <i class="fas fa-chart-line me-2"></i> Generate Report
@@ -175,7 +124,7 @@
                         </form>
                     </div>
                 </div>
-                
+
                 <!-- Report Container -->
                 <div id="reportContainer">
                     <div class="card">
@@ -223,7 +172,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Sales Overview Chart -->
                             <div class="card mb-4">
                                 <div class="card-header">
@@ -235,7 +184,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Split View - Top Products and Categories -->
                             <div class="row g-4 mb-4">
                                 <div class="col-md-6">
@@ -304,7 +253,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Sales by Region -->
                             <div class="card mb-4">
                                 <div class="card-header">
@@ -316,7 +265,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Sales Table -->
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -406,7 +355,8 @@
                                     <nav aria-label="Sales pagination">
                                         <ul class="pagination justify-content-center mb-0">
                                             <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                                <a class="page-link" href="#" tabindex="-1"
+                                                    aria-disabled="true">Previous</a>
                                             </li>
                                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                             <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -424,9 +374,10 @@
             </main>
         </div>
     </div>
-    
+
     <!-- Schedule Report Modal -->
-    <div class="modal fade" id="reportScheduleModal" tabindex="-1" aria-labelledby="reportScheduleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="reportScheduleModal" tabindex="-1" aria-labelledby="reportScheduleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -460,22 +411,24 @@
                             <div class="btn-group d-flex" role="group">
                                 <input type="radio" class="btn-check" name="dayOfWeek" id="monday" autocomplete="off">
                                 <label class="btn btn-outline-secondary" for="monday">M</label>
-                                
+
                                 <input type="radio" class="btn-check" name="dayOfWeek" id="tuesday" autocomplete="off">
                                 <label class="btn btn-outline-secondary" for="tuesday">T</label>
-                                
-                                <input type="radio" class="btn-check" name="dayOfWeek" id="wednesday" autocomplete="off">
+
+                                <input type="radio" class="btn-check" name="dayOfWeek" id="wednesday"
+                                    autocomplete="off">
                                 <label class="btn btn-outline-secondary" for="wednesday">W</label>
-                                
+
                                 <input type="radio" class="btn-check" name="dayOfWeek" id="thursday" autocomplete="off">
                                 <label class="btn btn-outline-secondary" for="thursday">T</label>
-                                
-                                <input type="radio" class="btn-check" name="dayOfWeek" id="friday" autocomplete="off" checked>
+
+                                <input type="radio" class="btn-check" name="dayOfWeek" id="friday" autocomplete="off"
+                                    checked>
                                 <label class="btn btn-outline-secondary" for="friday">F</label>
-                                
+
                                 <input type="radio" class="btn-check" name="dayOfWeek" id="saturday" autocomplete="off">
                                 <label class="btn btn-outline-secondary" for="saturday">S</label>
-                                
+
                                 <input type="radio" class="btn-check" name="dayOfWeek" id="sunday" autocomplete="off">
                                 <label class="btn btn-outline-secondary" for="sunday">S</label>
                             </div>
@@ -502,7 +455,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="scheduleEmail" class="form-label">Email Recipients</label>
-                            <input type="text" class="form-control" id="scheduleEmail" placeholder="Enter email addresses, separated by commas">
+                            <input type="text" class="form-control" id="scheduleEmail"
+                                placeholder="Enter email addresses, separated by commas">
                         </div>
                     </form>
                 </div>
@@ -513,19 +467,19 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="static/js/admin.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Toggle custom date range visibility
             const reportDateRange = document.getElementById('reportDateRange');
             const customDateContainer = document.getElementById('customDateContainer');
-            
+
             if (reportDateRange) {
-                reportDateRange.addEventListener('change', function() {
+                reportDateRange.addEventListener('change', function () {
                     if (this.value === 'custom') {
                         customDateContainer.style.display = 'flex';
                     } else {
@@ -533,7 +487,7 @@
                     }
                 });
             }
-            
+
             // Sales Report Chart
             if (document.getElementById('salesReportChart')) {
                 const ctx = document.getElementById('salesReportChart').getContext('2d');
@@ -561,7 +515,7 @@
                     }
                 });
             }
-            
+
             // Category Report Chart
             if (document.getElementById('categoryReportChart')) {
                 const ctx = document.getElementById('categoryReportChart').getContext('2d');
@@ -587,7 +541,7 @@
                     }
                 });
             }
-            
+
             // Region Report Chart
             if (document.getElementById('regionReportChart')) {
                 const ctx = document.getElementById('regionReportChart').getContext('2d');
@@ -615,4 +569,5 @@
         });
     </script>
 </body>
+
 </html>

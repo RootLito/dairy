@@ -23,70 +23,7 @@ include("./../config/conn.php");
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="px-3 mb-4">
-                        <a href="index.php" class="text-decoration-none">
-                            <h5 class="text-primary">
-                                <i class="fas fa-store me-2"></i>DairyMart Admin
-                            </h5>
-                        </a>
-                        <div class="small text-muted">Dashboard Control Panel</div>
-                    </div>
-                    <hr>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="admin-dashboard.php">
-                                <i class="fas fa-tachometer-alt me-2"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-inventory.php">
-                                <i class="fas fa-boxes me-2"></i>
-                                Inventory
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-orders.php">
-                                <i class="fas fa-shopping-cart me-2"></i>
-                                Orders
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-reports.php">
-                                <i class="fas fa-chart-line me-2"></i>
-                                Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-income.php">
-                                <i class="fas fa-money-bill-wave me-2"></i>
-                                Income & Expenses
-                            </a>
-                        </li>
-                    </ul>
-                    
-                    <hr>
-                    <div class="px-3 mt-4">
-                        <div class="d-flex align-items-center pb-3">
-                            <div class="avatar-circle me-3">
-                                <span>AD</span>
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Admin User</h6>
-                                <div class="small text-muted">System Administrator</div>
-                            </div>
-                        </div>
-                        <div class="d-grid">
-                            <a href="./../user/products.php" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-sign-out-alt me-2"></i>Log Out
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <?php include('./sidebar.php')?>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

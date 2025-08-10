@@ -62,7 +62,11 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
     header("Location: cart.php");
     exit;
 }
-
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

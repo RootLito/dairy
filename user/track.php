@@ -14,6 +14,12 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 

@@ -92,13 +92,8 @@ if (isset($_POST['cart_id']) && isset($_POST['quantity'])) {
 }
 
 if (isset($_POST['checkout'])) {
-    // Get the current user ID from session
     $user_id = $_SESSION['user_id'];
-
-    // Get the current date (for order creation)
     $order_date = date('Y-m-d H:i:s');
-
-    // Fetch cart items for the user
     $cart_sql = "SELECT c.cart_id, c.product_id, c.quantity, c.total, p.admin_id FROM cart c INNER JOIN products p ON c.product_id = p.product_id WHERE c.user_id = ?";
     $cart_stmt = $conn->prepare($cart_sql);
     $cart_stmt->bind_param("i", $user_id);
@@ -148,6 +143,15 @@ if (isset($_SESSION['user_id'])) {
     }
 }
 mysqli_free_result($result);
+
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+
 mysqli_close($conn);
 ?>
 

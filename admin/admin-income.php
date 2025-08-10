@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,82 +9,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="static/css/styles.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="px-3 mb-4">
-                        <a href="index.php" class="text-decoration-none">
-                            <h5 class="text-primary">
-                                <i class="fas fa-store me-2"></i>DairyMart Admin
-                            </h5>
-                        </a>
-                        <div class="small text-muted">Dashboard Control Panel</div>
-                    </div>
-                    <hr>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.php">
-                                <i class="fas fa-tachometer-alt me-2"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-inventory.php">
-                                <i class="fas fa-boxes me-2"></i>
-                                Inventory
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-orders.php">
-                                <i class="fas fa-shopping-cart me-2"></i>
-                                Orders
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-reports.php">
-                                <i class="fas fa-chart-line me-2"></i>
-                                Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="admin-income.php">
-                                <i class="fas fa-money-bill-wave me-2"></i>
-                                Income & Expenses
-                            </a>
-                        </li>
-                    </ul>
-                    
-                    <hr>
-                    <div class="px-3 mt-4">
-                        <div class="d-flex align-items-center pb-3">
-                            <div class="avatar-circle me-3">
-                                <span>AD</span>
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Admin User</h6>
-                                <div class="small text-muted">System Administrator</div>
-                            </div>
-                        </div>
-                        <div class="d-grid">
-                            <a href="login.php" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-sign-out-alt me-2"></i>Log Out
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <?php include('./sidebar.php') ?>
+
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <!-- Header with Notification -->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Income & Expenses</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="dropdown me-2">
-                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="timePeriodDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                                id="timePeriodDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-calendar me-1"></i> 2025 Q1
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="timePeriodDropdown">
@@ -92,26 +34,30 @@
                                 <li><a class="dropdown-item" href="#">2024 Q4</a></li>
                                 <li><a class="dropdown-item" href="#">2024 Q3</a></li>
                                 <li><a class="dropdown-item" href="#">2024 Q2</a></li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li><a class="dropdown-item" href="#">Year to Date</a></li>
                                 <li><a class="dropdown-item" href="#">Last 12 Months</a></li>
                                 <li><a class="dropdown-item" href="#">Custom Range</a></li>
                             </ul>
                         </div>
                         <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn" data-type="financials-csv">
+                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
+                                data-type="financials-csv">
                                 <i class="fas fa-file-csv me-1"></i> CSV
                             </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn" data-type="financials-pdf">
+                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
+                                data-type="financials-pdf">
                                 <i class="fas fa-file-pdf me-1"></i> PDF
                             </button>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Alert Container -->
                 <div id="alertContainer"></div>
-                
+
                 <!-- Financial Summary Cards -->
                 <div class="row g-4 mb-4">
                     <div class="col-md-3">
@@ -151,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Income Statement -->
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -224,7 +170,7 @@
                                         <td class="text-end">₱548,350</td>
                                         <td class="text-end">100.0%</td>
                                     </tr>
-                                    
+
                                     <!-- Cost of Goods Sold Section -->
                                     <tr class="table-danger">
                                         <th scope="row" colspan="6">Cost of Goods Sold</th>
@@ -261,7 +207,7 @@
                                         <td class="text-end">₱263,020</td>
                                         <td class="text-end">48.0%</td>
                                     </tr>
-                                    
+
                                     <!-- Gross Profit -->
                                     <tr class="table-success fw-bold">
                                         <td>Gross Profit</td>
@@ -271,7 +217,7 @@
                                         <td class="text-end">₱285,330</td>
                                         <td class="text-end">52.0%</td>
                                     </tr>
-                                    
+
                                     <!-- Operating Expenses Section -->
                                     <tr class="table-warning">
                                         <th scope="row" colspan="6">Operating Expenses</th>
@@ -332,7 +278,7 @@
                                         <td class="text-end">₱163,500</td>
                                         <td class="text-end">29.8%</td>
                                     </tr>
-                                    
+
                                     <!-- Operating Income -->
                                     <tr class="table-info fw-bold">
                                         <td>Operating Income</td>
@@ -342,7 +288,7 @@
                                         <td class="text-end">₱121,830</td>
                                         <td class="text-end">22.2%</td>
                                     </tr>
-                                    
+
                                     <!-- Other Income/Expenses -->
                                     <tr>
                                         <td>Taxes</td>
@@ -360,7 +306,7 @@
                                         <td class="text-end">(₱4,800)</td>
                                         <td class="text-end">-0.9%</td>
                                     </tr>
-                                    
+
                                     <!-- Net Income -->
                                     <tr class="bg-success text-white fw-bold">
                                         <td>Net Income</td>
@@ -375,7 +321,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Income & Expense Graphs -->
                 <div class="row g-4 mb-4">
                     <div class="col-md-6">
@@ -399,7 +345,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Revenue by Product Category -->
                 <div class="card mb-4">
                     <div class="card-header">
@@ -411,7 +357,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Transaction Details -->
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -488,11 +434,12 @@
             </main>
         </div>
     </div>
-    
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="static/js/admin.js"></script>
     <script src="static/js/charts.js"></script>
 </body>
+
 </html>

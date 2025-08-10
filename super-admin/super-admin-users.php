@@ -1,5 +1,86 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['super_admin_id'])) {
+    header("Location: ./../super-admin/super-admin-login.php");
+    exit;
+}
+
+include("./../config/conn.php");
+
+$sqlAdmins = "SELECT * FROM admin ORDER BY created_at DESC";
+$resultAdmins = mysqli_query($conn, $sqlAdmins);
+$admins = [];
+if ($resultAdmins && mysqli_num_rows($resultAdmins) > 0) {
+    while ($row = mysqli_fetch_assoc($resultAdmins)) {
+        $admins[] = $row;
+    }
+}
+
+$sqlUsers = "SELECT user_id, first_name, last_name, email, status, is_active, created_at FROM users ORDER BY created_at DESC";
+$resultUsers = mysqli_query($conn, $sqlUsers);
+$users = [];
+if ($resultUsers && mysqli_num_rows($resultUsers) > 0) {
+    while ($row = mysqli_fetch_assoc($resultUsers)) {
+        $users[] = $row;
+    }
+}
+
+$sqlActiveUsers = "SELECT COUNT(*) AS active_count FROM users WHERE is_active = 1";
+$resultActiveUsers = mysqli_query($conn, $sqlActiveUsers);
+$activeUsersCount = 0;
+if ($resultActiveUsers && $row = mysqli_fetch_assoc($resultActiveUsers)) {
+    $activeUsersCount = $row['active_count'];
+}
+$sqlApproved = "SELECT COUNT(*) AS count FROM users WHERE status = 'approved'";
+$resultApproved = mysqli_query($conn, $sqlApproved);
+$approvedCount = ($resultApproved && $row = mysqli_fetch_assoc($resultApproved)) ? $row['count'] : 0;
+
+$sqlPending = "SELECT COUNT(*) AS count FROM users WHERE status = 'pending'";
+$resultPending = mysqli_query($conn, $sqlPending);
+$pendingCount = ($resultPending && $row = mysqli_fetch_assoc($resultPending)) ? $row['count'] : 0;
+
+$sqlRejected = "SELECT COUNT(*) AS count FROM users WHERE status = 'rejected'";
+$resultRejected = mysqli_query($conn, $sqlRejected);
+$rejectedCount = ($resultRejected && $row = mysqli_fetch_assoc($resultRejected)) ? $row['count'] : 0;
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'], $_POST['action'])) {
+    $userId = $_POST['user_id'];
+    $action = $_POST['action'];
+
+    if ($action === 'approve') {
+        mysqli_query($conn, "UPDATE users SET status = 'approved' WHERE user_id = $userId");
+    } elseif ($action === 'reject') {
+        mysqli_query($conn, "UPDATE users SET status = 'rejected' WHERE user_id = $userId");
+    } elseif ($action === 'delete') {
+        mysqli_query($conn, "DELETE FROM users WHERE user_id = $userId");
+    }
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_id'], $_POST['action'])) {
+    $adminId = (int)$_POST['admin_id'];
+    $action = $_POST['action'];
+
+    if ($action === 'suspend') {
+        mysqli_query($conn, "UPDATE admin SET status = 'Suspended' WHERE admin_id = $adminId");
+    } elseif ($action === 'unsuspend') {
+        mysqli_query($conn, "UPDATE admin SET status = 'Full access' WHERE admin_id = $adminId");
+    }
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,241 +89,228 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="static/css/styles.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="px-3 mb-4">
-                        <a href="index.php" class="text-decoration-none">
-                            <h5 class="text-danger">
-                                <i class="fas fa-crown me-2"></i>DairyMart Super Admin
-                            </h5>
-                        </a>
-                        <div class="small text-muted">System Control Center</div>
-                    </div>
-                    <hr>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-dashboard.php">
-                                <i class="fas fa-tachometer-alt me-2"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="super-admin-users.php">
-                                <i class="fas fa-users-cog me-2"></i>
-                                Role Management
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-activities.php">
-                                <i class="fas fa-eye me-2"></i>
-                                Activity Monitor
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-analytics.php">
-                                <i class="fas fa-chart-bar me-2"></i>
-                                Advanced Analytics
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.php">
-                                <i class="fas fa-user-shield me-2"></i>
-                                Admin Dashboard
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <div class="px-3 mt-4">
-                        <div class="d-flex align-items-center pb-3">
-                            <div class="avatar-circle me-3" style="background-color: #dc3545;">
-                                <span>SA</span>
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Super Admin</h6>
-                                <div class="small text-muted">System Administrator</div>
-                            </div>
-                        </div>
-                        <div class="d-grid">
-                            <a href="login.php" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-sign-out-alt me-2"></i>Log Out
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <?php include('./sidebar.php') ?>
 
-            <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                <!-- Header -->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Role Management</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createRoleModal">
-                            <i class="fas fa-plus me-1"></i> Create Role
-                        </button>
                         <button type="button" class="btn btn-sm btn-outline-secondary" onclick="exportRoleReport()">
                             <i class="fas fa-download me-1"></i> Export Report
                         </button>
                     </div>
                 </div>
 
-                <!-- Alert Container -->
                 <div id="alertContainer"></div>
 
-                <!-- Role Statistics -->
                 <div class="row g-4 mb-4">
                     <div class="col-md-3">
                         <div class="card bg-primary text-white">
                             <div class="card-body">
-                                <h4 class="mb-0" id="totalRoles">0</h4>
-                                <p class="mb-0">Total Roles</p>
+                                <h4 class="mb-0" id="activeUsers"><?php echo $activeUsersCount; ?></h4>
+                                <p class="mb-0">Active Users</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card bg-success text-white">
                             <div class="card-body">
-                                <h4 class="mb-0" id="activeUsers">0</h4>
-                                <p class="mb-0">Active Users</p>
+                                <h4 class="mb-0" id="totalRoles"><?php echo $approvedCount; ?></h4>
+                                <p class="mb-0">Approved Users</p>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-3">
-                        <div class="card bg-warning text-dark">
+                        <div class="card bg-warning text-white">
                             <div class="card-body">
-                                <h4 class="mb-0" id="pendingApprovals">0</h4>
+                                <h4 class="mb-0" id="pendingApprovals"><?php echo $pendingCount; ?></h4>
                                 <p class="mb-0">Pending Approvals</p>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-3">
-                        <div class="card bg-info text-white">
+                        <div class="card bg-danger text-white">
                             <div class="card-body">
-                                <h4 class="mb-0" id="roleChanges">0</h4>
-                                <p class="mb-0">Role Changes Today</p>
+                                <h4 class="mb-0" id="roleChanges"><?php echo $rejectedCount; ?></h4>
+                                <p class="mb-0">Rejected</p>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <!-- User Management Table -->
                 <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">User Role Management</h5>
-                        <div class="input-group" style="width: 300px;">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                            <input type="text" class="form-control" id="userSearch" placeholder="Search users...">
-                        </div>
+                    <div class="card-header">
+                        <h5>Admin</h5>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>User</th>
+                                        <th>Full Name</th>
                                         <th>Email</th>
-                                        <th>Current Role</th>
-                                        <th>Permissions</th>
-                                        <th>Last Activity</th>
                                         <th>Status</th>
+                                        <th>Shop Name</th>
+                                        <th>Created At</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody id="userRoleTable">
-                                    <!-- Users will be populated by JavaScript -->
+                                <tbody>
+                                    <?php if (!empty($admins)): ?>
+                                        <?php foreach ($admins as $admin): ?>
+                                            <tr>
+                                                <td><?php echo htmlspecialchars($admin['full_name']); ?></td>
+                                                <td><?php echo htmlspecialchars($admin['email']); ?></td>
+                                                <td>
+                                                    <?php 
+                                                    $status = trim($admin['status']);
+                                                    if (empty($status) || strtolower($status) === 'full access'): ?>
+                                                        <span class="badge bg-success">Full Access</span>
+                                                    <?php elseif (strtolower($status) === 'suspended'): ?>
+                                                        <span class="badge bg-danger">Suspended</span>
+                                                    <?php else: ?>
+                                                        <span class="badge bg-secondary"><?php echo htmlspecialchars($admin['status']); ?></span>
+                                                    <?php endif; ?>
+                                                </td>
+
+
+                                                <td><?php echo htmlspecialchars($admin['shop_name']); ?></td>
+                                                <td><?php echo date('Y-m-d', strtotime($admin['created_at'])); ?></td>
+                                                <td>
+                                                    <form method="POST" style="display:inline;">
+                                                        <input type="hidden" name="admin_id" value="<?php echo $admin['admin_id']; ?>">
+                                                        <button type="submit" name="action" value="suspend" class="btn btn-sm btn-outline-danger"
+                                                            <?php echo strtolower($admin['status']) === 'suspended' ? 'disabled' : ''; ?>>
+                                                            Suspend
+                                                        </button>
+                                                    </form>
+
+                                                    <form method="POST" style="display:inline;">
+                                                        <input type="hidden" name="admin_id" value="<?php echo $admin['admin_id']; ?>">
+                                                        <button type="submit" name="action" value="unsuspend" class="btn btn-sm btn-outline-success"
+                                                            <?php echo strtolower($admin['status']) === 'full access' ? 'disabled' : ''; ?>>
+                                                            Unsuspend
+                                                        </button>
+                                                    </form>
+                                                </td>
+
+
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center">No Admins found</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Role Definitions -->
-                <div class="card">
+
+                <div class="card mb-4">
                     <div class="card-header">
-                        <h5 class="mb-0">Role Definitions & Permissions</h5>
+                        <h5>Users</h5>
                     </div>
-                    <div class="card-body">
-                        <div class="row g-4" id="roleDefinitions">
-                            <!-- Role cards will be populated by JavaScript -->
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Active Status</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Registration Status</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($users)): ?>
+                                        <?php foreach ($users as $user): ?>
+                                            <tr>
+                                                <td>
+                                                    <?php if ($user['is_active']): ?>
+                                                        <span class="badge bg-success">Active</span>
+                                                    <?php else: ?>
+                                                        <span class="badge bg-danger">Inactive</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
+                                                </td>
+                                                <td><?php echo htmlspecialchars($user['email']); ?></td>
+                                                <td>
+                                                    <?php
+                                                    $status = strtolower(trim($user['status']));
+                                                    switch ($status) {
+                                                        case 'approved':
+                                                            $badgeClass = 'bg-success';
+                                                            break;
+                                                        case 'pending':
+                                                            $badgeClass = 'bg-warning text-dark';
+                                                            break;
+                                                        case 'rejected':
+                                                            $badgeClass = 'bg-danger';
+                                                            break;
+                                                        default:
+                                                            $badgeClass = 'bg-secondary';
+                                                            $status = 'Unknown';
+                                                    }
+                                                    ?>
+                                                    <span class="badge <?php echo $badgeClass; ?>">
+                                                        <?php echo ucfirst($status); ?>
+                                                    </span>
+                                                </td>
+
+
+                                                <td><?php echo date('Y-m-d', strtotime($user['created_at'])); ?></td>
+                                                <td>
+                                                    <form method="POST" style="display:inline;">
+                                                        <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
+                                                        <input type="hidden" name="action" value="approve">
+                                                        <button class="btn btn-sm btn-outline-success" 
+                                                            <?php echo strtolower(trim($user['status'])) === 'approved' ? 'disabled' : ''; ?>>
+                                                            Approve
+                                                        </button>
+                                                    </form>
+
+                                                    <form method="POST" style="display:inline;">
+                                                        <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
+                                                        <input type="hidden" name="action" value="reject">
+                                                        <button class="btn btn-sm btn-outline-primary" 
+                                                            <?php echo strtolower(trim($user['status'])) === 'rejected' ? 'disabled' : ''; ?>>
+                                                            Reject
+                                                        </button>
+                                                    </form>
+                                                </td>
+
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center">No Users found</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+
             </main>
         </div>
     </div>
-
-    <!-- Create Role Modal -->
-    <div class="modal fade" id="createRoleModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create New Role</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="createRoleForm">
-                        <div class="mb-3">
-                            <label for="roleName" class="form-label">Role Name</label>
-                            <input type="text" class="form-control" id="roleName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="roleDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="roleDescription" rows="3"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Permissions</label>
-                            <div class="row g-2" id="permissionsList">
-                                <!-- Permissions checkboxes will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="createRole()">Create Role</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit User Role Modal -->
-    <div class="modal fade" id="editUserRoleModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit User Role</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editUserRoleForm">
-                        <div class="mb-3">
-                            <label class="form-label">User</label>
-                            <p id="editUserName" class="form-control-plaintext"></p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="newRole" class="form-label">Assign Role</label>
-                            <select class="form-select" id="newRole" required>
-                                <!-- Options will be populated by JavaScript -->
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="roleReason" class="form-label">Reason for Change</label>
-                            <textarea class="form-control" id="roleReason" rows="2" placeholder="Optional reason for role change"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="updateUserRole()">Update Role</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

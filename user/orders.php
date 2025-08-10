@@ -42,6 +42,12 @@ while ($row = $count_result->fetch_assoc()) {
         $in_transit_orders = $count;
     }
 }
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 

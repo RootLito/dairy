@@ -88,6 +88,17 @@ if ($result && mysqli_num_rows($result) === 1) {
 } else {
     $user = null;
 }
+
+
+
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+
 mysqli_close($conn);
 ?>
 

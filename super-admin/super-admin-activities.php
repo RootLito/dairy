@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,87 +9,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="static/css/styles.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="px-3 mb-4">
-                        <a href="index.php" class="text-decoration-none">
-                            <h5 class="text-danger">
-                                <i class="fas fa-crown me-2"></i>DairyMart Super Admin
-                            </h5>
-                        </a>
-                        <div class="small text-muted">System Control Center</div>
-                    </div>
-                    <hr>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-dashboard.php">
-                                <i class="fas fa-tachometer-alt me-2"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-users.php">
-                                <i class="fas fa-users-cog me-2"></i>
-                                Role Management
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="super-admin-activities.php">
-                                <i class="fas fa-eye me-2"></i>
-                                Activity Monitor
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-analytics.php">
-                                <i class="fas fa-chart-bar me-2"></i>
-                                Advanced Analytics
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.php">
-                                <i class="fas fa-user-shield me-2"></i>
-                                Admin Dashboard
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <div class="px-3 mt-4">
-                        <div class="d-flex align-items-center pb-3">
-                            <div class="avatar-circle me-3" style="background-color: #dc3545;">
-                                <span>SA</span>
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Super Admin</h6>
-                                <div class="small text-muted">System Administrator</div>
-                            </div>
-                        </div>
-                        <div class="d-grid">
-                            <a href="login.php" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-sign-out-alt me-2"></i>Log Out
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <?php include('./sidebar.php') ?>
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <!-- Header -->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Activity Monitor</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleRealTimeMode()">
-                                <i class="fas fa-play me-1"></i> <span id="realTimeToggle">Start Real-time</span>
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="refreshActivities()">
-                                <i class="fas fa-refresh me-1"></i> Refresh
-                            </button>
-                        </div>
                         <button type="button" class="btn btn-sm btn-outline-primary" onclick="exportActivityReport()">
                             <i class="fas fa-download me-1"></i> Export Report
                         </button>
@@ -104,8 +37,8 @@
                         <h5 class="mb-0">Activity Filters</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-3">
+                        <div class="row g-3 w-100">
+                            <div class="col-md-4">
                                 <label for="dateRange" class="form-label">Date Range</label>
                                 <select class="form-select" id="dateRange">
                                     <option value="today">Today</option>
@@ -114,7 +47,7 @@
                                     <option value="custom">Custom Range</option>
                                 </select>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <label for="activityType" class="form-label">Activity Type</label>
                                 <select class="form-select" id="activityType">
                                     <option value="all">All Activities</option>
@@ -122,37 +55,10 @@
                                     <option value="product">Product Management</option>
                                     <option value="order">Order Management</option>
                                     <option value="user">User Management</option>
-                                    <option value="system">System Changes</option>
+                                    <option value="user">Admin Management</option>
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <label for="userRole" class="form-label">User Role</label>
-                                <select class="form-select" id="userRole">
-                                    <option value="all">All Roles</option>
-                                    <option value="super_admin">Super Admin</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="user">User</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="activityStatus" class="form-label">Status</label>
-                                <select class="form-select" id="activityStatus">
-                                    <option value="all">All Status</option>
-                                    <option value="success">Success</option>
-                                    <option value="warning">Warning</option>
-                                    <option value="error">Error</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row g-3 mt-2">
-                            <div class="col-md-6">
-                                <label for="searchActivity" class="form-label">Search Activities</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    <input type="text" class="form-control" id="searchActivity" placeholder="Search by user, action, or details...">
-                                </div>
-                            </div>
-                            <div class="col-md-6 d-flex align-items-end">
+                            <div class="col-md-4 d-flex align-items-end">
                                 <button type="button" class="btn btn-primary me-2" onclick="applyFilters()">
                                     <i class="fas fa-filter me-1"></i> Apply Filters
                                 </button>
@@ -162,52 +68,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Activity Statistics -->
-                <div class="row g-4 mb-4">
-                    <div class="col-md-3">
-                        <div class="card bg-primary text-white">
-                            <div class="card-body">
-                                <h4 class="mb-0" id="totalActivities">0</h4>
-                                <p class="mb-0">Total Activities</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card bg-success text-white">
-                            <div class="card-body">
-                                <h4 class="mb-0" id="successfulActivities">0</h4>
-                                <p class="mb-0">Successful</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card bg-warning text-dark">
-                            <div class="card-body">
-                                <h4 class="mb-0" id="warningActivities">0</h4>
-                                <p class="mb-0">Warnings</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card bg-danger text-white">
-                            <div class="card-body">
-                                <h4 class="mb-0" id="errorActivities">0</h4>
-                                <p class="mb-0">Errors</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Activity Log -->
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Activity Log</h5>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="autoRefresh">
-                            <label class="form-check-label" for="autoRefresh">Auto-refresh</label>
-                        </div>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -327,4 +194,5 @@
         });
     </script> -->
 </body>
+
 </html>

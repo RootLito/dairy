@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,86 +10,29 @@
     <link href="static/css/styles.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="px-3 mb-4">
-                        <a href="index.php" class="text-decoration-none">
-                            <h5 class="text-danger">
-                                <i class="fas fa-crown me-2"></i>DairyMart Super Admin
-                            </h5>
-                        </a>
-                        <div class="small text-muted">System Control Center</div>
-                    </div>
-                    <hr>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-dashboard.php">
-                                <i class="fas fa-tachometer-alt me-2"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-users.php">
-                                <i class="fas fa-users-cog me-2"></i>
-                                Role Management
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="super-admin-activities.php">
-                                <i class="fas fa-eye me-2"></i>
-                                Activity Monitor
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="super-admin-analytics.php">
-                                <i class="fas fa-chart-bar me-2"></i>
-                                Advanced Analytics
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.php">
-                                <i class="fas fa-user-shield me-2"></i>
-                                Admin Dashboard
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <div class="px-3 mt-4">
-                        <div class="d-flex align-items-center pb-3">
-                            <div class="avatar-circle me-3" style="background-color: #dc3545;">
-                                <span>SA</span>
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Super Admin</h6>
-                                <div class="small text-muted">System Administrator</div>
-                            </div>
-                        </div>
-                        <div class="d-grid">
-                            <a href="login.php" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-sign-out-alt me-2"></i>Log Out
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <?php include('./sidebar.php') ?>
+
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <!-- Header -->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Advanced Analytics</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="dropdown me-2">
-                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown">
                                 <i class="fas fa-calendar me-1"></i> Last 30 Days
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#" onclick="setDateRange('7')">Last 7 Days</a></li>
-                                <li><a class="dropdown-item active" href="#" onclick="setDateRange('30')">Last 30 Days</a></li>
+                                <li><a class="dropdown-item active" href="#" onclick="setDateRange('30')">Last 30
+                                        Days</a></li>
                                 <li><a class="dropdown-item" href="#" onclick="setDateRange('90')">Last 90 Days</a></li>
                                 <li><a class="dropdown-item" href="#" onclick="setDateRange('365')">Last Year</a></li>
                             </ul>
@@ -186,8 +130,10 @@
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <h5 class="mb-0">Top Products by Quantity</h5>
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-outline-secondary active" onclick="toggleTopProductsView('quantity')">Quantity</button>
-                                        <button class="btn btn-outline-secondary" onclick="toggleTopProductsView('revenue')">Revenue</button>
+                                        <button class="btn btn-outline-secondary active"
+                                            onclick="toggleTopProductsView('quantity')">Quantity</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="toggleTopProductsView('revenue')">Revenue</button>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -245,9 +191,12 @@
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <h5 class="mb-0">Monthly Sales Trends</h5>
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-outline-secondary active" onclick="toggleTrendsView('revenue')">Revenue</button>
-                                        <button class="btn btn-outline-secondary" onclick="toggleTrendsView('quantity')">Quantity</button>
-                                        <button class="btn btn-outline-secondary" onclick="toggleTrendsView('orders')">Orders</button>
+                                        <button class="btn btn-outline-secondary active"
+                                            onclick="toggleTrendsView('revenue')">Revenue</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="toggleTrendsView('quantity')">Quantity</button>
+                                        <button class="btn btn-outline-secondary"
+                                            onclick="toggleTrendsView('orders')">Orders</button>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -315,4 +264,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

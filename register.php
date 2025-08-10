@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $toastMessage = "Passwords do not match.";
         $toastType = "bg-danger";
     } else {
-        $sql = "INSERT INTO users (first_name, last_name, email, phone, password, birthdate, gender) 
-            VALUES ('$first_name', '$last_name', '$email', '$phone', '$password', '$birthdate', '$gender')";
+        $sql = "INSERT INTO users (first_name, last_name, email, phone, password, birthdate, gender, status) 
+            VALUES ('$first_name', '$last_name', '$email', '$phone', '$password', '$birthdate', '$gender', 'pending')";
         if (mysqli_query($conn, $sql)) {
             $toastMessage = "Registration successful!";
             $toastType = "bg-success";

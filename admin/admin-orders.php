@@ -37,84 +37,27 @@ $result = $stmt->get_result();
 <body>
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="px-3 mb-4">
-                        <a href="index.php" class="text-decoration-none">
-                            <h5 class="text-primary">
-                                <i class="fas fa-store me-2"></i>DairyMart Admin
-                            </h5>
-                        </a>
-                        <div class="small text-muted">Dashboard Control Panel</div>
-                    </div>
-                    <hr>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-dashboard.php">
-                                <i class="fas fa-tachometer-alt me-2"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-inventory.php">
-                                <i class="fas fa-boxes me-2"></i>
-                                Inventory
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="admin-orders.php">
-                                <i class="fas fa-shopping-cart me-2"></i>
-                                Orders
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-reports.php">
-                                <i class="fas fa-chart-line me-2"></i>
-                                Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-income.php">
-                                <i class="fas fa-money-bill-wave me-2"></i>
-                                Income & Expenses
-                            </a>
-                        </li>
-                    </ul>
+            <?php include('./sidebar.php') ?>
 
-                    <hr>
-                    <div class="px-3 mt-4">
-                        <div class="d-flex align-items-center pb-3">
-                            <div class="avatar-circle me-3">
-                                <span>AD</span>
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Admin User</h6>
-                                <div class="small text-muted">System Administrator</div>
-                            </div>
-                        </div>
-                        <div class="d-grid">
-                            <a href="login.php" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-sign-out-alt me-2"></i>Log Out
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <!-- Header with Notification -->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Order Management</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createOrderModal">
+                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
+                            data-bs-target="#createOrderModal">
                             <i class="fas fa-plus me-1"></i> Create Order
                         </button>
                         <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn" data-type="orders-csv">
+                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
+                                data-type="orders-csv">
                                 <i class="fas fa-file-csv me-1"></i> CSV
                             </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn" data-type="orders-pdf">
+                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
+                                data-type="orders-pdf">
                                 <i class="fas fa-file-pdf me-1"></i> PDF
                             </button>
                         </div>
@@ -285,8 +228,10 @@ $result = $stmt->get_result();
                                         <tr>
                                             <td>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="orderCheck<?= $order['order_id'] ?>">
-                                                    <label class="form-check-label" for="orderCheck<?= $order['order_id'] ?>"></label>
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="orderCheck<?= $order['order_id'] ?>">
+                                                    <label class="form-check-label"
+                                                        for="orderCheck<?= $order['order_id'] ?>"></label>
                                                 </div>
                                             </td>
                                             <td>#ORD-<?= htmlspecialchars($order['order_id']) ?></td>
@@ -298,7 +243,9 @@ $result = $stmt->get_result();
                                                         echo strtoupper(substr($order['first_name'], 0, 1) . substr($order['last_name'], 0, 1));
                                                         ?>
                                                     </div>
-                                                    <div><?= htmlspecialchars($order['first_name'] . ' ' . $order['last_name']) ?></div>
+                                                    <div>
+                                                        <?= htmlspecialchars($order['first_name'] . ' ' . $order['last_name']) ?>
+                                                    </div>
                                                 </div>
                                             </td>
                                             <td><?= date("M d, Y", strtotime($order['date'])) ?></td>
@@ -313,21 +260,33 @@ $result = $stmt->get_result();
                                                     default => 'bg-secondary',
                                                 };
                                                 ?>
-                                                <span class="badge <?= $statusClass ?>"><?= htmlspecialchars(ucfirst($order['status'])) ?></span>
+                                                <span
+                                                    class="badge <?= $statusClass ?>"><?= htmlspecialchars(ucfirst($order['status'])) ?></span>
                                             </td>
                                             <td>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown<?= $order['order_id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                                        type="button" id="orderActionDropdown<?= $order['order_id'] ?>"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
                                                         Actions
                                                     </button>
-                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown<?= $order['order_id'] ?>">
-                                                        <li><a class="dropdown-item" href="order-details.php?id=<?= $order['order_id'] ?>"><i class="fas fa-eye me-2"></i>View Details</a></li>
-                                                        <li><a class="dropdown-item" href="edit-order.php?id=<?= $order['order_id'] ?>"><i class="fas fa-edit me-2"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoice</a></li>
+                                                    <ul class="dropdown-menu dropdown-menu-end"
+                                                        aria-labelledby="orderActionDropdown<?= $order['order_id'] ?>">
+                                                        <li><a class="dropdown-item"
+                                                                href="order-details.php?id=<?= $order['order_id'] ?>"><i
+                                                                    class="fas fa-eye me-2"></i>View Details</a></li>
+                                                        <li><a class="dropdown-item"
+                                                                href="edit-order.php?id=<?= $order['order_id'] ?>"><i
+                                                                    class="fas fa-edit me-2"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i
+                                                                    class="fas fa-print me-2"></i>Print Invoice</a></li>
                                                         <li>
                                                             <hr class="dropdown-divider">
                                                         </li>
-                                                        <li><a class="dropdown-item text-danger" href="cancel-order.php?id=<?= $order['order_id'] ?>"><i class="fas fa-times-circle me-2"></i>Cancel Order</a></li>
+                                                        <li><a class="dropdown-item text-danger"
+                                                                href="cancel-order.php?id=<?= $order['order_id'] ?>"><i
+                                                                    class="fas fa-times-circle me-2"></i>Cancel Order</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -341,17 +300,22 @@ $result = $stmt->get_result();
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="bulk-actions">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         Bulk Actions
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-truck me-2"></i>Mark as Shipped</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-check-circle me-2"></i>Mark as Delivered</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print Invoices</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-truck me-2"></i>Mark as
+                                                Shipped</a></li>
+                                        <li><a class="dropdown-item" href="#"><i
+                                                    class="fas fa-check-circle me-2"></i>Mark as Delivered</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-print me-2"></i>Print
+                                                Invoices</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times-circle me-2"></i>Cancel Orders</a></li>
+                                        <li><a class="dropdown-item text-danger" href="#"><i
+                                                    class="fas fa-times-circle me-2"></i>Cancel Orders</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -399,7 +363,8 @@ $result = $stmt->get_result();
     </div>
 
     <!-- Create Order Modal -->
-    <div class="modal fade" id="createOrderModal" tabindex="-1" aria-labelledby="createOrderModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createOrderModal" tabindex="-1" aria-labelledby="createOrderModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -479,7 +444,8 @@ $result = $stmt->get_result();
                                 <label for="billingAddress" class="form-label">Billing Address</label>
                                 <textarea class="form-control" id="billingAddress" rows="3"></textarea>
                                 <div class="form-check mt-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="sameAsShipping" checked>
+                                    <input class="form-check-input" type="checkbox" value="" id="sameAsShipping"
+                                        checked>
                                     <label class="form-check-label" for="sameAsShipping">
                                         Same as shipping address
                                     </label>
@@ -511,7 +477,8 @@ $result = $stmt->get_result();
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="orderNotes" class="form-label">Order Notes</label>
-                                <textarea class="form-control" id="orderNotes" rows="3" placeholder="Add any special instructions or notes for this order"></textarea>
+                                <textarea class="form-control" id="orderNotes" rows="3"
+                                    placeholder="Add any special instructions or notes for this order"></textarea>
                             </div>
                             <div class="col-md-6">
                                 <table class="table table-sm mt-4">
@@ -549,7 +516,7 @@ $result = $stmt->get_result();
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="static/js/admin.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Order Status Chart
             if (document.getElementById('orderStatusChart')) {
                 const ctx = document.getElementById('orderStatusChart').getContext('2d');

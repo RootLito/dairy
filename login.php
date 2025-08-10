@@ -15,6 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = mysqli_fetch_assoc($result);
 
         if ($user['password'] === $password) {
+            $user_id = $user['user_id'];
+            $update_sql = "UPDATE users SET is_active = 1 WHERE user_id = $user_id";
+            mysqli_query($conn, $update_sql);
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['first_name'] = $user['first_name'];
             header("Location: ./user/products.php");

@@ -12,11 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, $sql);
 
     if ($result && mysqli_num_rows($result) === 1) {
-        $admin = mysqli_fetch_assoc($result);
+        $super_admin = mysqli_fetch_assoc($result);
 
-        if ($admin['password'] === $password) {
-            $_SESSION['admin_id'] = $admin['admin_id'];
-            $_SESSION['name'] = $admin['name'];
+        if ($super_admin['password'] === $password) {
+            $_SESSION['super_admin_id'] = $super_admin['super_admin_id'];
+            $_SESSION['name'] = $super_admin['name'];
             header("Location: ./super-admin-dashboard.php");
             exit;
         } else {
