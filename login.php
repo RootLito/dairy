@@ -14,12 +14,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result && mysqli_num_rows($result) === 1) {
         $user = mysqli_fetch_assoc($result);
 
-        if ($user['password'] === $password) {
+        if ($user['status'] === 'pending') {
+            $toastMessage = "Your account is pending approval.";
+        } elseif ($user['password'] === $password) {
             $user_id = $user['user_id'];
             $update_sql = "UPDATE users SET is_active = 1 WHERE user_id = $user_id";
             mysqli_query($conn, $update_sql);
+
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['first_name'] = $user['first_name'];
+
             header("Location: ./user/products.php");
             exit;
         } else {
@@ -28,8 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $toastMessage = "No account found with that email.";
     }
+
     mysqli_close($conn);
 }
+
 ?>
 
 <!DOCTYPE html>

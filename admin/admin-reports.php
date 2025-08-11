@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,19 +13,15 @@
     <div class="container-fluid">
         <div class="row">
             <?php include('./sidebar.php') ?>
-
-
-            <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                <!-- Header with Notification -->
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Reports</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <button type="button" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal"
+                        <!-- <button type="button" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal"
                             data-bs-target="#reportScheduleModal">
                             <i class="fas fa-calendar-alt me-1"></i> Schedule Report
-                        </button>
+                        </button> -->
                         <div class="dropdown me-2">
                             <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
                                 id="exportReportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,18 +37,12 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-envelope me-2"></i>Email
-                                        Report</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
-                <!-- Alert Container -->
                 <div id="alertContainer"></div>
-
-                <!-- Report Selection Card -->
-                <div class="card mb-4">
+                <!-- <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0">Generate Reports</h5>
                     </div>
@@ -123,9 +112,8 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Report Container -->
                 <div id="reportContainer">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
@@ -133,7 +121,6 @@
                             <span class="badge bg-primary">Generated: March 29, 2025</span>
                         </div>
                         <div class="card-body">
-                            <!-- Key Metrics -->
                             <div class="row g-4 mb-4">
                                 <div class="col-md-3">
                                     <div class="card text-white bg-primary h-100">
@@ -173,7 +160,6 @@
                                 </div>
                             </div>
 
-                            <!-- Sales Overview Chart -->
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <h5 class="mb-0">Sales Overview</h5>
@@ -185,7 +171,6 @@
                                 </div>
                             </div>
 
-                            <!-- Split View - Top Products and Categories -->
                             <div class="row g-4 mb-4">
                                 <div class="col-md-6">
                                     <div class="card h-100">
@@ -251,121 +236,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <!-- Sales by Region -->
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Sales by Region</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div style="height: 300px;">
-                                        <canvas id="regionReportChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Sales Table -->
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">Detailed Sales</h5>
-                                    <div class="input-group input-group-sm" style="width: 240px;">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-search"></i>
-                                        </span>
-                                        <input type="text" class="form-control" placeholder="Search sales...">
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover align-middle">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Date</th>
-                                                    <th scope="col">Order ID</th>
-                                                    <th scope="col">Customer</th>
-                                                    <th scope="col">Items</th>
-                                                    <th scope="col">Amount</th>
-                                                    <th scope="col">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Mar 29, 2025</td>
-                                                    <td>#ORD-5783</td>
-                                                    <td>John Doe</td>
-                                                    <td>4</td>
-                                                    <td>₱67.85</td>
-                                                    <td><span class="badge bg-success">Completed</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mar 28, 2025</td>
-                                                    <td>#ORD-5782</td>
-                                                    <td>Jane Smith</td>
-                                                    <td>8</td>
-                                                    <td>₱124.50</td>
-                                                    <td><span class="badge bg-success">Completed</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mar 28, 2025</td>
-                                                    <td>#ORD-5781</td>
-                                                    <td>Robert Brown</td>
-                                                    <td>2</td>
-                                                    <td>₱28.99</td>
-                                                    <td><span class="badge bg-info">Shipped</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mar 27, 2025</td>
-                                                    <td>#ORD-5780</td>
-                                                    <td>Emma Johnson</td>
-                                                    <td>5</td>
-                                                    <td>₱82.25</td>
-                                                    <td><span class="badge bg-warning">Processing</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mar 27, 2025</td>
-                                                    <td>#ORD-5779</td>
-                                                    <td>Michael Wilson</td>
-                                                    <td>12</td>
-                                                    <td>₱156.75</td>
-                                                    <td><span class="badge bg-success">Completed</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mar 26, 2025</td>
-                                                    <td>#ORD-5778</td>
-                                                    <td>Sarah Davis</td>
-                                                    <td>3</td>
-                                                    <td>₱46.50</td>
-                                                    <td><span class="badge bg-success">Completed</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mar 26, 2025</td>
-                                                    <td>#ORD-5777</td>
-                                                    <td>David Miller</td>
-                                                    <td>6</td>
-                                                    <td>₱93.20</td>
-                                                    <td><span class="badge bg-info">Shipped</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <nav aria-label="Sales pagination">
-                                        <ul class="pagination justify-content-center mb-0">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1"
-                                                    aria-disabled="true">Previous</a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
                                 </div>
                             </div>
                         </div>

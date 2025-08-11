@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['super_admin_id'])) {
-    header("Location: ./../super-admin/super-admin-login.php");
-    exit;
-}
+// if (!isset($_SESSION['super_admin_id'])) {
+//     header("Location: ./../super-admin/super-admin-login.php");
+//     exit;
+// }
 
 include("./../config/conn.php");
 
@@ -188,22 +188,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_id'], $_POST['a
                                                 <td>
                                                     <form method="POST" style="display:inline;">
                                                         <input type="hidden" name="admin_id" value="<?php echo $admin['admin_id']; ?>">
-                                                        <button type="submit" name="action" value="suspend" class="btn btn-sm btn-outline-danger"
-                                                            <?php echo strtolower($admin['status']) === 'suspended' ? 'disabled' : ''; ?>>
-                                                            Suspend
-                                                        </button>
-                                                    </form>
-
-                                                    <form method="POST" style="display:inline;">
-                                                        <input type="hidden" name="admin_id" value="<?php echo $admin['admin_id']; ?>">
                                                         <button type="submit" name="action" value="unsuspend" class="btn btn-sm btn-outline-success"
                                                             <?php echo strtolower($admin['status']) === 'full access' ? 'disabled' : ''; ?>>
                                                             Unsuspend
                                                         </button>
                                                     </form>
+                                                    <form method="POST" style="display:inline;">
+                                                        <input type="hidden" name="admin_id" value="<?php echo $admin['admin_id']; ?>">
+                                                        <button type="submit" name="action" value="suspend" class="btn btn-sm btn-outline-danger"
+                                                            <?php echo strtolower($admin['status']) === 'suspended' ? 'disabled' : ''; ?>>
+                                                            Suspend
+                                                        </button>
+                                                    </form>
                                                 </td>
-
-
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
@@ -287,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_id'], $_POST['a
                                                     <form method="POST" style="display:inline;">
                                                         <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
                                                         <input type="hidden" name="action" value="reject">
-                                                        <button class="btn btn-sm btn-outline-primary" 
+                                                        <button class="btn btn-sm btn-outline-danger" 
                                                             <?php echo strtolower(trim($user['status'])) === 'rejected' ? 'disabled' : ''; ?>>
                                                             Reject
                                                         </button>

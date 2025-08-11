@@ -18,9 +18,16 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="admin-inventory.php">
+                <a class="nav-link" href="admin-catalog.php">
+                    <i class="fas fa-archive me-2"></i>
+                    Catalog
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="admin-products.php">
                     <i class="fas fa-boxes me-2"></i>
-                    Inventory
+                    Products
                 </a>
             </li>
             <li class="nav-item">

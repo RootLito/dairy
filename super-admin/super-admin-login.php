@@ -4,6 +4,8 @@ include("./../config/conn.php");
 
 $toastMessage = "";
 $toastType = "bg-danger";
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -38,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>DairyMart - Admin Login</title>
     <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link href="static/css/styles.css" rel="stylesheet" />
     <style>
         #toast-container {
             position: fixed;
@@ -114,7 +115,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.addEventListener('DOMContentLoaded', () => {
             const toastEl = document.querySelector('.toast');
             if (toastEl) {
-                const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+                const toast = new bootstrap.Toast(toastEl, {
+                    delay: 5000
+                });
                 toast.show();
             }
 

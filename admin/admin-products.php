@@ -2,7 +2,7 @@
 session_start();
 include("./../config/conn.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST['add_product'])) { 
     $product_name = $_POST['productName'];
     $sku = $_POST['productSKU'];
     $category = $_POST['productCategory'];
@@ -52,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $toastMessage = "Error: " . $conn->error;
         $toastType = "bg-danger";
     }
-
 }
 
 
@@ -72,6 +71,26 @@ if ($result) {
 } else {
     $products = [];
     $error_message = "Error fetching products: " . mysqli_error($conn);
+}
+
+
+
+if (isset($_POST['add_category'])) {
+    $category_name = mysqli_real_escape_string($conn, $_POST['category_name']);
+    $admin_id = $_SESSION['admin_id'];  
+
+    if (empty($category_name)) {
+        echo "Category name cannot be empty.";
+    } else {
+        $insert_category_query = "INSERT INTO categories (category_name, admin_id) VALUES ('$category_name', '$admin_id')";
+        $insert_category_result = mysqli_query($conn, $insert_category_query);
+
+        if ($insert_category_result) {
+            // echo "<script>alert('Category added successfully'); window.location.href='inventory.php';</script>";
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+    }
 }
 
 mysqli_free_result($result);
@@ -100,78 +119,19 @@ mysqli_close($conn);
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Inventory Management</h1>
+                    <h1 class="h2">Manage Products</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
                             data-bs-target="#addProductModal">
                             <i class="fas fa-plus me-1"></i> Add Product
                         </button>
-                        <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
-                                data-type="inventory-csv">
-                                <i class="fas fa-file-csv me-1"></i> CSV
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
-                                data-type="inventory-pdf">
-                                <i class="fas fa-file-pdf me-1"></i> PDF
-                            </button>
-                        </div>
+                        <button type="button" class="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                            <i class="fas fa-plus me-1"></i> Add Category
+                        </button>
                     </div>
                 </div>
 
                 <div id="alertContainer"></div>
-
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">Filter Inventory</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="inventorySearch" placeholder="Search">
-                                    <label for="inventorySearch">Search Products</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-floating">
-                                    <select class="form-select" id="categoryFilter">
-                                        <option value="">All Categories</option>
-                                        <option value="milk">Milk</option>
-                                        <option value="cheese">Cheese</option>
-                                        <option value="yogurt">Yogurt</option>
-                                        <option value="butter">Butter</option>
-                                        <option value="icecream">Ice Cream</option>
-                                    </select>
-                                    <label for="categoryFilter">Category</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-floating">
-                                    <select class="form-select" id="stockFilter">
-                                        <option value="">All Stock Levels</option>
-                                        <option value="low">Low Stock (< 10)</option>
-                                        <option value="normal">Normal Stock (10-50)</option>
-                                        <option value="high">High Stock (> 50)</option>
-                                    </select>
-                                    <label for="stockFilter">Stock Level</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-floating">
-                                    <select class="form-select" id="statusFilter">
-                                        <option value="">All Status</option>
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                    </select>
-                                    <label for="statusFilter">Status</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Inventory Table -->
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Product Inventory</h5>
@@ -268,7 +228,7 @@ mysqli_close($conn);
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <!-- <div class="card-footer">
                         <nav aria-label="Inventory pagination">
                             <ul class="pagination justify-content-center mb-0">
                                 <li class="page-item disabled">
@@ -282,66 +242,11 @@ mysqli_close($conn);
                                 </li>
                             </ul>
                         </nav>
-                    </div>
+                    </div> -->
                 </div>
 
 
-                <div class="row g-4 mb-4">
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <h5 class="mb-0">Inventory Status</h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="inventoryStatusChart" height="200"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <h5 class="mb-0">Inventory by Category</h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="inventoryCategoryChart" height="200"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <h5 class="mb-0">Low Stock Alerts</h5>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>Greek Yogurt - Plain - 32oz</span>
-                                        <span class="badge bg-warning rounded-pill">8 left</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>Cottage Cheese - 16oz</span>
-                                        <span class="badge bg-warning rounded-pill">5 left</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>Vanilla Bean Ice Cream - 1.5qt</span>
-                                        <span class="badge bg-danger rounded-pill">0 left</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>Chocolate Milk - 1qt</span>
-                                        <span class="badge bg-warning rounded-pill">4 left</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>Strawberry Yogurt - 6oz</span>
-                                        <span class="badge bg-warning rounded-pill">7 left</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer text-end">
-                                <button class="btn btn-sm btn-primary">Order Inventory</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </main>
         </div>
     </div>
@@ -453,7 +358,7 @@ mysqli_close($conn);
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Add Product</button>
+                             <button type="submit" class="btn btn-primary" name="add_product">Add Product</button>
                         </div>
                     </form>
 
@@ -462,12 +367,31 @@ mysqli_close($conn);
             </div>
         </div>
     </div>
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCategoryForm" method="POST">
+                        <div class="mb-3">
+                            <label for="categoryName" class="form-label">Category Name</label>
+                            <input type="text" class="form-control" id="categoryName" name="category_name" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="add_category">Add Category</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Inventory Status Chart
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             if (document.getElementById('inventoryStatusChart')) {
                 const ctx = document.getElementById('inventoryStatusChart').getContext('2d');
                 new Chart(ctx, {

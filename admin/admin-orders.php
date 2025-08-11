@@ -38,11 +38,7 @@ $result = $stmt->get_result();
     <div class="container-fluid">
         <div class="row">
             <?php include('./sidebar.php') ?>
-
-
-            <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                <!-- Header with Notification -->
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Order Management</h1>
@@ -51,7 +47,7 @@ $result = $stmt->get_result();
                             data-bs-target="#createOrderModal">
                             <i class="fas fa-plus me-1"></i> Create Order
                         </button>
-                        <div class="btn-group me-2">
+                        <!-- <div class="btn-group me-2">
                             <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
                                 data-type="orders-csv">
                                 <i class="fas fa-file-csv me-1"></i> CSV
@@ -60,83 +56,67 @@ $result = $stmt->get_result();
                                 data-type="orders-pdf">
                                 <i class="fas fa-file-pdf me-1"></i> PDF
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
-
-                <!-- Alert Container -->
                 <div id="alertContainer"></div>
-
-                <!-- Order Stats Cards -->
                 <div class="row g-4 mb-4">
                     <div class="col-md-3">
-                        <div class="card h-100">
+                        <div class="card h-100 bg-primary">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="stat-icon-sm bg-primary me-3">
+                                    <div class="stat-icon-sm  me-3">
                                         <i class="fas fa-shopping-cart"></i>
                                     </div>
                                     <h6 class="mb-0">Total Orders</h6>
                                 </div>
                                 <h3 class="mb-1">8,542</h3>
-                                <div class="small text-success">
-                                    <i class="fas fa-arrow-up me-1"></i>12% increase
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card h-100">
+                        <div class="card h-100 bg-warning">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="stat-icon-sm bg-warning me-3">
+                                    <div class="stat-icon-sm me-3">
                                         <i class="fas fa-clock"></i>
                                     </div>
                                     <h6 class="mb-0">Pending Orders</h6>
                                 </div>
                                 <h3 class="mb-1">245</h3>
-                                <div class="small text-success">
-                                    <i class="fas fa-arrow-down me-1"></i>3% decrease
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card h-100">
+                        <div class="card h-100 bg-success">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="stat-icon-sm bg-success me-3">
+                                    <div class="stat-icon-sm me-3">
                                         <i class="fas fa-check-circle"></i>
                                     </div>
                                     <h6 class="mb-0">Completed Orders</h6>
                                 </div>
                                 <h3 class="mb-1">7,845</h3>
-                                <div class="small text-success">
-                                    <i class="fas fa-arrow-up me-1"></i>15% increase
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card h-100">
+                        <div class="card h-100 bg-danger">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="stat-icon-sm bg-danger me-3">
+                                    <div class="stat-icon-sm me-3">
                                         <i class="fas fa-times-circle"></i>
                                     </div>
                                     <h6 class="mb-0">Cancelled Orders</h6>
                                 </div>
                                 <h3 class="mb-1">452</h3>
-                                <div class="small text-success">
-                                    <i class="fas fa-arrow-down me-1"></i>8% decrease
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Order Filter Card -->
-                <div class="card mb-4">
+                <!-- <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0">Filter Orders</h5>
                     </div>
@@ -195,13 +175,12 @@ $result = $stmt->get_result();
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Order Table -->
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Recent Orders</h5>
-                        <span class="badge bg-primary">245 results</span>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -239,7 +218,6 @@ $result = $stmt->get_result();
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar-circle-sm me-2 bg-primary">
                                                         <?php
-                                                        // Initials from first and last name
                                                         echo strtoupper(substr($order['first_name'], 0, 1) . substr($order['last_name'], 0, 1));
                                                         ?>
                                                     </div>
@@ -296,7 +274,7 @@ $result = $stmt->get_result();
                             </table>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <!-- <div class="card-footer">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="bulk-actions">
                                 <div class="btn-group">
@@ -333,30 +311,7 @@ $result = $stmt->get_result();
                                 </ul>
                             </nav>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row g-4 mb-4">
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <h5 class="mb-0">Orders by Status</h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="orderStatusChart" height="250"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <h5 class="mb-0">Orders Over Time</h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="orderTimeChart" height="250"></canvas>
-                            </div>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </main>
         </div>
@@ -516,7 +471,7 @@ $result = $stmt->get_result();
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="static/js/admin.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Order Status Chart
             if (document.getElementById('orderStatusChart')) {
                 const ctx = document.getElementById('orderStatusChart').getContext('2d');

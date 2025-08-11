@@ -1,12 +1,12 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['super_admin_id'])) {
-    header("Location: ./../super-admin/super-admin-login.php");
-    exit;
-}
-
 include("./../config/conn.php");
+
+
+// if (!isset($_SESSION['super_admin_id'])) {
+//     header("Location: ./super-admin-login.php");
+//     exit;
+// }
 
 
 $userQuery = mysqli_query($conn, "SELECT COUNT(*) as total FROM users");
@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
