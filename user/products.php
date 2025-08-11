@@ -142,26 +142,6 @@ if (isset($_POST['logout'])) {
                                 </div>
 
                                 <div class="mb-4">
-                                    <h6 class="mb-3">Dietary Preferences</h6>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" type="checkbox" id="filterOrganic">
-                                        <label class="form-check-label" for="filterOrganic">Organic</label>
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" type="checkbox" id="filterLactoseFree">
-                                        <label class="form-check-label" for="filterLactoseFree">Lactose-Free</label>
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" type="checkbox" id="filterLowFat">
-                                        <label class="form-check-label" for="filterLowFat">Low-Fat</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="filterPlantBased">
-                                        <label class="form-check-label" for="filterPlantBased">Plant-Based</label>
-                                    </div>
-                                </div>
-
-                                <div class="mb-4">
                                     <h6 class="mb-3">Brands</h6>
                                     <div class="form-check mb-2">
                                         <input class="form-check-input" type="checkbox" id="filterBrand1" checked>
@@ -198,7 +178,9 @@ if (isset($_POST['logout'])) {
                             <h2 class="mb-4">All Products</h2>
                             <div class="row g-4">
                                 <?php
-                                $sql = "SELECT * FROM products";
+                                // Fetch only products that have at least one pull_out record
+                                $sql = "SELECT DISTINCT p.* FROM products p
+            INNER JOIN pull_out po ON p.product_id = po.product_id";
                                 $result = mysqli_query($conn, $sql);
 
                                 if (mysqli_num_rows($result) > 0) {
@@ -212,20 +194,46 @@ if (isset($_POST['logout'])) {
                                                         <span class="badge bg-primary"><?php echo htmlspecialchars($product['category']); ?></span>
                                                     </div>
                                                     <h5 class="card-title"><?php echo htmlspecialchars($product['product_name']); ?></h5>
-                                                    <p class="card-text text-truncate"><?php echo htmlspecialchars($product['description']); ?></p>
+                                                    <div class="d-flex align-items-center">
+                                                        <p class="card-text text-truncate mb-0" style="max-width: 85%;">
+                                                            <?= htmlspecialchars($product['description']) ?>
+                                                        </p>
+                                                        <button type="button" class="btn btn-sm btn-success ms-2" data-bs-toggle="modal" data-bs-target="#descModal<?= $product['product_id'] ?>" style="font-size: 0.7rem;">
+                                                            Details
+                                                        </button>
+                                                    </div>
+
                                                     <div class="d-flex align-items-center justify-content-between mt-3">
                                                         <span class="fs-5 fw-bold">₱<?php echo number_format($product['price'], 2); ?></span>
 
-                                                        <form method="POST" class="d-flex">
-                                                            <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
-                                                            <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
-                                                            <button type="submit" class="btn btn-primary me-2">
-                                                                <i class="fas fa-cart-plus me-1"></i>
-                                                            </button>
-                                                        </form>
-                                                        <a href="product-details.php?id=<?php echo $product['product_id']; ?>" class="btn btn-info">
-                                                            <i class="fas fa-eye me-1"></i>
-                                                        </a>
+                                                        <div class="d-flex">
+                                                            <form method="POST" class="d-flex">
+                                                                <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                                                                <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
+                                                                <button type="submit" class="btn btn-primary me-2">
+                                                                    <i class="fas fa-cart-plus me-1"></i>
+                                                                </button>
+                                                            </form>
+                                                            <a href="product-details.php?id=<?php echo $product['product_id']; ?>" class="btn btn-info">
+                                                                <i class="fas fa-eye me-1"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="descModal<?= $product['product_id'] ?>" tabindex="-1" aria-labelledby="descModalLabel<?= $product['product_id'] ?>" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="descModalLabel<?= $product['product_id'] ?>">Description of <?= htmlspecialchars($product['product_name']) ?></h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <?= nl2br(htmlspecialchars($product['description'])) ?>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -233,35 +241,25 @@ if (isset($_POST['logout'])) {
                                 <?php
                                     }
                                 } else {
-                                    echo "<p>No products available.</p>";
+                                    echo "<p>No products available in pullout.</p>";
                                 }
 
                                 mysqli_free_result($result);
                                 mysqli_close($conn);
                                 ?>
                             </div>
+
                         </section>
 
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
-            </div>
         </section>
     </main>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="static/js/user.js"></script>
 </body>
+
 </html>

@@ -14,8 +14,25 @@ if (isset($_POST['logout'])) {
     header("Location: ./../index.php");
     exit;
 }
+if (isset($_POST['pullout_submit'])) {
+    $product_id = (int) $_POST['product_id'];
+    $quantity = (int) $_POST['quantity'];
+    $price = (float) $_POST['price'];
 
-if (isset($_POST['product_id']) && isset($_POST['price'])) {
+    if ($quantity > 0 && $price >= 0) {
+        $sql = "INSERT INTO pull_out (product_id, quantity, price) VALUES ($product_id, $quantity, $price)";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            header("Location: ./admin-catalog.php");
+            exit;
+        } else {
+            echo "<script>alert('Failed to save pullout.');</script>";
+        }
+    } else {
+        echo "<script>alert('Invalid quantity or price.');</script>";
+    }
+} elseif (isset($_POST['product_id']) && isset($_POST['price'])) {
     $user_id = $_SESSION['user_id'];
     $product_id = $_POST['product_id'];
     $price = $_POST['price'];
@@ -62,11 +79,14 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
     header("Location: cart.php");
     exit;
 }
+
 if (isset($_POST['logout'])) {
     session_destroy();
     header("Location: login.php");
     exit();
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -108,22 +128,98 @@ if (isset($_POST['logout'])) {
                                                                 <span class="badge bg-primary"><?php echo htmlspecialchars($product['category']); ?></span>
                                                             </div>
                                                             <h5 class="card-title"><?php echo htmlspecialchars($product['product_name']); ?></h5>
-                                                            <p class="card-text text-truncate"><?php echo htmlspecialchars($product['description']); ?></p>
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="card-text text-truncate mb-0" style="max-width: 85%;">
+                                                                    <?= htmlspecialchars($product['description']) ?>
+                                                                </p>
+                                                                <button type="button" class="btn btn-sm btn-success ms-2" data-bs-toggle="modal" data-bs-target="#descModal<?= $product['product_id'] ?>" style="font-size: 0.7rem;">
+                                                                    Details
+                                                                </button>
+                                                            </div>
                                                             <div class="d-flex align-items-center justify-content-between mt-3">
                                                                 <span class="fs-5 fw-bold">₱<?php echo number_format($product['price'], 2); ?></span>
 
-                                                                <form method="POST" class="d-flex">
-                                                                    <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
-                                                                    <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
-                                                                    <button type="submit" class="btn btn-primary me-2">
-                                                                        <i class="fas fa-cart-plus me-1"></i>
+                                                                <div class="d-flex">
+                                                                    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#pulloutModal<?= $product['product_id'] ?>">
+                                                                        <i class="fas fa-box-open me-1"></i> Pullout
                                                                     </button>
-                                                                </form>
-                                                                <a href="product-details.php?id=<?php echo $product['product_id']; ?>" class="btn btn-info">
-                                                                    <i class="fas fa-eye me-1"></i>
-                                                                </a>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="descModal<?= $product['product_id'] ?>" tabindex="-1" aria-labelledby="descModalLabel<?= $product['product_id'] ?>" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="descModalLabel<?= $product['product_id'] ?>">Description of <?= htmlspecialchars($product['product_name']) ?></h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <?= nl2br(htmlspecialchars($product['description'])) ?>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="pulloutModal<?= $product['product_id'] ?>" tabindex="-1" aria-labelledby="pulloutModalLabel<?= $product['product_id'] ?>" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <form method="POST">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="pulloutModalLabel<?= $product['product_id'] ?>">Pullout <?= htmlspecialchars($product['product_name']) ?></h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+
+                                                                <div class="modal-body">
+                                                                    <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+
+                                                                    <div class="mb-3">
+                                                                        <label for="productName<?= $product['product_id'] ?>" class="form-label">Product Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            class="form-control"
+                                                                            id="productName<?= $product['product_id'] ?>"
+                                                                            value="<?= htmlspecialchars($product['product_name']) ?>"
+                                                                            readonly>
+                                                                    </div>
+
+                                                                    <div class="mb-3">
+                                                                        <label for="quantity<?= $product['product_id'] ?>" class="form-label">Quantity</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            class="form-control"
+                                                                            id="quantity<?= $product['product_id'] ?>"
+                                                                            name="quantity"
+                                                                            min="1"
+                                                                            max="<?= (int)$product['initial_stock'] ?>"
+                                                                            required>
+                                                                    </div>
+
+                                                                    <div class="mb-3">
+                                                                        <label for="price<?= $product['product_id'] ?>" class="form-label">Price (₱)</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            class="form-control"
+                                                                            id="price<?= $product['product_id'] ?>"
+                                                                            name="price"
+                                                                            min="0"
+                                                                            step="0.01"
+                                                                            value="<?= htmlspecialchars($product['price']) ?>"
+                                                                            required>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                                                    <button type="submit" class="btn btn-primary btn-sm" name="pullout_submit">Confirm Pullout</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
                                                     </div>
                                                 </div>
                                         <?php
@@ -137,24 +233,12 @@ if (isset($_POST['logout'])) {
                                         ?>
                                     </div>
                                 </section>
-                                <!-- <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav> -->
+
                             </div>
                             <div class="col-lg-3 mb-4 mb-lg-0">
                                 <div class="card sticky-lg-top" style="top: 1rem; z-index: 1;">
                                     <div class="card-header bg-primary text-white">
-                                        <h5 class="mb-0">Filters</h5>
+                                        <h5 class="mb-0">Pullout Products</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="mb-4">

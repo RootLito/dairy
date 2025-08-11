@@ -210,9 +210,9 @@ mysqli_close($conn);
                             data-bs-target="#addProductModal">
                             <i class="fas fa-plus me-1"></i> Add Product
                         </button>
-                        <button type="button" class="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                        <!-- <button type="button" class="btn btn-sm btn-success me-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                             <i class="fas fa-plus me-1"></i> Add Category
-                        </button>
+                        </button> -->
                     </div>
                 </div>
 
