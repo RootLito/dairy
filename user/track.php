@@ -17,7 +17,7 @@ $result = $stmt->get_result();
 
 if (isset($_POST['logout'])) {
     session_destroy();
-    header("Location: login.php");
+    header("Location: ./../login.php");
     exit();
 }
 ?>

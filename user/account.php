@@ -95,7 +95,7 @@ if ($result && mysqli_num_rows($result) === 1) {
 
 if (isset($_POST['logout'])) {
     session_destroy();
-    header("Location: login.php");
+    header("Location: ./../login.php");
     exit();
 }
 

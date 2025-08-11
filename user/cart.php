@@ -148,7 +148,8 @@ mysqli_free_result($result);
 
 if (isset($_POST['logout'])) {
     session_destroy();
-    header("Location: login.php");
+    header("Location: ./../login.php");
+
     exit();
 }
 

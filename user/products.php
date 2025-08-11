@@ -64,7 +64,8 @@ if (isset($_POST['product_id']) && isset($_POST['price'])) {
 }
 if (isset($_POST['logout'])) {
     session_destroy();
-    header("Location: login.php");
+    header("Location: ./../login.php");
+
     exit();
 }
 ?>
