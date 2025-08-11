@@ -14,11 +14,11 @@
                         <i class="fas fa-home me-2"></i>Home
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="admin-login.php">
                         <i class="fas fa-store me-2"></i>Shop
                     </a>
-                </li>
+                </li> -->
 
             </ul>
             <form class="d-flex mb-2 mb-lg-0 me-lg-3">

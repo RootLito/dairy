@@ -9,18 +9,99 @@ if (!isset($_SESSION['admin_id'])) {
 
 $admin_id = $_SESSION['admin_id'];
 
-$sql = "SELECT o.order_id, o.user_id, o.date, o.items, o.total, o.status,
+$sql = "SELECT o.order_id, o.user_id, o.date, o.items, o.total, o.status, o.track_status,
                u.first_name, u.last_name
         FROM orders o
         LEFT JOIN users u ON o.user_id = u.user_id
         WHERE o.admin_id = ?
         ORDER BY o.date DESC";
 
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $admin_id);
 $stmt->execute();
 $result = $stmt->get_result();
+
+if (isset($_POST['order_id'])) {
+    $order_id = $_POST['order_id'];
+
+    if (isset($_POST['status'])) {
+        $status = $_POST['status'];
+
+        $query = "UPDATE orders SET track_status = ? WHERE order_id = ?";
+        $update_stmt = $conn->prepare($query);
+        $update_stmt->bind_param("si", $status, $order_id);
+        $update_result = $update_stmt->execute();
+
+        if ($update_result) {
+            echo "Order status updated to: " . $status;
+            header("Location: ./admin-orders.php");
+        } else {
+            echo "Failed to update order status.";
+        }
+
+        $update_stmt->close();
+    }
+
+    if (isset($_POST['confirm'])) {
+        $query = "UPDATE orders SET status = 'confirmed' WHERE order_id = ?";
+        $update_stmt = $conn->prepare($query);
+        $update_stmt->bind_param("i", $order_id);
+        $update_result = $update_stmt->execute();
+
+        if ($update_result) {
+            echo "Order confirmed!";
+            header("Location: ./admin-orders.php");
+        } else {
+            echo "Failed to confirm the order.";
+        }
+
+        $update_stmt->close();
+    }
+
+    if (isset($_POST['reject'])) {
+        $query = "UPDATE orders SET status = 'rejected' WHERE order_id = ?";
+        $update_stmt = $conn->prepare($query);
+        $update_stmt->bind_param("i", $order_id);
+        $update_result = $update_stmt->execute();
+
+        if ($update_result) {
+            echo "Order rejected!";
+            header("Location: ./admin-orders.php");
+        } else {
+            echo "Failed to reject the order.";
+        }
+
+        $update_stmt->close();
+    }
+} else {
+    // echo "Order ID is missing.";
+}
+
+$stmt->close();
+
+
+
+$totalOrdersQuery = "SELECT COUNT(*) as total FROM orders WHERE admin_id = $admin_id";
+$totalOrdersResult = mysqli_query($conn, $totalOrdersQuery);
+$totalOrders = mysqli_fetch_assoc($totalOrdersResult)['total'] ?? 0;
+
+
+$pendingOrdersQuery = "SELECT COUNT(*) as total FROM orders WHERE admin_id = $admin_id AND track_status = 'pending'";
+$pendingOrdersResult = mysqli_query($conn, $pendingOrdersQuery);
+$pendingOrders = mysqli_fetch_assoc($pendingOrdersResult)['total'] ?? 0;
+
+
+$completedOrdersQuery = "SELECT COUNT(*) as total FROM orders WHERE admin_id = $admin_id AND track_status = 'completed'";
+$completedOrdersResult = mysqli_query($conn, $completedOrdersQuery);
+$completedOrders = mysqli_fetch_assoc($completedOrdersResult)['total'] ?? 0;
+
+
+$cancelledOrdersQuery = "SELECT COUNT(*) as total FROM orders WHERE admin_id = $admin_id AND status = 'rejected' ";
+$cancelledOrdersResult = mysqli_query($conn, $cancelledOrdersQuery);
+$cancelledOrders = mysqli_fetch_assoc($cancelledOrdersResult)['total'] ?? 0;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
@@ -42,22 +123,7 @@ $result = $stmt->get_result();
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Order Management</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal"
-                            data-bs-target="#createOrderModal">
-                            <i class="fas fa-plus me-1"></i> Create Order
-                        </button>
-                        <!-- <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
-                                data-type="orders-csv">
-                                <i class="fas fa-file-csv me-1"></i> CSV
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary export-data-btn"
-                                data-type="orders-pdf">
-                                <i class="fas fa-file-pdf me-1"></i> PDF
-                            </button>
-                        </div> -->
-                    </div>
+                    
                 </div>
                 <div id="alertContainer"></div>
                 <div class="row g-4 mb-4">
@@ -65,15 +131,16 @@ $result = $stmt->get_result();
                         <div class="card h-100 bg-primary">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="stat-icon-sm  me-3">
+                                    <div class="stat-icon-sm me-3">
                                         <i class="fas fa-shopping-cart"></i>
                                     </div>
                                     <h6 class="mb-0">Total Orders</h6>
                                 </div>
-                                <h3 class="mb-1">8,542</h3>
+                                <h3 class="mb-1"><?= number_format($totalOrders) ?></h3>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-3">
                         <div class="card h-100 bg-warning">
                             <div class="card-body">
@@ -83,10 +150,11 @@ $result = $stmt->get_result();
                                     </div>
                                     <h6 class="mb-0">Pending Orders</h6>
                                 </div>
-                                <h3 class="mb-1">245</h3>
+                                <h3 class="mb-1"><?= number_format($pendingOrders) ?></h3>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-3">
                         <div class="card h-100 bg-success">
                             <div class="card-body">
@@ -96,10 +164,11 @@ $result = $stmt->get_result();
                                     </div>
                                     <h6 class="mb-0">Completed Orders</h6>
                                 </div>
-                                <h3 class="mb-1">7,845</h3>
+                                <h3 class="mb-1"><?= number_format($completedOrders) ?></h3>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-3">
                         <div class="card h-100 bg-danger">
                             <div class="card-body">
@@ -109,75 +178,12 @@ $result = $stmt->get_result();
                                     </div>
                                     <h6 class="mb-0">Cancelled Orders</h6>
                                 </div>
-                                <h3 class="mb-1">452</h3>
+                                <h3 class="mb-1"><?= number_format($cancelledOrders) ?></h3>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
-                <!-- Order Filter Card -->
-                <!-- <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">Filter Orders</h5>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-md-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="orderSearch" placeholder="Search">
-                                        <label for="orderSearch">Search Order ID or Customer</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating">
-                                        <select class="form-select" id="orderStatus">
-                                            <option value="">All Statuses</option>
-                                            <option value="pending">Pending</option>
-                                            <option value="processing">Processing</option>
-                                            <option value="shipped">Shipped</option>
-                                            <option value="delivered">Delivered</option>
-                                            <option value="cancelled">Cancelled</option>
-                                            <option value="refunded">Refunded</option>
-                                        </select>
-                                        <label for="orderStatus">Order Status</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-floating">
-                                        <select class="form-select" id="orderDateRange">
-                                            <option value="all">All Time</option>
-                                            <option value="today">Today</option>
-                                            <option value="yesterday">Yesterday</option>
-                                            <option value="week" selected>This Week</option>
-                                            <option value="month">This Month</option>
-                                            <option value="custom">Custom Range</option>
-                                        </select>
-                                        <label for="orderDateRange">Date Range</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-floating">
-                                        <select class="form-select" id="orderSortBy">
-                                            <option value="date_desc" selected>Newest First</option>
-                                            <option value="date_asc">Oldest First</option>
-                                            <option value="total_desc">Highest Amount</option>
-                                            <option value="total_asc">Lowest Amount</option>
-                                        </select>
-                                        <label for="orderSortBy">Sort By</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center">
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-filter me-2"></i>Apply Filters
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div> -->
-
-                <!-- Order Table -->
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Recent Orders</h5>
@@ -187,32 +193,19 @@ $result = $stmt->get_result();
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th scope="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="selectAllOrders">
-                                                <label class="form-check-label" for="selectAllOrders"></label>
-                                            </div>
-                                        </th>
                                         <th scope="col">Order ID</th>
                                         <th scope="col">Customer</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Items</th>
                                         <th scope="col">Total</th>
-                                        <th scope="col">Status</th>
+                                        <th scope="col">Order Status</th>
+                                        <th scope="col">Tracking Status</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php while ($order = $result->fetch_assoc()): ?>
                                         <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="orderCheck<?= $order['order_id'] ?>">
-                                                    <label class="form-check-label"
-                                                        for="orderCheck<?= $order['order_id'] ?>"></label>
-                                                </div>
-                                            </td>
                                             <td>#ORD-<?= htmlspecialchars($order['order_id']) ?></td>
                                             <td>
                                                 <div class="d-flex align-items-center">
@@ -234,40 +227,60 @@ $result = $stmt->get_result();
                                                 $statusClass = match (strtolower($order['status'])) {
                                                     'delivered' => 'bg-success',
                                                     'pending' => 'bg-warning',
-                                                    'cancelled' => 'bg-danger',
+                                                    'cancelled', 'rejected' => 'bg-danger',
+                                                    'confirmed', 'in transit' => 'bg-success',
                                                     default => 'bg-secondary',
                                                 };
                                                 ?>
-                                                <span
-                                                    class="badge <?= $statusClass ?>"><?= htmlspecialchars(ucfirst($order['status'])) ?></span>
+                                                <span class="badge <?= $statusClass ?>">
+                                                    <?= htmlspecialchars(ucfirst($order['status'])) ?>
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                $trackingStatus = trim(strtolower($order['track_status'] ?? '')) ?: 'pending';
+
+                                                $trackingClass = match ($trackingStatus) {
+                                                    'pending' => 'bg-warning',
+                                                    'in_transit' => 'bg-primary',
+                                                    'completed' => 'bg-success',
+                                                    'cancelled', 'rejected' => 'bg-danger',
+                                                    default => 'bg-secondary',
+                                                };
+                                                ?>
+                                                <span class="badge <?= $trackingClass ?>">
+                                                    <?= htmlspecialchars(ucfirst(str_replace('_', ' ', $trackingStatus))) ?>
+                                                </span>
                                             </td>
                                             <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                                                        type="button" id="orderActionDropdown<?= $order['order_id'] ?>"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Actions
+                                                <form method="POST">
+                                                    <input type="hidden" name="order_id" value="<?= $order['order_id'] ?>">
+
+                                                    <button class="btn btn-sm btn-success ms-2" type="submit" name="confirm">
+                                                        <i class="fas fa-check me-2"></i> Confirm
                                                     </button>
-                                                    <ul class="dropdown-menu dropdown-menu-end"
-                                                        aria-labelledby="orderActionDropdown<?= $order['order_id'] ?>">
-                                                        <li><a class="dropdown-item"
-                                                                href="order-details.php?id=<?= $order['order_id'] ?>"><i
-                                                                    class="fas fa-eye me-2"></i>View Details</a></li>
-                                                        <li><a class="dropdown-item"
-                                                                href="edit-order.php?id=<?= $order['order_id'] ?>"><i
-                                                                    class="fas fa-edit me-2"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item" href="#"><i
-                                                                    class="fas fa-print me-2"></i>Print Invoice</a></li>
-                                                        <li>
-                                                            <hr class="dropdown-divider">
-                                                        </li>
-                                                        <li><a class="dropdown-item text-danger"
-                                                                href="cancel-order.php?id=<?= $order['order_id'] ?>"><i
-                                                                    class="fas fa-times-circle me-2"></i>Cancel Order</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                    <button class="btn btn-sm btn-danger ms-2" type="submit" name="reject">
+                                                        <i class="fas fa-times me-2"></i> Reject
+                                                    </button>
+
+                                                    <button class="ms-4 btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="orderActionDropdown<?= $order['order_id'] ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-cogs me-2"></i>Tracking Status
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orderActionDropdown<?= $order['order_id'] ?>">
+                                                        <button class="dropdown-item" name="status" value="pending" type="submit">
+                                                            <i class="fas fa-clock me-2"></i> Pending
+                                                        </button>
+                                                        <button class="dropdown-item" name="status" value="in_transit" type="submit">
+                                                            <i class="fas fa-truck me-2"></i> In Transit
+                                                        </button>
+                                                        <button class="dropdown-item" name="status" value="completed" type="submit">
+                                                            <i class="fas fa-check-circle me-2"></i> Completed
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </td>
+
                                         </tr>
                                     <?php endwhile; ?>
                                 </tbody>

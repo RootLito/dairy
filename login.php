@@ -4,36 +4,89 @@ include("./config/conn.php");
 
 $toastMessage = "";
 $toastType = "bg-danger";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
-    $result = mysqli_query($conn, $sql);
 
-    if ($result && mysqli_num_rows($result) === 1) {
-        $user = mysqli_fetch_assoc($result);
 
-        if ($user['status'] === 'pending') {
-            $toastMessage = "Your account is pending approval.";
-        } elseif ($user['password'] === $password) {
-            $user_id = $user['user_id'];
-            $update_sql = "UPDATE users SET is_active = 1 WHERE user_id = $user_id";
-            mysqli_query($conn, $update_sql);
+if (isset($_POST['login_as'])) {
+    $login_as = $_POST['login_as'];
+    $password = $_POST['password'] ?? '';
 
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['first_name'] = $user['first_name'];
+    if ($login_as === 'user' && isset($_POST['email'])) {
+        $email = $_POST['email'];
 
-            header("Location: ./user/products.php");
-            exit;
+        $sql = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result && mysqli_num_rows($result) === 1) {
+            $user = mysqli_fetch_assoc($result);
+
+            if ($user['status'] === 'pending') {
+                $toastMessage = "Your account is pending approval.";
+            } elseif ($user['password'] === $password) {
+                $user_id = $user['user_id'];
+                $update_sql = "UPDATE users SET is_active = 1 WHERE user_id = $user_id";
+                mysqli_query($conn, $update_sql);
+
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['first_name'] = $user['first_name'];
+
+                header("Location: ./user/products.php");
+                exit;
+            } else {
+                $toastMessage = "Incorrect password. Please try again.";
+            }
         } else {
-            $toastMessage = "Incorrect password. Please try again.";
+            $toastMessage = "No account found with that email.";
         }
-    } else {
-        $toastMessage = "No account found with that email.";
-    }
 
-    mysqli_close($conn);
+        mysqli_close($conn);
+    } elseif ($login_as === 'admin' && isset($_POST['email'])) {
+        $email = $_POST['email'];
+
+        $sql = "SELECT * FROM admin WHERE email = '$email' LIMIT 1"; 
+        $result = mysqli_query($conn, $sql);
+
+        if ($result && mysqli_num_rows($result) === 1) {
+            $admin = mysqli_fetch_assoc($result);
+
+            if ($admin['password'] === $password) {
+                $_SESSION['admin_id'] = $admin['admin_id'];
+                $_SESSION['name'] = $admin['name'];
+                header("Location: ./admin/admin-dashboard.php");
+                exit;
+            } else {
+                $toastMessage = "Incorrect password. Please try again.";
+            }
+        } else {
+            $toastMessage = "No admin found with that username.";
+        }
+
+        mysqli_close($conn);
+    } elseif ($login_as === 'super_admin' && isset($_POST['email'])) {
+        $email = $_POST['email'];
+
+        $sql = "SELECT * FROM super_admin WHERE username = '$email' LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result && mysqli_num_rows($result) === 1) {
+            $super_admin = mysqli_fetch_assoc($result);
+
+            if ($super_admin['password'] === $password) {
+                $_SESSION['super_admin_id'] = $super_admin['super_admin_id'];
+                $_SESSION['name'] = $super_admin['name'];
+                header("Location: ./super-admin/super-admin-dashboard.php");
+                exit;
+            } else {
+                $toastMessage = "Incorrect password. Please try again.";
+            }
+        } else {
+            $toastMessage = "No super admin found with that email.";
+        }
+
+        mysqli_close($conn);
+    } else {
+        $toastMessage = "Please fill in all required fields.";
+    }
 }
 
 ?>
@@ -94,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label for="email" class="form-label">Email Address</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="example@email.com" required>
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="example@email.com" required>
                                     </div>
                                 </div>
                                 <div class="mb-4">
@@ -110,12 +163,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </button>
                                     </div>
                                 </div>
+
+                                <div class="mb-4">
+                                    <label for="loginAs" class="form-label">Login as</label>
+                                    <select class="form-select" id="loginAs" name="login_as" required>
+                                        <option value="" disabled selected>Select role</option>
+                                        <option value="user">User</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="super_admin">Super Admin</option>
+                                    </select>
+
+                                </div>
+
                                 <div class="d-grid">
                                     <button type="submit" class="btn btn-primary btn-lg">
                                         <i class="fas fa-sign-in-alt me-2"></i>Sign In
                                     </button>
                                 </div>
                             </form>
+
 
                             <div class="text-center mt-4">
                                 <p class="mb-0">Don't have an account? <a href="register.php" class="text-decoration-none">Register here</a></p>

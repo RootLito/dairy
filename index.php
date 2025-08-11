@@ -1,3 +1,12 @@
+<?php
+session_start();
+include("./config/conn.php");
+
+
+$sql = "SELECT * FROM products WHERE is_active = 1 ORDER BY created_at DESC";
+$result = mysqli_query($conn, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 
@@ -12,7 +21,6 @@
 
 <body>
     <?php include 'nav.php'; ?>
-
 
     <section class="bg-dark text-white py-5">
         <div class="container">
@@ -107,302 +115,51 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
     <section class="py-5 bg-body-tertiary">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="mb-0">Featured Products</h2>
-                <a href="products.php" class="btn btn-link text-decoration-none">View All <i class="fas fa-arrow-right ms-1"></i></a>
+                <h2 class="mb-0">Dairymart Products</h2>
+                <a href="login.php" class="btn btn-link text-decoration-none">View All <i class="fas fa-arrow-right ms-1"></i></a>
             </div>
             <div class="row g-4">
-                <!-- Product 1 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <div class="badge bg-danger position-absolute top-0 end-0 m-2">SALE</div>
-                        <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Organic Milk">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary">Milk</span>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-muted ms-1">(4.5)</span>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Organic Whole Milk</h5>
-                            <p class="card-text text-truncate">Fresh organic whole milk from grass-fed cows. Rich, creamy and full of nutrients.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <div>
-                                    <span class="text-muted text-decoration-line-through">₱5.99</span>
-                                    <span class="fs-5 fw-bold ms-2">₱4.99</span>
-                                </div>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Product 2 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <div class="badge bg-primary position-absolute top-0 end-0 m-2">NEW</div>
-                        <img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Aged Cheddar">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary">Cheese</span>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-muted ms-1">(5.0)</span>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Aged Cheddar Reserve</h5>
-                            <p class="card-text text-truncate">Premium aged cheddar with rich, complex flavor and sharp, crumbly texture. Aged 24 months.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="fs-5 fw-bold">₱8.99</span>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php while ($product = mysqli_fetch_assoc($result)): ?>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
 
-                <!-- Product 3 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Greek Yogurt">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary">Yogurt</span>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-muted ms-1">(4.0)</span>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Premium Greek Yogurt</h5>
-                            <p class="card-text text-truncate">Creamy, protein-rich Greek yogurt. Perfect for breakfast or as a healthy snack.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="fs-5 fw-bold">₱3.49</span>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <?php if (!empty($product['product_image'])): ?>
+                                <img src="uploads/<?= $product['product_image'] ?>" class="card-img-top" alt="<?= $product['product_name'] ?>">
+                            <?php else: ?>
+                                <img src="https://via.placeholder.com/600x400?text=No+Image" class="card-img-top" alt="No Image">
+                            <?php endif; ?>
 
-                <!-- Product 4 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <div class="badge bg-success position-absolute top-0 end-0 m-2">BESTSELLER</div>
-                        <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Artisan Butter">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary">Butter</span>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-muted ms-1">(4.7)</span>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-primary"><?= ucfirst($product['category']) ?></span>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                        <i class="far fa-star"></i>
+                                        <span class="text-muted ms-1">(4.2)</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <h5 class="card-title">Artisan Cultured Butter</h5>
-                            <p class="card-text text-truncate">Hand-crafted European-style cultured butter with sea salt. Rich, complex flavor.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="fs-5 fw-bold">₱6.99</span>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                </button>
+
+                                <h5 class="card-title"><?= $product['product_name'] ?></h5>
+                                <p class="card-text text-truncate"><?= $product['description'] ?></p>
+
+                                <div class="d-flex align-items-center justify-content-between mt-3">
+                                    <span class="fs-5 fw-bold">₱<?= number_format($product['price'], 2) ?></span>
+                                    <a href="./login.php" class="btn btn-primary">
+                                        <i class="fas fa-cart-plus me-1"></i> Add
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                <?php endwhile; ?>
             </div>
         </div>
     </section>
-
-    <!-- Special Deals Banner -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <div class="card bg-dark text-white overflow-hidden hover-lift">
-                        <img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" class="card-img" alt="Cheese Collection">
-                        <div class="card-img-overlay d-flex flex-column justify-content-end" style="background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);">
-                            <h3 class="card-title">Artisan Cheese Collection</h3>
-                            <p class="card-text">Save 15% when you purchase our premium cheese collection sampler.</p>
-                            <a href="products.php#cheese" class="btn btn-primary mt-2 align-self-start">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card bg-dark text-white overflow-hidden hover-lift mb-4">
-                        <img src="https://images.unsplash.com/photo-1559598467-f8b76c8155d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" class="card-img" alt="Yogurt Special">
-                        <div class="card-img-overlay d-flex flex-column justify-content-end" style="background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);">
-                            <h3 class="card-title">Probiotic Yogurt Collection</h3>
-                            <p class="card-text">Up to 30% off our premium probiotic yogurt varieties.</p>
-                            <a href="products.php#yogurt" class="btn btn-primary mt-2 align-self-start">View Deals</a>
-                        </div>
-                    </div>
-                    <div class="d-flex gap-4">
-                        <div class="bg-primary rounded p-4 text-white text-center flex-grow-1 hover-lift">
-                            <i class="fas fa-truck-fast fa-2x mb-3"></i>
-                            <h5>Free Shipping</h5>
-                            <p class="mb-0">On orders over ₱50</p>
-                        </div>
-                        <div class="bg-primary rounded p-4 text-white text-center flex-grow-1 hover-lift">
-                            <i class="fas fa-headset fa-2x mb-3"></i>
-                            <h5>24/7 Support</h5>
-                            <p class="mb-0">Expert assistance</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- New Arrivals -->
-    <section class="py-5 bg-body-tertiary">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="mb-0">New Arrivals</h2>
-                <a href="products.php#new" class="btn btn-link text-decoration-none">View All <i class="fas fa-arrow-right ms-1"></i></a>
-            </div>
-            <div class="row g-4">
-                <!-- New Arrival 1 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <div class="badge bg-primary position-absolute top-0 end-0 m-2">NEW</div>
-                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Organic Blue Cheese">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary">Cheese</span>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-muted ms-1">(5.0)</span>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Organic Blue Cheese</h5>
-                            <p class="card-text text-truncate">Premium artisanal blue cheese made with organic milk from local pasture-raised cows.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="fs-5 fw-bold">₱9.99</span>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- New Arrival 2 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <div class="badge bg-primary position-absolute top-0 end-0 m-2">NEW</div>
-                        <img src="https://images.unsplash.com/photo-1576506295286-5cda18df9ef4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Coconut Yogurt">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary">Yogurt</span>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="text-muted ms-1">(4.0)</span>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Coconut Milk Yogurt</h5>
-                            <p class="card-text text-truncate">Dairy-free probiotic yogurt made with organic coconut milk. Rich and creamy texture.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="fs-5 fw-bold">₱4.49</span>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- New Arrival 3 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <div class="badge bg-primary position-absolute top-0 end-0 m-2">NEW</div>
-                        <img src="https://images.unsplash.com/photo-1632347170292-927fc9a45361?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Whipped Butter">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary">Butter</span>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span class="text-muted ms-1">(4.5)</span>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Honey Whipped Butter</h5>
-                            <p class="card-text text-truncate">Light and airy whipped butter blended with organic wildflower honey. Perfect for spreading.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="fs-5 fw-bold">₱5.49</span>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- New Arrival 4 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100">
-                        <div class="badge bg-primary position-absolute top-0 end-0 m-2">NEW</div>
-                        <img src="https://images.unsplash.com/photo-1561658286-ec958e075bed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Caramel Ice Cream">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary">Ice Cream</span>
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="text-muted ms-1">(4.9)</span>
-                                </div>
-                            </div>
-                            <h5 class="card-title">Salted Caramel Ice Cream</h5>
-                            <p class="card-text text-truncate">Creamy artisanal ice cream with homemade salted caramel swirls and caramel chunks.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="fs-5 fw-bold">₱7.99</span>
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-cart-plus me-1"></i> Add
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer class="bg-dark text-white py-5">
         <div class="container">
             <div class="row">
@@ -410,8 +167,6 @@
             </div>
         </div>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

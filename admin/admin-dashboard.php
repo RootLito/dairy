@@ -204,7 +204,7 @@ while ($row = mysqli_fetch_assoc($order_status_result)) {
         var salesValues = salesData.map(item => item.daily_sales);
 
         var salesChart = new Chart(document.getElementById('salesChart'), {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: salesDates,
                 datasets: [{
