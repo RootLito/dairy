@@ -1,3 +1,14 @@
+<?php
+session_start();
+include("./../config/conn.php");
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ./../login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>

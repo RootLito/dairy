@@ -43,7 +43,7 @@ if (isset($_POST['login_as'])) {
     } elseif ($login_as === 'admin' && isset($_POST['email'])) {
         $email = $_POST['email'];
 
-        $sql = "SELECT * FROM admin WHERE email = '$email' LIMIT 1"; 
+        $sql = "SELECT * FROM admin WHERE email = '$email' LIMIT 1";
         $result = mysqli_query($conn, $sql);
 
         if ($result && mysqli_num_rows($result) === 1) {
@@ -150,51 +150,33 @@ if (isset($_POST['login_as'])) {
                                         <input type="text" class="form-control" id="email" name="email" placeholder="example@email.com" required>
                                     </div>
                                 </div>
+
                                 <div class="mb-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <label for="password" class="form-label">Password</label>
-                                        <a href="#" class="text-decoration-none small">Forgot Password?</a>
-                                    </div>
+                                    <label for="password" class="form-label">Password</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                         <input type="password" class="form-control" id="password" name="password" required>
-                                        <button class="btn btn-outline-secondary" type="button" id="showPassword">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
                                     </div>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="loginAs" class="form-label">Login as</label>
-                                    <select class="form-select" id="loginAs" name="login_as" required>
-                                        <option value="" disabled selected>Select role</option>
-                                        <option value="user">User</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="super_admin">Super Admin</option>
-                                    </select>
-
-                                </div>
-
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-sign-in-alt me-2"></i>Sign In
-                                    </button>
+                                    <div class="d-flex gap-2" id="roleButtons">
+                                        <button type="submit" name="login_as" value="user" class="btn btn-outline-success flex-fill">
+                                            <i class="fas fa-user"></i> User
+                                        </button>
+                                        <button type="submit" name="login_as" value="admin" class="btn btn-outline-primary flex-fill">
+                                            <i class="fas fa-user-shield"></i> Admin
+                                        </button>
+                                        <button type="submit" name="login_as" value="super_admin" class="btn btn-outline-danger flex-fill">
+                                            <i class="fas fa-user-tie"></i> Super Admin
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
-
 
                             <div class="text-center mt-4">
                                 <p class="mb-0">Don't have an account? <a href="register.php" class="text-decoration-none">Register here</a></p>
                             </div>
-
-                            <footer class="bg-dark text-white py-5 mt-4">
-                                <div class="container">
-                                    <hr>
-                                    <div class="row">
-                                        <p class="mb-0 text-center text-sm">&copy; 2025 DairyMart. All rights reserved.</p>
-                                    </div>
-                                </div>
-                            </footer>
                         </div>
                     </div>
                 </div>

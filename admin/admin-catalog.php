@@ -82,7 +82,7 @@ if (isset($_POST['pullout_submit'])) {
 
 if (isset($_POST['logout'])) {
     session_destroy();
-    header("Location: login.php");
+    header("Location: ./../login.php");
     exit();
 }
 

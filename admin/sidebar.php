@@ -50,8 +50,8 @@
             </li>
         </ul>
 
-        <a href="./../user/products.php" class="d-block btn btn-outline-danger btn-sm mt-5">
-            <i class="fas fa-sign-out-alt me-2"></i>Log Out
-        </a>
+        <form method="post" class="btn btn-outline-danger btn-sm w-100 mt-5">
+            <button type="submit" name="logout" class="dropdown-item"><i class="fas fa-sign-out-alt me-2"></i>Log Out</button>
+        </form>
     </div>
 </nav>

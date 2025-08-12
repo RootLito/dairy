@@ -178,6 +178,15 @@ if (isset($_POST['delete_product'])) {
 }
 
 
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ./../login.php");
+    exit();
+}
+
+
 mysqli_free_result($result);
 mysqli_close($conn);
 ?>

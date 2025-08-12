@@ -69,6 +69,14 @@ while ($row = mysqli_fetch_assoc($order_status_result)) {
     $order_status_data[] = $row;
 }
 
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ./../login.php");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>

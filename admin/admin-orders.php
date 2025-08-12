@@ -100,6 +100,15 @@ $completedOrders = mysqli_fetch_assoc($completedOrdersResult)['total'] ?? 0;
 $cancelledOrdersQuery = "SELECT COUNT(*) as total FROM orders WHERE admin_id = $admin_id AND status = 'rejected' ";
 $cancelledOrdersResult = mysqli_query($conn, $cancelledOrdersQuery);
 $cancelledOrders = mysqli_fetch_assoc($cancelledOrdersResult)['total'] ?? 0;
+
+
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ./../login.php");
+    exit();
+}
 ?>
 
 

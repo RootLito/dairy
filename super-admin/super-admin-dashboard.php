@@ -43,10 +43,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     $productCounts[] = (int) $row['total_sold'];
 }
 
-// echo '<pre>';
-// print_r($productNames);
-// print_r($productCounts);
-// echo '</pre>';
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ./../login.php");
+    exit();
+}
 ?>
 
 

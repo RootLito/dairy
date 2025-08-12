@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-// if (!isset($_SESSION['super_admin_id'])) {
-//     header("Location: ./../super-admin/super-admin-login.php");
-//     exit;
-// }
+
 
 include("./../config/conn.php");
 
@@ -76,6 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_id'], $_POST['a
 }
 
 
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ./../login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

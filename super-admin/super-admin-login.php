@@ -29,6 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     mysqli_close($conn);
 }
+
+
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: ./../login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
